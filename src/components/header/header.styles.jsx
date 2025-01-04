@@ -6,7 +6,7 @@ export const HeaderBox = styled.div`
     justify-content: space-between;
     padding-inline: 2.5rem;
     padding-block: 1.5rem;
-    width: 100%;
+    width: calc(100vw - 350px);
     height: 100px;
     border-bottom: 2px solid var(--light);
 `

@@ -1,7 +1,20 @@
 import styled from 'styled-components'
 
+export const MainPageContainer = styled.div`
+    background-color: var(--light-gray);
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem;
+`
+
 export const MainPageBox = styled.div`
-    background-color: var(--light);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 5rem;
+`
+
+export const MainPageEmptyBox = styled.div`
     height: 100%;
     width: 100%;
     display: flex;
@@ -27,6 +40,7 @@ export const NewColumnButton = styled.button`
     padding-inline: 1.25rem;
     cursor: pointer;
     transition: all 0.5s;
+    font-weight: bold;
 
     &:hover {
         background-color: var(--main-purple-hover);

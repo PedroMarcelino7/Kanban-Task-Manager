@@ -5,10 +5,10 @@ import Sidebar from './components/sidebar/main'
 
 function App() {
   return (
-    <div style={{ display: 'flex', width: '100vw', height: '100vh' }}>
+    <div style={{ display: 'flex', overflow: 'hidden' }}>
       <Sidebar />
 
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Header />
 
         <MainPage />
