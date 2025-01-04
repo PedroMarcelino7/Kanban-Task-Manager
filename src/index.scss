@@ -1,0 +1,27 @@
+:root {
+  --main-purple: #635fc7;
+  --main-purple-hover: #a8a4ff;
+  --medium-gray: #828FA3;
+  --light-gray: #F4F7FD;
+  --light: #e4ebfa;
+
+  --white: #ffffff;
+
+  --black: #000112;
+  --dark: #20212c;
+  --dark-bg: #2b2c37;
+
+
+  --alert: #ea5555;
+  --alert-hover: #ff9898;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Plus Jakarta Sans", serif;
+  font-optical-sizing: auto;
+}
