@@ -1,7 +1,9 @@
 import './App.scss'
 import Header from './components/header/main'
 import MainPage from './components/main/main'
+import Modal from './components/modals/main'
 import Sidebar from './components/sidebar/main'
+import ViewTaskModal from './components/modals/viewtask/main'
 
 function App() {
   return (
@@ -13,6 +15,10 @@ function App() {
 
         <MainPage />
       </div>
+
+      <Modal>
+        <ViewTaskModal />
+      </Modal>
     </div>
   )
 }
