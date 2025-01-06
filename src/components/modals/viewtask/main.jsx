@@ -1,6 +1,7 @@
 import React from 'react'
-import { Checkbox, Header, Options, Subtask, SubtasksBox, SubtasksCount, SubtaskTitle, Subtitle, Title } from './viewtaskmodal.styles'
+import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox } from './viewtaskmodal.styles'
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
+import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
 const ViewTaskModal = () => {
     return (
@@ -22,9 +23,9 @@ const ViewTaskModal = () => {
             </div>
 
             <div>
-                <SubtasksCount>
+                <SectionTitle>
                     Substasks (2 of 3)
-                </SubtasksCount>
+                </SectionTitle>
 
                 <SubtasksBox>
                     <Subtask>
@@ -49,6 +50,22 @@ const ViewTaskModal = () => {
                         </SubtaskTitle>
                     </Subtask>
                 </SubtasksBox>
+            </div>
+
+            <div>
+                <SectionTitle>
+                    Current Status
+                </SectionTitle>
+
+                <StatusBox>
+                    <img src={SelectIcon} alt="" />
+                    
+                    <StatusSelect>
+                        <StatusOption>Todo</StatusOption>
+                        <StatusOption>Doing</StatusOption>
+                        <StatusOption>Done</StatusOption>
+                    </StatusSelect>
+                </StatusBox>
             </div>
         </>
     )

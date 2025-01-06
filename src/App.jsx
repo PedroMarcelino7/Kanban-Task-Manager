@@ -4,6 +4,7 @@ import MainPage from './components/main/main'
 import Modal from './components/modals/main'
 import Sidebar from './components/sidebar/main'
 import ViewTaskModal from './components/modals/viewtask/main'
+import AddTaskModal from './components/modals/addtask/main'
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       </div>
 
       <Modal>
-        <ViewTaskModal />
+        <AddTaskModal />
       </Modal>
     </div>
   )
