@@ -1,6 +1,5 @@
 import React from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
-import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 
 const EditBoardModal = () => {

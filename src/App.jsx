@@ -8,6 +8,7 @@ import AddTaskModal from './components/modals/addtask/main'
 import EditTaskModal from './components/modals/edittask/main'
 import AddBoardModal from './components/modals/addboard/main'
 import EditBoardModal from './components/modals/editboard/main'
+import DeleteBoardModal from './components/modals/deleteboard/main'
 
 function App() {
   return (
@@ -20,9 +21,9 @@ function App() {
         <MainPage />
       </div>
 
-      <Modal>
-        <EditBoardModal />
-      </Modal>
+      {/* <Modal>
+        <DeleteBoardModal />
+      </Modal> */}
     </div>
   )
 }
