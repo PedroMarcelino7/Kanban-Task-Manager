@@ -1,15 +1,15 @@
 import React from 'react'
-import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addboardmodal.styles'
+import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 
-const AddBoardModal = () => {
+const EditBoardModal = () => {
     return (
         <>
             <div>
                 <Header>
                     <Title>
-                        Add New Board
+                        Edit Board
                     </Title>
                 </Header>
             </div>
@@ -38,7 +38,7 @@ const AddBoardModal = () => {
                     </AddSubtaskButton>
 
                     <CreateTaskButton>
-                        Create New Board
+                        Save Changes
                     </CreateTaskButton>
                 </Form>
             </div>
@@ -46,4 +46,4 @@ const AddBoardModal = () => {
     )
 }
 
-export default AddBoardModal
+export default EditBoardModal
