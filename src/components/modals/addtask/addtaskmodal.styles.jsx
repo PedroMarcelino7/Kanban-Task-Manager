@@ -14,6 +14,12 @@ export const Title = styled.h1`
     color: var(--black);
 `
 
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+`
+
 export const InputBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -56,7 +62,10 @@ export const Input = styled.input`
 `
 
 export const TextArea = styled.textarea`
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 300px;
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
@@ -65,9 +74,9 @@ export const TextArea = styled.textarea`
     font-weight: 600;
     line-height: 25px;
     color: var(--black);
-
+    
     outline: none;
-    transition: all 0.5s;
+    transition: all 0.3s;
 
     &::placeholder {
         color: var(--medium-gray);
@@ -80,6 +89,19 @@ export const TextArea = styled.textarea`
     
     &:active {
         border-color: var(--main-purple);
+    }
+`
+
+export const AddSubtaskInput = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    img {
+        width: 35px;
+        padding: 0.5rem;
+
+        cursor: pointer;
     }
 `
 
@@ -135,4 +157,28 @@ export const StatusOption = styled.option`
     font-weight: bold;
     line-height: 19px;
     color: var(--medium-gray);
+`
+
+export const AddSubtaskButton = styled.button`
+    color: var(--main-purple);
+    font-weight: bold;
+    background-color: var(--light);
+    border-radius: 25px;
+    border: none;
+    padding-block: 0.75rem;
+    padding-inline: 1.25rem;
+    cursor: pointer;
+    margin-top: -10px;
+`
+
+export const CreateTaskButton = styled.button`
+    width: 100%;
+    color: var(--white);
+    background-color: var(--main-purple);
+    border-radius: 25px;
+    border: none;
+    padding-block: 0.75rem;
+    padding-inline: 1.25rem;
+    cursor: pointer;
+    margin-top: -10px;
 `

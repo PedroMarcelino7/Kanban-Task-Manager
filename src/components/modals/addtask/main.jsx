@@ -1,7 +1,7 @@
 import React from 'react'
-import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea } from './addtaskmodal.styles'
-import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
+import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addtaskmodal.styles'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
+import RemoveSubtask from '../../../assets/icon-cross.svg'
 
 const AddTaskModal = () => {
     return (
@@ -15,15 +15,33 @@ const AddTaskModal = () => {
             </div>
 
             <div>
-                <InputBox>
-                    <InputLabel>Title</InputLabel>
-                    <Input type='text' placeholder='e.g. Take coffee break' />
-                </InputBox>
+                <Form>
+                    <InputBox>
+                        <InputLabel>Title</InputLabel>
+                        <Input type='text' placeholder='e.g. Take coffee break' />
+                    </InputBox>
 
-                <InputBox>
-                    <InputLabel>Description</InputLabel>
-                    <TextArea placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`} />
-                </InputBox>
+                    <InputBox>
+                        <InputLabel>Description</InputLabel>
+                        <TextArea placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`} max={3} />
+                    </InputBox>
+
+                    <InputBox>
+                        <InputLabel>Subtasks</InputLabel>
+                        <AddSubtaskInput>
+                            <Input type='text' placeholder='e.g. Make coffee' />
+                            <img src={RemoveSubtask} alt="" />
+                        </AddSubtaskInput>
+                        <AddSubtaskInput>
+                            <Input type='text' placeholder='e.g. Drink coffee & smile' />
+                            <img src={RemoveSubtask} alt="" />
+                        </AddSubtaskInput>
+                    </InputBox>
+
+                    <AddSubtaskButton>
+                        + Add New Subtask
+                    </AddSubtaskButton>
+                </Form>
             </div>
 
             <div>
@@ -43,7 +61,9 @@ const AddTaskModal = () => {
             </div>
 
             <div>
-                {/* BOTAO */}
+                <CreateTaskButton>
+                    Create Task
+                </CreateTaskButton>
             </div>
         </>
     )
