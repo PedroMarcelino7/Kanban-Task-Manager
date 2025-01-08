@@ -9,10 +9,14 @@ import EditTaskModal from './components/modals/edittask/main'
 import AddBoardModal from './components/modals/addboard/main'
 import EditBoardModal from './components/modals/editboard/main'
 import DeleteBoardModal from './components/modals/deleteboard/main'
+import DeleteTaskModal from './components/modals/deletetask/main'
+import { useTheme } from './contexts/ThemeContext'
 
 function App() {
+  const { theme } = useTheme()
+
   return (
-    <div style={{ display: 'flex', overflow: 'hidden' }}>
+    <div className={`${theme}`} style={{ display: 'flex', overflow: 'hidden' }}>
       <Sidebar />
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -22,8 +26,14 @@ function App() {
       </div>
 
       {/* <Modal>
-        <DeleteBoardModal />
       </Modal> */}
+        {/* <DeleteBoardModal /> */}
+        {/* <AddBoardModal /> */}
+        {/* <AddTaskModal /> */}
+        {/* <DeleteTaskModal /> */}
+        {/* <EditBoardModal /> */}
+        {/* <EditTaskModal /> */}
+        {/* <ViewTaskModal /> */}
     </div>
   )
 }

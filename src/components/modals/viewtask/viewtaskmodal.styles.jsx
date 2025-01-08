@@ -111,6 +111,8 @@ export const StatusSelect = styled.select`
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
+    background-color: var(--white);
+    color: var(--black);
 
     font-size: 15px;
     font-weight: bold;

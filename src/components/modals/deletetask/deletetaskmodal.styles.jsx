@@ -23,7 +23,7 @@ export const Subtitle = styled.h2`
 
 export const AddSubtaskButton = styled.button`
     width: 100%;
-    color: var(--white);
+    color: #fff;
     font-weight: bold;
     background-color: var(--red);
     border-radius: 25px;
@@ -37,7 +37,7 @@ export const CreateTaskButton = styled.button`
     width: 100%;
     color: var(--main-purple);
     font-weight: bold;
-    background-color: var(--light);
+    background-color: #e4ebfa;
     border-radius: 25px;
     border: none;
     padding-block: 0.75rem;

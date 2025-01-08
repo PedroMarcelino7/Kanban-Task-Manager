@@ -38,6 +38,7 @@ export const Input = styled.input`
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
+    background-color: transparent;
 
     font-size: 15px;
     font-weight: 600;
@@ -77,7 +78,7 @@ export const AddSubtaskInput = styled.div`
 export const AddSubtaskButton = styled.button`
     color: var(--main-purple);
     font-weight: bold;
-    background-color: var(--light);
+    background-color: #e4ebfa;
     border-radius: 25px;
     border: none;
     padding-block: 0.75rem;
@@ -87,7 +88,7 @@ export const AddSubtaskButton = styled.button`
 
 export const CreateTaskButton = styled.button`
     width: 100%;
-    color: var(--white);
+    color: #fff;
     background-color: var(--main-purple);
     border-radius: 25px;
     border: none;

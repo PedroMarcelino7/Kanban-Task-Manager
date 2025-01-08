@@ -9,12 +9,14 @@ export const HeaderBox = styled.div`
     width: calc(100vw - 350px);
     height: 100px;
     border-bottom: 2px solid var(--light);
+    background-color: var(--white);
 `
 
 export const Title = styled.h1`
     font-size: 24px;
     font-weight: bold;
     line-height: 30px;
+    color: var(--black);
 `
 
 export const ActionsBox = styled.div`

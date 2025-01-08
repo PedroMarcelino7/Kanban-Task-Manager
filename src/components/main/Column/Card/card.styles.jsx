@@ -6,7 +6,7 @@ export const CardBox = styled.div`
     border-radius: 10px;
     padding-block: 1.25rem;
     padding-inline: 1rem;
-    box-shadow: 1px 1px 3px var(--medium-gray);
+    box-shadow: 1px 1px 3px var(--light);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;

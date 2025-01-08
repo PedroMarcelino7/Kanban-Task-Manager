@@ -38,6 +38,7 @@ export const Input = styled.input`
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
+    background-color: transparent;
 
     font-size: 15px;
     font-weight: 600;
@@ -69,6 +70,7 @@ export const TextArea = styled.textarea`
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
+    background-color: transparent;
 
     font-size: 15px;
     font-weight: 600;
@@ -133,6 +135,8 @@ export const StatusSelect = styled.select`
     padding: 0.75rem;
     border: 2px solid var(--light);
     border-radius: 5px;
+    background-color: var(--white);
+    color: var(--black);
 
     font-size: 15px;
     font-weight: bold;
@@ -157,12 +161,13 @@ export const StatusOption = styled.option`
     font-weight: bold;
     line-height: 19px;
     color: var(--medium-gray);
+    background-color: var(--white);
 `
 
 export const AddSubtaskButton = styled.button`
     color: var(--main-purple);
     font-weight: bold;
-    background-color: var(--light);
+    background-color: #fff;
     border-radius: 25px;
     border: none;
     padding-block: 0.75rem;
@@ -173,7 +178,7 @@ export const AddSubtaskButton = styled.button`
 
 export const CreateTaskButton = styled.button`
     width: 100%;
-    color: var(--white);
+    color: #fff;
     background-color: var(--main-purple);
     border-radius: 25px;
     border: none;

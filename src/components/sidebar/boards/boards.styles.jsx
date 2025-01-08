@@ -29,7 +29,7 @@ export const Board = styled.div`
         background-color: var(--main-purple-hover);
 
         h2 {
-            color: var(--white);
+            color: #fff;
         }
     }
     
@@ -37,7 +37,7 @@ export const Board = styled.div`
         background-color: var(--main-purple);
         
         h2 {
-            color: var(--white);
+            color: #fff;
         }
     }
 
