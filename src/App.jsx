@@ -11,9 +11,37 @@ import EditBoardModal from './components/modals/editboard/main'
 import DeleteBoardModal from './components/modals/deleteboard/main'
 import DeleteTaskModal from './components/modals/deletetask/main'
 import { useTheme } from './contexts/ThemeContext'
+import { useEffect, useState } from 'react'
 
 function App() {
   const { theme } = useTheme()
+  const [boards, setBoards] = useState([{}])
+
+  const getBoards = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/get`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log(result)
+
+      setBoards(result)
+    } catch (error) {
+      console.log('Error: ', error)
+    }
+  }
+
+  useEffect(() => {
+    getBoards()
+  }, [])
 
   return (
     <div className={`${theme}`} style={{ display: 'flex', overflow: 'hidden' }}>
@@ -27,13 +55,13 @@ function App() {
 
       {/* <Modal>
       </Modal> */}
-        {/* <DeleteBoardModal /> */}
-        {/* <AddBoardModal /> */}
-        {/* <AddTaskModal /> */}
-        {/* <DeleteTaskModal /> */}
-        {/* <EditBoardModal /> */}
-        {/* <EditTaskModal /> */}
-        {/* <ViewTaskModal /> */}
+      {/* <DeleteBoardModal /> */}
+      {/* <AddBoardModal /> */}
+      {/* <AddTaskModal /> */}
+      {/* <DeleteTaskModal /> */}
+      {/* <EditBoardModal /> */}
+      {/* <EditTaskModal /> */}
+      {/* <ViewTaskModal /> */}
     </div>
   )
 }
