@@ -15,29 +15,18 @@ import { useEffect, useState } from 'react'
 
 function App() {
   const { theme } = useTheme()
-  const [boards, setBoards] = useState([{}])
+  const [boards, setBoards] = useState([])
 
   const getBoards = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/users/get`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const result = await response.json();
-      console.log(result)
-
-      setBoards(result)
+      const response = await fetch(`http://localhost:3001/boards`);
+      const data = await response.json();
+      setBoards(data);
     } catch (error) {
-      console.log('Error: ', error)
+      console.log('Error: ', error);
     }
-  }
+  };
+
 
   useEffect(() => {
     getBoards()
