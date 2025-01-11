@@ -1,4 +1,4 @@
-import { getBoards } from "../models/boardModel";
+import { getBoards } from "../models/boardModel.js";
 
 export const fetchBoards = async (req, res) => {
     try {
