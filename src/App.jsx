@@ -16,12 +16,18 @@ import { useEffect, useState } from 'react'
 function App() {
   const { theme } = useTheme()
   const [boards, setBoards] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const getBoards = async () => {
+    console.log('Ativado o getBoards')
+
     try {
       const response = await fetch(`http://localhost:3001/boards`);
       const data = await response.json();
       setBoards(data);
+      setIsLoading(false)
+
+      console.log('Boards: ', data)
     } catch (error) {
       console.log('Error: ', error);
     }
@@ -31,9 +37,13 @@ function App() {
     getBoards()
   }, [])
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className={`${theme}`} style={{ display: 'flex', overflow: 'hidden' }}>
-      <Sidebar />
+      <Sidebar boards={boards} />
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Header />

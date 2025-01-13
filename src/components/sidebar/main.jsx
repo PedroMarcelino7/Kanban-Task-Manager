@@ -5,14 +5,14 @@ import Boards from './boards/main'
 import Theme from './theme/main'
 import EyeSlashed from '../../assets/icon-hide-sidebar.svg'
 
-const Sidebar = () => {
+const Sidebar = ({ boards }) => {
     return (
         <SidebarContainer>
             <LogoBox>
                 <img src={LogoLight} />
             </LogoBox>
 
-            <Boards />
+            <Boards boards={boards} />
 
             <Theme />
 

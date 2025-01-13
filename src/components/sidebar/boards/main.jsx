@@ -4,26 +4,21 @@ import BoardIcon from '../../../assets/icon-board.svg'
 import BoardIconSelected from '../../../assets/icon-board-selected.svg'
 import NewBoardIcon from '../../../assets/icon-new-board.svg'
 
-const Boards = () => {
-    const BoardCount = [
-        { title: 'Platform Launch' },
-        { title: 'Marketing Plan' },
-        { title: 'Roadmap' }
-    ]
-    const [selectedBoard, setSelectedBoard] = useState(BoardCount[0])
+const Boards = ({ boards }) => {
+    const [selectedBoard, setSelectedBoard] = useState(boards[0])
 
     return (
         <BoardsBox>
-            <Title>ALL BOARDS ({BoardCount.length})</Title>
+            <Title>ALL BOARDS ({boards.length})</Title>
 
             <BoardsNav>
-                {BoardCount.map((board, index) => (
+                {boards.map((board, index) => (
                     <Board key={index}
-                        className={board.title === selectedBoard.title ? 'selected' : ''}
-                        onClick={() => setSelectedBoard(BoardCount[index])}
+                        className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
+                        onClick={() => setSelectedBoard(board)}
                     >
-                        <img src={board.title === selectedBoard.title ? BoardIconSelected : BoardIcon} alt="" />
-                        <BoardName>{board.title}</BoardName>
+                        <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
+                        <BoardName>{board.board_name}</BoardName>
                     </Board>
                 ))}
 
