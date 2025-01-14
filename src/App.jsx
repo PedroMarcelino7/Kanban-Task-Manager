@@ -12,6 +12,7 @@ import DeleteBoardModal from './components/modals/deleteboard/main'
 import DeleteTaskModal from './components/modals/deletetask/main'
 import { useTheme } from './contexts/ThemeContext'
 import { useEffect, useState } from 'react'
+import Loading from './components/loading/main'
 
 function App() {
   const { theme } = useTheme()
@@ -38,7 +39,7 @@ function App() {
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Loading height={'100vh'} text={'Loading boards...'} />
   }
 
   return (
