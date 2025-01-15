@@ -10,5 +10,5 @@ export const LoadingBox = styled.div`
 `
 
 export const LoadingText = styled.h1`
-    
+    color: var(--black);
 `
