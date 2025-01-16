@@ -52,15 +52,11 @@ function App() {
         <MainPage />
       </div>
 
-      {/* <Modal>
-      </Modal> */}
       {/* <DeleteBoardModal /> */}
-      {/* <AddBoardModal /> */}
-      {/* <AddTaskModal /> */}
-      {/* <DeleteTaskModal /> */}
       {/* <EditBoardModal /> */}
+
+      {/* <DeleteTaskModal /> */}
       {/* <EditTaskModal /> */}
-      {/* <ViewTaskModal /> */}
     </div>
   )
 }

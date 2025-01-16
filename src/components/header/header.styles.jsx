@@ -27,11 +27,13 @@ export const ActionsBox = styled.div`
 
 export const NewTaskButton = styled.button`
     color: var(--white);
-    background-color: var(--main-purple-hover);
+    /* background-color: var(--main-purple-hover); */
+    background-color: var(--main-purple);
     border-radius: 25px;
     border: none;
     padding-block: 0.75rem;
     padding-inline: 1.25rem;
+    cursor: pointer;
 `
 
 export const Options = styled.img`

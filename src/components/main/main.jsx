@@ -5,7 +5,7 @@ import NewColumn from './Column/NewColumn/main'
 import Loading from '../loading/main'
 
 const MainPage = () => {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     if(loading) {
         return (

@@ -3,31 +3,42 @@ import { Board, BoardsBox, BoardsNav, BoardName, Title } from './boards.styles'
 import BoardIcon from '../../../assets/icon-board.svg'
 import BoardIconSelected from '../../../assets/icon-board-selected.svg'
 import NewBoardIcon from '../../../assets/icon-new-board.svg'
+import Modal from '../../modals/main'
+import AddBoardModal from '../../modals/addboard/main'
 
 const Boards = ({ boards }) => {
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
+    const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
 
     return (
-        <BoardsBox>
-            <Title>ALL BOARDS ({boards.length})</Title>
+        <>
+            <BoardsBox>
+                <Title>ALL BOARDS ({boards.length})</Title>
 
-            <BoardsNav>
-                {boards.map((board, index) => (
-                    <Board key={index}
-                        className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
-                        onClick={() => setSelectedBoard(board)}
-                    >
-                        <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
-                        <BoardName>{board.board_name}</BoardName>
+                <BoardsNav>
+                    {boards.map((board, index) => (
+                        <Board key={index}
+                            className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
+                            onClick={() => setSelectedBoard(board)}
+                        >
+                            <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
+                            <BoardName>{board.board_name}</BoardName>
+                        </Board>
+                    ))}
+
+                    <Board onClick={() => setShowAddNewBoardModal(true)}>
+                        <img src={NewBoardIcon} alt="" />
+                        <BoardName className='new-board'>+ Create New Board</BoardName>
                     </Board>
-                ))}
+                </BoardsNav>
+            </BoardsBox>
 
-                <Board>
-                    <img src={NewBoardIcon} alt="" />
-                    <BoardName className='new-board'>+ Create New Board</BoardName>
-                </Board>
-            </BoardsNav>
-        </BoardsBox>
+            {showAddNewBoardModal &&
+                <Modal>
+                    <AddBoardModal />
+                </Modal>
+            }
+        </>
     )
 }
 
