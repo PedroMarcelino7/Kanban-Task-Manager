@@ -3,19 +3,19 @@ import { CardBox, Subtitle, Title } from './card.styles'
 import Modal from '../../../modals/main'
 import ViewTaskModal from '../../../modals/viewtask/main'
 
-const Card = () => {
+const Card = ({ task }) => {
     const [showTaskModal, setShowTaskModal] = useState(false)
 
     return (
         <>
             <CardBox onClick={() => setShowTaskModal(true)}>
-                <Title>Build UI for onboarding flow</Title>
+                <Title>{task.task_name}</Title>
                 <Subtitle>0 of 3 subtasks</Subtitle>
             </CardBox>
 
             {showTaskModal &&
                 <Modal>
-                    <ViewTaskModal />
+                    <ViewTaskModal task={task} />
                 </Modal>
             }
         </>

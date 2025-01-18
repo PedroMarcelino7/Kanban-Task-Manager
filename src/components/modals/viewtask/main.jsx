@@ -3,7 +3,7 @@ import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskT
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
-const ViewTaskModal = () => {
+const ViewTaskModal = ({ task }) => {
     return (
         <>
             <div>
@@ -59,7 +59,7 @@ const ViewTaskModal = () => {
 
                 <StatusBox>
                     <img src={SelectIcon} alt="" />
-                    
+
                     <StatusSelect>
                         <StatusOption>Todo</StatusOption>
                         <StatusOption>Doing</StatusOption>

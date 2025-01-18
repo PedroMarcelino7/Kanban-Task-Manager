@@ -39,8 +39,7 @@ const MainPage = () => {
             <MainPageBox>
                 {columns.map((column, index) => (
                     <Column key={index}
-                        title={column.column_name}
-                        color={column.column_color}
+                        column={column}
                     />
                 ))}
                 <NewColumn />
