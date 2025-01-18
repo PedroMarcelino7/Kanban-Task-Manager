@@ -34,13 +34,10 @@ const Column = ({ column }) => {
             </TitleBox>
 
             <CardsContainer>
-                {/* <Card />
-                <Card />
-                <Card />
-                <Card /> */}
                 {tasks.map((task, index) => (
                     <Card key={index}
                         task={task}
+                        column={column.column_name}
                     />
                 ))}
             </CardsContainer>

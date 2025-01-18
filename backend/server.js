@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { fetchBoards } from '../src/controllers/boardController.js';
 import { fetchColumns } from '../src/controllers/columnController.js';
 import { fetchTasks } from '../src/controllers/taskController.js';
+import { fetchSubtasks } from '../src/controllers/subtaskController.js';
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ app.get('/boards', fetchBoards)
 app.get('/boards/:board_id/columns', fetchColumns)
 
 app.get('/columns/:column_id/tasks', fetchTasks)
+
+app.get('/tasks/:task_id/subtasks', fetchSubtasks)
 
 const PORT = process.env.PORT || 3001;
 

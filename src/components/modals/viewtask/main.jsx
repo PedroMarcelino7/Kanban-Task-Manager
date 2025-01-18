@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox } from './viewtaskmodal.styles'
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
-const ViewTaskModal = ({ task }) => {
+const ViewTaskModal = ({ task, subtasks, column }) => {
+    useEffect(() => {
+        console.log('>>> Subtasks Modal:', subtasks)
+    }, [])
+
     return (
         <>
             <div>
@@ -24,31 +28,19 @@ const ViewTaskModal = ({ task }) => {
 
             <div>
                 <SectionTitle>
-                    Substasks (2 of 3)
+                    Substasks (0 of {subtasks.length})
                 </SectionTitle>
 
                 <SubtasksBox>
-                    <Subtask>
-                        <Checkbox type="checkbox" />
+                    {subtasks.map((subtask, index) => (
+                        <Subtask key={index}>
+                            <Checkbox type="checkbox" />
 
-                        <SubtaskTitle>
-                            Research competitor pricing and business models
-                        </SubtaskTitle>
-                    </Subtask>
-                    <Subtask>
-                        <Checkbox type="checkbox" />
-
-                        <SubtaskTitle>
-                            Outline a business model that works for our solution
-                        </SubtaskTitle>
-                    </Subtask>
-                    <Subtask>
-                        <Checkbox type="checkbox" />
-
-                        <SubtaskTitle>
-                            Talk to potential customers about our proposed solution and ask for fair price expectancy
-                        </SubtaskTitle>
-                    </Subtask>
+                            <SubtaskTitle>
+                                {subtask.subtask_name}
+                            </SubtaskTitle>
+                        </Subtask>
+                    ))}
                 </SubtasksBox>
             </div>
 
@@ -61,6 +53,7 @@ const ViewTaskModal = ({ task }) => {
                     <img src={SelectIcon} alt="" />
 
                     <StatusSelect>
+                        <StatusOption>{column}</StatusOption>
                         <StatusOption>Todo</StatusOption>
                         <StatusOption>Doing</StatusOption>
                         <StatusOption>Done</StatusOption>
