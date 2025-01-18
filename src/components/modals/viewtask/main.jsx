@@ -9,7 +9,7 @@ const ViewTaskModal = ({ task }) => {
             <div>
                 <Header>
                     <Title>
-                        Research pricing points of various competitors and trial different business models
+                        {task.task_name}
                     </Title>
 
                     <Options src={OptionsIcon} alt="" />
@@ -18,7 +18,7 @@ const ViewTaskModal = ({ task }) => {
 
             <div>
                 <Subtitle>
-                    We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.
+                    {task.task_description}
                 </Subtitle>
             </div>
 
