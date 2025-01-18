@@ -14,7 +14,7 @@ export const TitleBox = styled.div`
 export const IdentificationColor = styled.div`
     width: 15px;
     height: 15px;
-    background-color: #000;
+    background-color: ${({ color }) => color || 'var(--black)'};
     border-radius: 50%;
 `
 

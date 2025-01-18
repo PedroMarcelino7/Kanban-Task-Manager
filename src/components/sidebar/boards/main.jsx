@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Board, BoardsBox, BoardsNav, BoardName, Title } from './boards.styles'
 import BoardIcon from '../../../assets/icon-board.svg'
 import BoardIconSelected from '../../../assets/icon-board-selected.svg'
 import NewBoardIcon from '../../../assets/icon-new-board.svg'
 import Modal from '../../modals/main'
 import AddBoardModal from '../../modals/addboard/main'
+import { useNavigate } from 'react-router-dom'
 
 const Boards = ({ boards }) => {
+    const navigate = useNavigate()
+
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
+
+    useEffect(() => {
+        console.log('>>> Selected Board:', selectedBoard)
+        navigate(`/${selectedBoard.board_id}`)
+    }, [selectedBoard])
 
     return (
         <>

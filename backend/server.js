@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { connection } from './db.js';
 import dotenv from 'dotenv';
 import { fetchBoards } from '../src/controllers/boardController.js';
+import { fetchColumns } from '../src/controllers/columnController.js';
 
 dotenv.config();
 
@@ -20,6 +20,8 @@ app.use(cors({
 app.use(express.json());
 
 app.get('/boards', fetchBoards)
+
+app.get('/boards/:board_id/columns', fetchColumns)
 
 const PORT = process.env.PORT || 3001;
 

@@ -2,13 +2,13 @@ import React from 'react'
 import { CardsContainer, ColumnBox, IdentificationColor, Title, TitleBox } from './column.styles'
 import Card from './Card/main'
 
-const Column = () => {
+const Column = ({ title, color }) => {
     return (
         <ColumnBox>
             <TitleBox>
-                <IdentificationColor />
+                <IdentificationColor color={color} />
                 <Title>
-                    TODO (4)
+                    {title} (4)
                 </Title>
             </TitleBox>
 

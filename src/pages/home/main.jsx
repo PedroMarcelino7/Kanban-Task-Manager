@@ -1,7 +1,6 @@
 import '../../App.scss'
 
-import { RouterProvider, useParams } from 'react-router-dom'
-import { router } from '../../routes'
+import { useParams } from 'react-router-dom'
 
 import { useTheme } from '../../contexts/ThemeContext'
 import { useState, useEffect } from 'react'
@@ -15,7 +14,7 @@ function HomePage() {
     const { board_id } = useParams()
     const { theme } = useTheme()
     const [boards, setBoards] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
     const getBoards = async () => {
         console.log('Ativado o getBoards')
@@ -24,7 +23,7 @@ function HomePage() {
             const response = await fetch(`http://localhost:3001/boards`);
             const data = await response.json();
             setBoards(data);
-            setIsLoading(false)
+            setLoading(false)
 
             console.log('Boards: ', data)
         } catch (error) {
@@ -34,9 +33,10 @@ function HomePage() {
 
     useEffect(() => {
         getBoards()
+        console.log('>>> Board ID:', board_id)
     }, [])
 
-    if (isLoading) {
+    if (loading) {
         return <Loading height={'100vh'} text={'Loading boards...'} />
     }
 
