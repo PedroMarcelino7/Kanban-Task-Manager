@@ -1,9 +1,12 @@
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes'
+import { AppProvider } from './contexts/AppContext'
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
   )
 }
 

@@ -21,7 +21,7 @@ const Boards = ({ boards }) => {
     return (
         <>
             <BoardsBox>
-                <Title>ALL BOARDS ({boards.length})</Title>
+                <Title>ALL BOARDS (0)</Title>
 
                 <BoardsNav>
                     {boards.map((board, index) => (

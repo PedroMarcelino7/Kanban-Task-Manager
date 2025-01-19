@@ -21,13 +21,18 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/boards', fetchBoards)
+// app.get('/boards', fetchBoards)
 
-app.get('/boards/:board_id/columns', fetchColumns)
+// app.get('/boards/:board_id/columns', fetchColumns)
 
-app.get('/columns/:column_id/tasks', fetchTasks)
+// app.get('/columns/:column_id/tasks', fetchTasks)
 
-app.get('/tasks/:task_id/subtasks', fetchSubtasks)
+// app.get('/tasks/:task_id/subtasks', fetchSubtasks)
+
+app.get('/api/boards', fetchBoards)
+app.get('/api/columns', fetchColumns)
+app.get('/api/tasks', fetchTasks)
+app.get('/api/subtasks', fetchSubtasks)
 
 const PORT = process.env.PORT || 3001;
 

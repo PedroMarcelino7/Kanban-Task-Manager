@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SidebarContainer, LogoBox, HideSidebar } from './sidebar.styles'
 import LogoLight from '../../assets/logo-dark.svg'
 import Boards from './boards/main'
@@ -6,6 +6,10 @@ import Theme from './theme/main'
 import EyeSlashed from '../../assets/icon-hide-sidebar.svg'
 
 const Sidebar = ({ boards }) => {
+    useEffect(() => {
+        console.log('>>> Boards:', boards)
+    }, [])
+
     return (
         <SidebarContainer>
             <LogoBox>
