@@ -4,8 +4,10 @@ import Column from './Column/main'
 import NewColumn from './Column/NewColumn/main'
 import Loading from '../loading/main'
 import { useParams } from 'react-router-dom'
+import { appData } from '../../contexts/AppContext'
 
 const MainPage = () => {
+    const { data } = appData()
     const { board_id } = useParams()
     const [loading, setLoading] = useState(false)
     const [columns, setColumns] = useState([])
@@ -25,6 +27,7 @@ const MainPage = () => {
 
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
+        console.log('>>> App Data:', data)
         getColumns(board_id)
     }, [board_id])
 
@@ -39,7 +42,7 @@ const MainPage = () => {
             <MainPageBox>
                 {columns.map((column, index) => (
                     <Column key={index}
-                        column={column}
+                        column={data}
                     />
                 ))}
                 <NewColumn />

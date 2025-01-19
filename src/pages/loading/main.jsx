@@ -1,31 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { appData } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 
 const LoadingPage = () => {
     const { data, loading } = appData();
-    const navigate = useNavigate()
-
-    const changePage = () => {
-        navigate('/1')
-    }
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!loading) {
             console.log(">>> Dados estruturados [LoadingPage]:", data);
+            navigate('/1');
         }
-    }, [loading]);
+    }, [loading, navigate, data]);
 
     return (
-        <>
-            <div>
-                LoadingPage
-            </div>
-            
-            {!loading &&
-                changePage()
-            }
-        </>
+        <div>
+            <h1>Loading...</h1>
+        </div>
     );
 };
 

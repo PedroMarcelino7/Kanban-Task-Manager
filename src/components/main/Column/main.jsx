@@ -21,8 +21,9 @@ const Column = ({ column }) => {
 
     useEffect(() => {
         console.log('>>> Column ID:', column.column_id)
+        console.log('>>> Data [Columns]:', column)
         getTasks(column.column_id)
-    }, [column])
+    }, [])
 
     return (
         <ColumnBox>
@@ -37,7 +38,7 @@ const Column = ({ column }) => {
                 {tasks.map((task, index) => (
                     <Card key={index}
                         task={task}
-                        column={column.column_name}
+                        column={column}
                     />
                 ))}
             </CardsContainer>

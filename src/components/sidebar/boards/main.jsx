@@ -15,6 +15,7 @@ const Boards = ({ boards }) => {
 
     useEffect(() => {
         console.log('>>> Selected Board:', selectedBoard)
+        console.log('>>> Boards [Boards]:', boards)
         navigate(`/${selectedBoard.board_id}`)
     }, [selectedBoard])
 
