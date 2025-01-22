@@ -12,23 +12,9 @@ const MainPage = () => {
     const [loading, setLoading] = useState(false)
     const [columns, setColumns] = useState([])
 
-    const getColumns = async (board_id) => {
-        try {
-            const response = await fetch(`http://localhost:3001/boards/${board_id}/columns`);
-            const data = await response.json();
-
-            console.log('Columns:', data);
-            setColumns(data)
-            setLoading(false)
-        } catch (error) {
-            console.error('Erro ao buscar columns:', error);
-        }
-    };
-
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
-        console.log('>>> App Data:', data)
-        getColumns(board_id)
+        console.log('>>> App Data (boards) [Main component]:', data)
     }, [board_id])
 
     if (loading) {
@@ -40,9 +26,14 @@ const MainPage = () => {
     return (
         <MainPageContainer>
             <MainPageBox>
-                {columns.map((column, index) => (
+                {/* {columns.map((column, index) => (
                     <Column key={index}
                         column={data}
+                    />
+                ))} */}
+                {data[board_id - 1].columns.map((column, index) => (
+                    <Column key={index}
+                        column={column}
                     />
                 ))}
                 <NewColumn />

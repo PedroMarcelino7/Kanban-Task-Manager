@@ -14,8 +14,8 @@ const Boards = ({ boards }) => {
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
 
     useEffect(() => {
-        console.log('>>> Selected Board:', selectedBoard)
-        console.log('>>> Boards [Boards]:', boards)
+        console.log('>>> Selected Board [Boards component]:', selectedBoard)
+        console.log('>>> Boards [Boards component]:', boards)
         navigate(`/${selectedBoard.board_id}`)
     }, [selectedBoard])
 

@@ -7,7 +7,7 @@ import EyeSlashed from '../../assets/icon-hide-sidebar.svg'
 
 const Sidebar = ({ boards }) => {
     useEffect(() => {
-        console.log('>>> Boards:', boards)
+        console.log('>>> Boards [Sidebar main component]:', boards)
     }, [])
 
     return (

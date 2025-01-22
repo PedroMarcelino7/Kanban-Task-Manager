@@ -3,9 +3,10 @@ import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskT
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
-const ViewTaskModal = ({ task, subtasks, column }) => {
+const ViewTaskModal = ({ task, column }) => {
     useEffect(() => {
-        console.log('>>> Subtasks Modal:', subtasks)
+        console.log('>>> Tasks [View task modal]:', task)
+        console.log('>>> Column [View task modal]:', column)
     }, [])
 
     return (
@@ -28,11 +29,11 @@ const ViewTaskModal = ({ task, subtasks, column }) => {
 
             <div>
                 <SectionTitle>
-                    Substasks (0 of {subtasks.length})
+                    {/* Substasks (0 of {subtasks.length}) */}
                 </SectionTitle>
 
                 <SubtasksBox>
-                    {subtasks.map((subtask, index) => (
+                    {task.subtasks.map((subtask, index) => (
                         <Subtask key={index}>
                             <Checkbox type="checkbox" />
 
@@ -53,7 +54,7 @@ const ViewTaskModal = ({ task, subtasks, column }) => {
                     <img src={SelectIcon} alt="" />
 
                     <StatusSelect>
-                        <StatusOption>{column}</StatusOption>
+                        <StatusOption>{column.column_name}</StatusOption>
                         <StatusOption>Todo</StatusOption>
                         <StatusOption>Doing</StatusOption>
                         <StatusOption>Done</StatusOption>
