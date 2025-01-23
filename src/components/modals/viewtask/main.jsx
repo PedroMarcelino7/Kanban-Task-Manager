@@ -3,10 +3,11 @@ import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskT
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
-const ViewTaskModal = ({ task, column }) => {
+const ViewTaskModal = ({ task, column, data }) => {
     useEffect(() => {
         console.log('>>> Tasks [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
+        console.log('>>> Data [View task modal]:', data)
     }, [])
 
     return (
@@ -29,7 +30,7 @@ const ViewTaskModal = ({ task, column }) => {
 
             <div>
                 <SectionTitle>
-                    {/* Substasks (0 of {subtasks.length}) */}
+                    Substasks (0 of {task.subtasks.length})
                 </SectionTitle>
 
                 <SubtasksBox>

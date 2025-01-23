@@ -10,7 +10,6 @@ const MainPage = () => {
     const { data } = appData()
     const { board_id } = useParams()
     const [loading, setLoading] = useState(false)
-    const [columns, setColumns] = useState([])
 
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
@@ -26,14 +25,10 @@ const MainPage = () => {
     return (
         <MainPageContainer>
             <MainPageBox>
-                {/* {columns.map((column, index) => (
-                    <Column key={index}
-                        column={data}
-                    />
-                ))} */}
                 {data[board_id - 1].columns.map((column, index) => (
                     <Column key={index}
                         column={column}
+                        data={data}
                     />
                 ))}
                 <NewColumn />

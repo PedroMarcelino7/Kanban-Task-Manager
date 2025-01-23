@@ -3,7 +3,7 @@ import { CardBox, Subtitle, Title } from './card.styles'
 import Modal from '../../../modals/main'
 import ViewTaskModal from '../../../modals/viewtask/main'
 
-const Card = ({ task, column }) => {
+const Card = ({ task, column, data }) => {
     const [showTaskModal, setShowTaskModal] = useState(false)
     const [loading, setLoading] = useState(true)
 
@@ -11,18 +11,19 @@ const Card = ({ task, column }) => {
         console.log('>> Task ID [Card component | Task]:', task.task_id)
         console.log('>> Task [Card component | Task]:', task)
         console.log('>> Column [Card component | Task]:', column)
+        console.log('>> Data [Card component | Task]:', data)
     }, [])
 
     return (
         <>
             <CardBox onClick={() => setShowTaskModal(true)}>
                 <Title>{task.task_name}</Title>
-                <Subtitle>0 of 3 subtasks</Subtitle>
+                <Subtitle>0 of {task.subtasks.length} subtasks</Subtitle>
             </CardBox>
 
             {showTaskModal &&
                 <Modal>
-                    <ViewTaskModal task={task} column={column} />
+                    <ViewTaskModal task={task} column={column} data={data} />
                 </Modal>
             }
         </>

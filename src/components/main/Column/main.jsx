@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { CardsContainer, ColumnBox, IdentificationColor, Title, TitleBox } from './column.styles'
 import Card from './Card/main'
 
-const Column = ({ column }) => {
+const Column = ({ column, data }) => {
     const [loading, setLoading] = useState(true)
-    const [tasks, setTasks] = useState([])
 
     useEffect(() => {
         console.log('>>> Column ID [Column component]:', column.column_id)
-        console.log('>>> Data [Column component]:', column) 
+        console.log('>>> Column [Column component]:', column) 
+        console.log('>>> Data [Column component]:', data) 
     }, [])
 
     return (
@@ -16,7 +16,7 @@ const Column = ({ column }) => {
             <TitleBox>
                 <IdentificationColor color={column.column_color} />
                 <Title>
-                    {column.column_name} (4)
+                    {column.column_name} ({column.tasks.length})
                 </Title>
             </TitleBox>
 
@@ -25,6 +25,7 @@ const Column = ({ column }) => {
                     <Card key={index}
                         task={task}
                         column={column}
+                        data={data}
                     />
                 ))}
             </CardsContainer>
