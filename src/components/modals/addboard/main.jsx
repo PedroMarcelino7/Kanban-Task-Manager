@@ -1,8 +1,17 @@
 import React from 'react'
-import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addboardmodal.styles'
-import RemoveSubtask from '../../../assets/icon-cross.svg'
+import { Header, Title, InputBox, InputLabel, Input, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
+import AddSubtaskInputComponent from './addsubtaskinput/main'
 
 const AddBoardModal = () => {
+    const addNewColumn = () => {
+        return (
+            <InputBox>
+                <InputLabel>Columns</InputLabel>
+                <AddSubtaskInputComponent />
+            </InputBox>
+        )
+    }
+
     return (
         <>
             <div>
@@ -22,19 +31,12 @@ const AddBoardModal = () => {
 
                     <InputBox>
                         <InputLabel>Columns</InputLabel>
-                        <AddSubtaskInput>
-                            <Input type='text' placeholder='e.g. Todo' />
-                            <img src={RemoveSubtask} alt="" />
-                        </AddSubtaskInput>
-                        <AddSubtaskInput>
-                            <Input type='text' placeholder='e.g. Doing' />
-                            <img src={RemoveSubtask} alt="" />
-                        </AddSubtaskInput>
+                        <AddSubtaskInputComponent />
                     </InputBox>
 
-                    <AddSubtaskButton>
+                    <AddNewColumnButton type='button' onClick={addNewColumn}>
                         + Add New Column
-                    </AddSubtaskButton>
+                    </AddNewColumnButton>
 
                     <CreateTaskButton>
                         Create New Board

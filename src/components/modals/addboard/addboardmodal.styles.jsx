@@ -39,43 +39,22 @@ export const Input = styled.input`
     border: 2px solid var(--light);
     border-radius: 5px;
     background-color: transparent;
-
+    
     font-size: 15px;
     font-weight: 600;
     line-height: 19px;
     color: var(--black);
-
+    
     outline: none;
     transition: all 0.5s;
-
+    
     &::placeholder {
         color: var(--medium-gray);
         font-weight: normal;
     }
-
-    &:focus {
-        border-color: var(--main-purple);
-    }
-    
-    &:active {
-        border-color: var(--main-purple);
-    }
 `
 
-export const AddSubtaskInput = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-
-    img {
-        width: 35px;
-        padding: 0.5rem;
-
-        cursor: pointer;
-    }
-`
-
-export const AddSubtaskButton = styled.button`
+export const AddNewColumnButton = styled.button`
     color: var(--main-purple);
     font-weight: bold;
     background-color: #e4ebfa;
