@@ -1,22 +1,26 @@
-import { getColumns } from "../models/columnModel.js";
+import { getColumns, insertColumns } from "../models/columnModel.js";
 
 export const fetchColumns = async (req, res) => {
     try {
-        const columns  = await getColumns();
+        const columns = await getColumns();
         res.status(200).json(columns);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching columns' });
     }
 };
-// import { getColumns } from "../models/columnModel.js";
 
-// export const fetchColumns = async (req, res) => {
-//     const { board_id } = req.params
+export const addColumn = async (req, res) => {
+    const { columns, board_id } = req.body;
 
-//     try {
-//         const columns  = await getColumns(board_id);
-//         res.status(200).json(columns);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Error fetching columns' });
-//     }
-// };
+    try {
+        const results = await Promise.all(
+            columns.map(async (column) => {
+                return await insertColumns(column, board_id);
+            })
+        );
+
+        res.json({ success: true, results });
+    } catch (error) {
+        res.status(500).json({ error: 'Error adding column' });
+    }
+};

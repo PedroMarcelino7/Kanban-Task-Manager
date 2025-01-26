@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { addBoard, fetchBoards } from '../src/controllers/boardController.js';
-import { fetchColumns } from '../src/controllers/columnController.js';
+import { addColumn, fetchColumns } from '../src/controllers/columnController.js';
 import { fetchTasks } from '../src/controllers/taskController.js';
 import { fetchSubtasks } from '../src/controllers/subtaskController.js';
 
@@ -33,6 +33,7 @@ app.get('/api/boards', fetchBoards)
 app.post('/api/boards/post', addBoard)
 
 app.get('/api/columns', fetchColumns)
+app.post('/api/columns/post', addColumn)
 
 app.get('/api/tasks', fetchTasks)
 
