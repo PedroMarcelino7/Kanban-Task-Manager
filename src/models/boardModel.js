@@ -3,8 +3,8 @@ import { connection } from '../../backend/db.js'
 export const getBoards = async () => {
     return new Promise((resolve, reject) => {
         const query = `
-        select *
-        from boards
+            select *
+            from boards
         `;
 
         connection.query(query, (err, results) => {
@@ -13,15 +13,20 @@ export const getBoards = async () => {
         });
     });
 };
-// import { connection } from '../../backend/db.js'
 
-// export const getBoards = async () => {
-//     return new Promise((resolve, reject) => {
-//         const query = 'SELECT * FROM boards';
+export const insertBoard = async (board_name) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            insert into
+            boards (board_name, user_id)
+            values (?, 1)
+        `
 
-//         connection.query(query, (err, results) => {
-//             if (err) return reject(err);
-//             resolve(results);
-//         });
-//     });
-// };
+        const values = [board_name]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    })
+}

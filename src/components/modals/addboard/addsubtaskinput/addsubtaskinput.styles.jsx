@@ -4,6 +4,7 @@ export const AddSubtaskInput = styled.div`
     display: flex;
     align-items: center;
     gap: 0.25rem;
+    margin-bottom: 0.5rem;
 
     img {
         width: 35px;

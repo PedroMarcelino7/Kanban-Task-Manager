@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { fetchBoards } from '../src/controllers/boardController.js';
+import { addBoard, fetchBoards } from '../src/controllers/boardController.js';
 import { fetchColumns } from '../src/controllers/columnController.js';
 import { fetchTasks } from '../src/controllers/taskController.js';
 import { fetchSubtasks } from '../src/controllers/subtaskController.js';
@@ -30,8 +30,12 @@ app.use(express.json());
 // app.get('/tasks/:task_id/subtasks', fetchSubtasks)
 
 app.get('/api/boards', fetchBoards)
+app.post('/api/boards/post', addBoard)
+
 app.get('/api/columns', fetchColumns)
+
 app.get('/api/tasks', fetchTasks)
+
 app.get('/api/subtasks', fetchSubtasks)
 
 const PORT = process.env.PORT || 3001;
