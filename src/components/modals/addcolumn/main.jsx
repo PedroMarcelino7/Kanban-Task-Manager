@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Header, Title, InputBox, InputLabel, Input, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
+import React, { useState } from 'react'
+import { Header, Title, InputBox, InputLabel, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
 import AddSubtaskInputComponent from './addsubtaskinput/main'
 
-const AddBoardModal = ({ boardId }) => {
+const AddColumnModal = ({ board_id }) => {
     const [boardName, setBoardName] = useState('')
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
@@ -38,23 +38,6 @@ const AddBoardModal = ({ boardId }) => {
         console.log('>>> Submit new board [Add Board Modal]:', '\n > Board name: ', boardName, '\n > Columns:', columns);
 
         try {
-            const response = await fetch('http://localhost:3001/api/boards/post', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    board_name: boardName
-                })
-            })
-
-            const data = await response.json();
-            console.log('>>> Resposta Board [Add Board Modal]:', data);
-        } catch (error) {
-            console.error('Erro ao criar o board:', error);
-        }
-
-        try {
             const response = await fetch('http://localhost:3001/api/columns/post', {
                 method: "POST",
                 headers: {
@@ -62,7 +45,7 @@ const AddBoardModal = ({ boardId }) => {
                 },
                 body: JSON.stringify({
                     columns: columns,
-                    board_id: boardId
+                    board_id: board_id
                 })
             })
 
@@ -78,20 +61,13 @@ const AddBoardModal = ({ boardId }) => {
             <div>
                 <Header>
                     <Title>
-                        Add New Board
+                        Add New Column
                     </Title>
                 </Header>
             </div>
 
             <div>
                 <Form onSubmit={createBoard}>
-                    <InputBox>
-                        <InputLabel>Name</InputLabel>
-                        <Input type='text' placeholder='e.g. Web Design'
-                            value={boardName} onChange={(e) => setBoardName(e.target.value)}
-                        />
-                    </InputBox>
-
                     <InputBox>
                         <InputLabel>Columns</InputLabel>
 
@@ -114,7 +90,7 @@ const AddBoardModal = ({ boardId }) => {
                     </AddNewColumnButton>
 
                     <CreateTaskButton>
-                        Create New Board
+                        Create New Column
                     </CreateTaskButton>
                 </Form>
             </div>
@@ -122,4 +98,4 @@ const AddBoardModal = ({ boardId }) => {
     )
 }
 
-export default AddBoardModal
+export default AddColumnModal

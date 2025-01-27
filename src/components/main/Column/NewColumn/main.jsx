@@ -1,9 +1,9 @@
 import React from 'react'
 import { NewColumnBox, Title } from './newcolumn.styles'
 
-const NewColumn = () => {
+const NewColumn = ({ onClick }) => {
     return (
-        <NewColumnBox>
+        <NewColumnBox onClick={() => onClick(true)}>
             <Title>
                 + New Column
             </Title>
