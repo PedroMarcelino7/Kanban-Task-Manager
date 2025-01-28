@@ -3,7 +3,6 @@ import { Header, Title, InputBox, InputLabel, Form, CreateTaskButton, AddNewColu
 import AddSubtaskInputComponent from './addsubtaskinput/main'
 
 const AddColumnModal = ({ board_id }) => {
-    const [boardName, setBoardName] = useState('')
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
     const handleColumnChange = (id, newValue) => {
@@ -33,9 +32,9 @@ const AddColumnModal = ({ board_id }) => {
         setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
     }
 
-    const createBoard = async (e) => {
+    const createColumn = async (e) => {
         e.preventDefault();
-        console.log('>>> Submit new board [Add Board Modal]:', '\n > Board name: ', boardName, '\n > Columns:', columns);
+        console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
 
         try {
             const response = await fetch('http://localhost:3001/api/columns/post', {
@@ -50,7 +49,7 @@ const AddColumnModal = ({ board_id }) => {
             })
 
             const data = await response.json();
-            console.log('>>> Resposta Columns [Add Board Modal]:', data);
+            console.log('>>> Resposta Columns [Add Column Modal]:', data);
         } catch (error) {
             console.error('Erro ao criar as colunas:', error);
         }
@@ -67,7 +66,7 @@ const AddColumnModal = ({ board_id }) => {
             </div>
 
             <div>
-                <Form onSubmit={createBoard}>
+                <Form onSubmit={createColumn}>
                     <InputBox>
                         <InputLabel>Columns</InputLabel>
 
