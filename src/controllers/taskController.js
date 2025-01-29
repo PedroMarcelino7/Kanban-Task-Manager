@@ -1,4 +1,4 @@
-import { getTasks, insertTask } from "../models/taskModel.js";
+import { getLastTaskId, getTasks, insertTask } from "../models/taskModel.js";
 
 export const fetchTasks = async (req, res) => {
     try {
@@ -19,4 +19,13 @@ export const addTask = async (req, res) => {
         res.status(500).json({ error: 'Error adding task' });
     }
 };
+
+export const fetchLastTaskId = async (req, res) => {
+    try {
+        const id = await getLastTaskId()
+        res.status(200).json(id)
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching task id' });
+    }
+}
 

@@ -30,3 +30,17 @@ export const insertTask = async (task_name, task_description, column_id) => {
         });
     });
 };
+
+export const getLastTaskId = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            select max(task_id) as id
+            from tasks;
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}

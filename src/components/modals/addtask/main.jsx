@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addtaskmodal.styles'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
@@ -6,13 +6,27 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 const AddTaskModal = ({ data, board_id }) => {
     const [taskName, setTaskName] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
-    const [columnId, setColumnId] = useState(1)
+    const [columnId, setColumnId] = useState(data[board_id - 1].columns[0].column_id)
+    const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
+    const [taskId, setTaskId] = useState(0)
+
+    const addSubtask = () => {
+        setSubtasks((prevSubtasks) => [
+            ...prevSubtasks,
+            { id: prevSubtasks.length, value: '' },
+        ]);
+    }
+
+    const delSubtask = (id) => {
+        setSubtasks(prevSubtasks => prevSubtasks.filter(subtask => subtask.id !== id))
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         console.log('Handle Submit [Add Task Modal]: \nName:', taskName, '\nDescription:', taskDescription, '\nStatus:', columnId)
 
+        console.log('COLUMN ID ENVIADO NO SUBMIT [1]:', columnId)
         try {
             const response = await fetch('http://localhost:3001/api/tasks/post', {
                 method: 'POST',
@@ -31,7 +45,23 @@ const AddTaskModal = ({ data, board_id }) => {
         } catch (error) {
             console.error('Erro ao criar a task:', error);
         }
+
+        
     }
+
+    const getTaskId = async () => {
+        try {
+            const id = await fetch("http://localhost:3001/api/tasks/lastid").then(res => res.json())
+            setTaskId(id[0].id + 1)
+            console.log('>> Task id [Add Task Modal]:', id[0].id + 1)
+        } catch (error) {
+            console.error('Erro ao receber o id da task:', error);
+        }
+    }
+
+    useEffect(() => {
+        getTaskId()
+    }, [])
 
     return (
         <>
@@ -61,13 +91,24 @@ const AddTaskModal = ({ data, board_id }) => {
 
                 <InputBox>
                     <InputLabel>Subtasks</InputLabel>
-                    <AddSubtaskInput>
-                        <Input type='text' placeholder='e.g. Make coffee' />
-                        <img src={RemoveSubtask} alt="" />
-                    </AddSubtaskInput>
+                    {subtasks.map((subtask, index) => (
+                        <AddSubtaskInput key={index}>
+                            <Input type="text" placeholder="e.g. Make coffee"
+                                value={subtask.value}
+                                onChange={(e) =>
+                                    setSubtasks((prevSubtasks) =>
+                                        prevSubtasks.map((task) =>
+                                            task.id === subtask.id ? { ...task, value: e.target.value } : task
+                                        )
+                                    )
+                                }
+                            />
+                            <img src={RemoveSubtask} alt="" onClick={() => delSubtask(subtask.id)} />
+                        </AddSubtaskInput>
+                    ))}
                 </InputBox>
 
-                <AddSubtaskButton>
+                <AddSubtaskButton type='button' onClick={addSubtask}>
                     + Add New Subtask
                 </AddSubtaskButton>
 
