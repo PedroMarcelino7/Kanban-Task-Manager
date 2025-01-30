@@ -46,7 +46,23 @@ const AddTaskModal = ({ data, board_id }) => {
             console.error('Erro ao criar a task:', error);
         }
 
-        
+        try {
+            const response = await fetch('http://localhost:3001/api/subtasks/post', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    subtasks: subtasks,
+                    task_id: taskId
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Subtask [Add Task Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao criar as subtasks:', error);
+        }
     }
 
     const getTaskId = async () => {
