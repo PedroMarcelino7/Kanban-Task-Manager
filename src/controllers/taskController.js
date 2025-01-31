@@ -1,4 +1,4 @@
-import { getLastTaskId, getTasks, insertTask } from "../models/taskModel.js";
+import { getLastTaskId, getTasks, insertTask, updateTaskStatus } from "../models/taskModel.js";
 
 export const fetchTasks = async (req, res) => {
     try {
@@ -26,6 +26,17 @@ export const fetchLastTaskId = async (req, res) => {
         res.status(200).json(id)
     } catch (error) {
         res.status(500).json({ error: 'Error fetching task id' });
+    }
+}
+
+export const editTaskStatus = async (req, res) => {
+    const { column_id, task_id } = req.body
+
+    try {
+        const task = await updateTaskStatus(column_id, task_id);
+        res.json({ success: true, task });
+    } catch (error) {
+        res.status(500).json({ error: 'Error editing task' });
     }
 }
 

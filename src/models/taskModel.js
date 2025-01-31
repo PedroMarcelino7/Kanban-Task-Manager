@@ -44,3 +44,20 @@ export const getLastTaskId = async () => {
         })
     })
 }
+
+export const updateTaskStatus = async (column_id, task_id) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update tasks
+            set column_id = ?
+            where task_id = ?
+        `;
+
+        const values = [column_id, task_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+};

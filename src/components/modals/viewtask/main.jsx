@@ -1,13 +1,58 @@
-import React, { useEffect } from 'react'
-import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox } from './viewtaskmodal.styles'
+import React, { useEffect, useState } from 'react'
+import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton } from './viewtaskmodal.styles'
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
+import { useParams } from 'react-router-dom'
 
 const ViewTaskModal = ({ task, column, data }) => {
+    const { board_id } = useParams()
+    const [subtasks, setSubtasks] = useState([...task.subtasks])
+    const [columnId, setColumnId] = useState(1)
+
+    const getCheckedSubtasks = () => {
+        return subtasks.reduce((count, subtask) => {
+            return subtask.subtask_ischecked === 1 ? count + 1 : count;
+        }, 0);
+    };
+
+    const handleCheckSubtask = (id) => {
+        setSubtasks((prevSubtasks) =>
+            prevSubtasks.map((subtask) =>
+                subtask.subtask_id === id
+                    ? { ...subtask, subtask_ischecked: subtask.subtask_ischecked === 1 ? 0 : 1 }
+                    : subtask
+            )
+        );
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const response = await fetch('http://localhost:3001/api/tasks/status/update', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    column_id: columnId,
+                    task_id: task.task_id
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Tasks [View Task Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao editar a task:', error);
+        }
+    }
+
     useEffect(() => {
         console.log('>>> Tasks [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
         console.log('>>> Data [View task modal]:', data)
+        console.log('>>> Board Id [View task modal]:', board_id)
+        console.log('>>> Subtasks [View task modal]:', subtasks)
     }, [])
 
     return (
@@ -28,40 +73,49 @@ const ViewTaskModal = ({ task, column, data }) => {
                 </Subtitle>
             </div>
 
-            <div>
-                <SectionTitle>
-                    Substasks (0 of {task.subtasks.length})
-                </SectionTitle>
+            <Form onSubmit={handleSubmit}>
+                <div>
+                    <SectionTitle>
+                        Substasks ({getCheckedSubtasks()} of {task.subtasks.length})
+                    </SectionTitle>
 
-                <SubtasksBox>
-                    {task.subtasks.map((subtask, index) => (
-                        <Subtask key={index}>
-                            <Checkbox type="checkbox" />
+                    <SubtasksBox>
+                        {subtasks.map((subtask, index) => (
+                            <Subtask key={index}>
+                                <Checkbox
+                                    type="checkbox"
+                                    checked={subtask.subtask_ischecked === 1}
+                                    onChange={() => handleCheckSubtask(subtask.subtask_id)}
+                                />
+                                <SubtaskTitle>
+                                    {subtask.subtask_name}
+                                </SubtaskTitle>
+                            </Subtask>
+                        ))}
+                    </SubtasksBox>
+                </div>
 
-                            <SubtaskTitle>
-                                {subtask.subtask_name}
-                            </SubtaskTitle>
-                        </Subtask>
-                    ))}
-                </SubtasksBox>
-            </div>
+                <div>
+                    <SectionTitle>
+                        Current Status
+                    </SectionTitle>
 
-            <div>
-                <SectionTitle>
-                    Current Status
-                </SectionTitle>
+                    <StatusBox>
+                        <img src={SelectIcon} alt="" />
 
-                <StatusBox>
-                    <img src={SelectIcon} alt="" />
+                        <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
+                            <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
+                            {data[board_id - 1].columns.map((column) => (
+                                <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
+                            ))}
+                        </StatusSelect>
+                    </StatusBox>
+                </div>
 
-                    <StatusSelect>
-                        <StatusOption>{column.column_name}</StatusOption>
-                        <StatusOption>Todo</StatusOption>
-                        <StatusOption>Doing</StatusOption>
-                        <StatusOption>Done</StatusOption>
-                    </StatusSelect>
-                </StatusBox>
-            </div>
+                <CreateTaskButton>
+                    Save changes
+                </CreateTaskButton>
+            </Form>
         </>
     )
 }

@@ -10,6 +10,12 @@ export const CardBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.025);
+    }
 `
 
 export const Title = styled.h1`
