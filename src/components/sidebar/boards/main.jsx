@@ -16,7 +16,7 @@ const Boards = ({ boards }) => {
     useEffect(() => {
         console.log('>>> Selected Board [Boards component]:', selectedBoard)
         console.log('>>> Boards [Boards component]:', boards)
-        navigate(`/${selectedBoard.board_id}`)
+        boards.length !== 0 ? navigate(`/${selectedBoard.board_id}`) : ''
     }, [selectedBoard])
 
     return (

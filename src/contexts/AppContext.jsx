@@ -31,7 +31,7 @@ export const AppProvider = ({ children }) => {
                         }))
                 }));
 
-                console.log('>>> Dados Estruturados:', structuredData)
+                console.log('>>> Dados Estruturados [App Context]:', structuredData)
                 setData(structuredData);
             } catch (error) {
                 console.error("Erro ao carregar os dados:", error);

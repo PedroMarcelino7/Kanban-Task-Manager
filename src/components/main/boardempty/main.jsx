@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { MainPageBox, MainPageContainer, MainPageEmptyBox, NewColumnButton, Title } from './boardEmpty.styles'
-import Column from './Column/main'
-import NewColumn from './Column/NewColumn/main'
-import Loading from '../loading/main'
+import { MainPageContainer, MainPageEmptyBox, NewColumnButton, Title } from './boardEmpty.styles'
+import Loading from '../../loading/main'
 
-const MainPage = () => {
+const BoardEmpty = ({ onClick }) => {
     const [loading, setLoading] = useState(false)
 
     if (loading) {
@@ -20,7 +18,7 @@ const MainPage = () => {
                     This board is empty. Create a new column to get started.
                 </Title>
 
-                <NewColumnButton>
+                <NewColumnButton onClick={() => onClick(true)}>
                     + Add New Column
                 </NewColumnButton>
             </MainPageEmptyBox>
@@ -28,4 +26,4 @@ const MainPage = () => {
     )
 }
 
-export default MainPage
+export default BoardEmpty

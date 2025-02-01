@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { appData } from '../../contexts/AppContext'
 import AddColumnModal from '../modals/addcolumn/main'
 import Modal from '../modals/main'
+import BoardEmpty from './boardempty/main'
 
 const MainPage = () => {
     const { data } = appData()
@@ -27,28 +28,25 @@ const MainPage = () => {
 
     return (
         <>
-            <MainPageContainer>
-                <MainPageBox>
-                    {data[board_id - 1].columns.map((column, index) => (
-                        <Column key={index}
-                            column={column}
-                            data={data}
-                        />
-                    ))}
-                    <NewColumn onClick={setShowAddColumnModal} />
-                </MainPageBox>
-                {/* <MainPageEmptyBox>
-                <Title>
-                    This board is empty. Create a new column to get started.
-                </Title>
-
-                <NewColumnButton>
-                    + Add New Column
-                </NewColumnButton>
-            </MainPageEmptyBox> */}
-            </MainPageContainer>
-
-            {showAddColumnModal &&
+            {data.length === 0
+                ? ''
+                : <MainPageContainer>
+                    {data[board_id - 1].columns.length !== 0
+                        ? <MainPageBox>
+                            {data[board_id - 1].columns.map((column, index) => (
+                                <Column key={index}
+                                    column={column}
+                                    data={data}
+                                />
+                            ))}
+                            <NewColumn onClick={setShowAddColumnModal} />
+                        </MainPageBox>
+                        : <BoardEmpty onClick={setShowAddColumnModal} />
+                    }
+                </ MainPageContainer>
+            }
+            {
+                showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>
                     <AddColumnModal board_id={board_id} />
                 </Modal>
