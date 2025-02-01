@@ -30,3 +30,20 @@ export const insertSubtasks = async (subtask, task_id) => {
         })
     })
 }
+
+export const updateSubtaskIsChecked = async (subtask) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update subtasks
+            set subtask_ischecked = ?
+            where subtask_id = ?
+        `
+
+        const values = [subtask.subtask_ischecked, subtask.subtask_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}

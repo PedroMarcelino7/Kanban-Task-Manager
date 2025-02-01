@@ -49,7 +49,7 @@ const MainPage = () => {
             </MainPageContainer>
 
             {showAddColumnModal &&
-                <Modal>
+                <Modal closeModal={setShowAddColumnModal}>
                     <AddColumnModal board_id={board_id} />
                 </Modal>
             }

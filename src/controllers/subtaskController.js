@@ -1,4 +1,4 @@
-import { getSubtasks, insertSubtasks } from "../models/subtaskModel.js";
+import { getSubtasks, insertSubtasks, updateSubtaskIsChecked } from "../models/subtaskModel.js";
 
 export const fetchSubtasks = async (req, res) => {
     try {
@@ -22,5 +22,21 @@ export const addSubtask = async (req, res) => {
         res.json({ success: true, results });
     } catch (error) {
         res.status(500).json({ error: 'Error adding subtasks' });
+    }
+}
+
+export const editSubtaskIsChecked = async (req, res) => {
+    const { subtasks } = req.body
+
+    try {
+        const results = await Promise.all(
+            subtasks.map(async (subtask) => {
+                return await updateSubtaskIsChecked(subtask);
+            })
+        );
+
+        res.json({ success: true, results });
+    } catch (error) {
+        res.status(500).json({ error: 'Error editing subtasks' });
     }
 }

@@ -43,7 +43,7 @@ const Boards = ({ boards }) => {
             </BoardsBox>
 
             {showAddNewBoardModal &&
-                <Modal>
+                <Modal closeModal={setShowAddNewBoardModal}>
                     <AddBoardModal boardId={boards.length + 1} />
                 </Modal>
             }

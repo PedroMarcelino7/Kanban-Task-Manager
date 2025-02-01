@@ -26,7 +26,7 @@ const Header = () => {
             </HeaderBox>
 
             {showAddNewTaskModal &&
-                <Modal>
+                <Modal closeModal={setShowAddNewTaskModal}>
                     <AddTaskModal data={data} board_id={board_id} />
                 </Modal>
             }

@@ -45,6 +45,23 @@ const ViewTaskModal = ({ task, column, data }) => {
         } catch (error) {
             console.error('Erro ao editar a task:', error);
         }
+
+        try {
+            const response = await fetch('http://localhost:3001/api/subtasks/ischecked/update', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    subtasks: subtasks,
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Subtasks [View Task Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao editar a subtask:', error);
+        }
     }
 
     useEffect(() => {
