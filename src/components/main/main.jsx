@@ -66,7 +66,7 @@ const MainPage = () => {
             {
                 showAddBoardModal &&
                 <Modal closeModal={setShowAddBoardModal}>
-                    <AddBoardModal board_id={board_id} />
+                    <AddBoardModal boardId={board_id} />
                 </Modal>
             }
         </>

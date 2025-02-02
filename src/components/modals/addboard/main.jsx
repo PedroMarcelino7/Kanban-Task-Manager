@@ -33,6 +33,10 @@ const AddBoardModal = ({ boardId }) => {
         setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
     }
 
+    useEffect(() => {
+        console.log('>>> Board ID [Add Board Modal]:', boardId)
+    }, [])
+
     const createBoard = async (e) => {
         e.preventDefault();
         console.log('>>> Submit new board [Add Board Modal]:', '\n > Board name: ', boardName, '\n > Columns:', columns);
