@@ -6,6 +6,7 @@ import Loading from '../loading/main'
 import { useParams } from 'react-router-dom'
 import { appData } from '../../contexts/AppContext'
 import AddColumnModal from '../modals/addcolumn/main'
+import AddBoardModal from '../modals/addboard/main'
 import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
 
@@ -14,6 +15,7 @@ const MainPage = () => {
     const { board_id } = useParams()
     const [loading, setLoading] = useState(false)
     const [showAddColumnModal, setShowAddColumnModal] = useState(false)
+    const [showAddBoardModal, setShowAddBoardModal] = useState(false)
 
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
@@ -29,7 +31,17 @@ const MainPage = () => {
     return (
         <>
             {data.length === 0
-                ? ''
+                ? <MainPageContainer>
+                    <MainPageEmptyBox>
+                        <Title>
+                            Create a board to get started.
+                        </Title>
+
+                        <NewColumnButton onClick={() => setShowAddBoardModal(true)}>
+                            + Add New Board
+                        </NewColumnButton>
+                    </MainPageEmptyBox>
+                </MainPageContainer>
                 : <MainPageContainer>
                     {data[board_id - 1].columns.length !== 0
                         ? <MainPageBox>
@@ -49,6 +61,12 @@ const MainPage = () => {
                 showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>
                     <AddColumnModal board_id={board_id} />
+                </Modal>
+            }
+            {
+                showAddBoardModal &&
+                <Modal closeModal={setShowAddBoardModal}>
+                    <AddBoardModal board_id={board_id} />
                 </Modal>
             }
         </>
