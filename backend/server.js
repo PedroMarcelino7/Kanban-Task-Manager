@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { addBoard, fetchBoards } from '../src/controllers/boardController.js';
-import { addColumn, fetchColumns } from '../src/controllers/columnController.js';
+import { addBoard, editBoardName, fetchBoards } from '../src/controllers/boardController.js';
+import { addColumn, editColumn, fetchColumns } from '../src/controllers/columnController.js';
 import { addTask, editTaskStatus, fetchLastTaskId, fetchTasks } from '../src/controllers/taskController.js';
 import { addSubtask, editSubtaskIsChecked, fetchSubtasks } from '../src/controllers/subtaskController.js';
 
@@ -23,9 +23,11 @@ app.use(express.json());
 
 app.get('/api/boards', fetchBoards)
 app.post('/api/boards/post', addBoard)
+app.post('/api/boards/name/update', editBoardName)
 
 app.get('/api/columns', fetchColumns)
 app.post('/api/columns/post', addColumn)
+app.post('/api/columns/update', editColumn)
 
 app.get('/api/tasks', fetchTasks)
 app.get('/api/tasks/lastid', fetchLastTaskId)

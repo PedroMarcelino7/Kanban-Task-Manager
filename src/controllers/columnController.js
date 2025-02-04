@@ -1,4 +1,4 @@
-import { getColumns, insertColumns } from "../models/columnModel.js";
+import { getColumns, insertColumns, updateColumns } from "../models/columnModel.js";
 
 export const fetchColumns = async (req, res) => {
     try {
@@ -22,5 +22,21 @@ export const addColumn = async (req, res) => {
         res.json({ success: true, results });
     } catch (error) {
         res.status(500).json({ error: 'Error adding column' });
+    }
+};
+
+export const editColumn = async (req, res) => {
+    const { columns } = req.body;
+
+    try {
+        const results = await Promise.all(
+            columns.map(async (column) => {
+                return await updateColumns(column);
+            })
+        );
+
+        res.json({ success: true, results });
+    } catch (error) {
+        res.status(500).json({ error: 'Error editing columns' });
     }
 };

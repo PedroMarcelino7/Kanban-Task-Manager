@@ -30,3 +30,20 @@ export const insertBoard = async (board_name) => {
         });
     })
 }
+
+export const updateBoard = async (board_id, board_name) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update boards
+            set board_name = ?
+            where board_id = ?
+        `
+
+        const values = [board_name, board_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    })
+}

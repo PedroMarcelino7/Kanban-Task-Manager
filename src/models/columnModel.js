@@ -30,3 +30,20 @@ export const insertColumns = async (column, board_id) => {
         });
     });
 };
+
+export const updateColumns = async (column) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update columns
+            set column_name = ?
+            where column_id = ?
+        `;
+
+        const values = [column.value, column.id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+};

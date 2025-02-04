@@ -18,23 +18,7 @@ function HomePage() {
     const [loading, setLoading] = useState(false)
     const [boards, setBoards] = useState([])
 
-    // const getBoards = async () => {
-    //     console.log('Ativado o getBoards')
-
-    //     try {
-    //         const response = await fetch(`http://localhost:3001/boards`);
-    //         const data = await response.json();
-    //         setBoards(data);
-    //         setLoading(false)
-
-    //         console.log('Boards: ', data)
-    //     } catch (error) {
-    //         console.log('Error: ', error);
-    //     }
-    // };
-
     useEffect(() => {
-        // getBoards()
         console.log('>>> Board ID:', board_id)
         console.log('>>> Dados Estruturados [Home]: ', data)
     }, [])

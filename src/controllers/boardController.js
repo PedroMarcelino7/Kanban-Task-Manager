@@ -1,4 +1,4 @@
-import { getBoards, insertBoard } from "../models/boardModel.js";
+import { getBoards, insertBoard, updateBoard } from "../models/boardModel.js";
 
 export const fetchBoards = async (req, res) => {
     try {
@@ -17,5 +17,16 @@ export const addBoard = async (req, res) => {
         res.json({ success: true, board });
     } catch (error) {
         res.status(500).json({ error: 'Error adding board' })
+    }
+}
+
+export const editBoardName = async (req, res) => {
+    const { board_id, board_name } = req.body
+
+    try {
+        const board = await updateBoard(board_id, board_name);
+        res.json({ success: true, board });
+    } catch (error) {
+        res.status(500).json({ error: 'Error editing board name' })
     }
 }
