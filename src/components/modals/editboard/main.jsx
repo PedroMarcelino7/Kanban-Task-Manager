@@ -17,7 +17,7 @@ const EditBoardModal = ({ data, board_id }) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3001/api/boards/name/update', {
+            const response = await fetch('http://localhost:3001/api/boards/update', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
 
-const DeleteTaskModal = () => {
+const DeleteTaskModal = ({ closeModal }) => {
     return (
         <>
             <div>
@@ -24,7 +24,7 @@ const DeleteTaskModal = () => {
                         Delete
                     </AddSubtaskButton>
 
-                    <CreateTaskButton>
+                    <CreateTaskButton onClick={() => closeModal(false)}>
                         Cancel
                     </CreateTaskButton>
                 </ButtonsBox>

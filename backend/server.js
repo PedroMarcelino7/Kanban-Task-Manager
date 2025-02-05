@@ -23,7 +23,7 @@ app.use(express.json());
 
 app.get('/api/boards', fetchBoards)
 app.post('/api/boards/post', addBoard)
-app.post('/api/boards/name/update', editBoardName)
+app.post('/api/boards/update', editBoardName)
 app.post('/api/boards/delete', delBoard)
 
 app.get('/api/columns', fetchColumns)

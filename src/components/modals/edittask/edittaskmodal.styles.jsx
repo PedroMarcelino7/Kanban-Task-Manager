@@ -184,5 +184,4 @@ export const CreateTaskButton = styled.button`
     padding-block: 0.75rem;
     padding-inline: 1.25rem;
     cursor: pointer;
-    margin-top: -10px;
 `

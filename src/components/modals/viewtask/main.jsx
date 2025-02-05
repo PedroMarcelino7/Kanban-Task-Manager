@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton } from './viewtaskmodal.styles'
+import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import { useParams } from 'react-router-dom'
+import EditTaskModal from '../edittask/main'
+import DeleteTaskModal from '../deletetask/main'
+import Modal from '../main'
 
 const ViewTaskModal = ({ task, column, data }) => {
     const { board_id } = useParams()
     const [subtasks, setSubtasks] = useState([...task.subtasks])
     const [columnId, setColumnId] = useState(1)
+    const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
+    const [showEditTaskModal, setShowEditTaskModal] = useState(false)
+    const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false)
 
     const getCheckedSubtasks = () => {
         return subtasks.reduce((count, subtask) => {
@@ -65,7 +71,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     }
 
     useEffect(() => {
-        console.log('>>> Tasks [View task modal]:', task)
+        console.log('>>> Task [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
         console.log('>>> Data [View task modal]:', data)
         console.log('>>> Board Id [View task modal]:', board_id)
@@ -80,7 +86,14 @@ const ViewTaskModal = ({ task, column, data }) => {
                         {task.task_name}
                     </Title>
 
-                    <Options src={OptionsIcon} alt="" />
+                    <OptionSection>
+                        <Options onClick={() => setShowOptionsPopUp(!showOptionsPopUp)} src={OptionsIcon} alt="" />
+
+                        <OptionsPopUp className={showOptionsPopUp ? "show" : ""}>
+                            <Option onClick={() => setShowEditTaskModal(true)}>Edit Task</Option>
+                            <Option onClick={() => setShowDeleteTaskModal(true)} className='delete'>Delete Task</Option>
+                        </OptionsPopUp>
+                    </OptionSection>
                 </Header>
             </div>
 
@@ -122,8 +135,8 @@ const ViewTaskModal = ({ task, column, data }) => {
 
                         <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
                             <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
-                            {data[board_id - 1].columns.map((column) => (
-                                <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
+                            {data[board_id - 1].columns.map((column, index) => (
+                                <StatusOption key={index} value={column.column_id}>{column.column_name}</StatusOption>
                             ))}
                         </StatusSelect>
                     </StatusBox>
@@ -133,6 +146,17 @@ const ViewTaskModal = ({ task, column, data }) => {
                     Save changes
                 </CreateTaskButton>
             </Form>
+
+            {showEditTaskModal &&
+                <Modal closeModal={setShowEditTaskModal}>
+                    <EditTaskModal task={task} />
+                </Modal>
+            }
+            {showDeleteTaskModal &&
+                <Modal closeModal={setShowDeleteTaskModal}>
+                    <DeleteTaskModal closeModal={setShowDeleteTaskModal} />
+                </Modal>
+            }
         </>
     )
 }
