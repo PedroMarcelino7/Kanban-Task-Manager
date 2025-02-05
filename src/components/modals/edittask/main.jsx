@@ -10,6 +10,31 @@ const EditTaskModal = ({ task }) => {
         console.log('>>> Task [Edit Task Modal]:', task)
     }, [])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        console.log('>>> Handle Submit Data [Edit Task Modal]:', task.task_id, taskTitle, taskDescription)
+
+        try {
+            const response = await fetch('http://localhost:3001/api/tasks/update', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    task_id: task.task_id,
+                    task_name: taskTitle,
+                    task_description: taskDescription
+                })
+            })
+
+            const data = await response.json()
+            console.log('>>> Resposta Task [Edit Task Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao editar a task:', error);
+        }
+    }
+
     return (
         <>
             <Header>
@@ -18,7 +43,7 @@ const EditTaskModal = ({ task }) => {
                 </Title>
             </Header>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <InputBox>
                     <InputLabel>Title</InputLabel>
                     <Input type='text' placeholder='e.g. Take coffee break' value={taskTitle} onChange={(e) => setTaskTitle(e.target.value)} />

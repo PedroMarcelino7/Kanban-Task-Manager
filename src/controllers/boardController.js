@@ -20,7 +20,7 @@ export const addBoard = async (req, res) => {
     }
 }
 
-export const editBoardName = async (req, res) => {
+export const editBoard = async (req, res) => {
     const { board_id, board_name } = req.body
 
     try {

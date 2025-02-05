@@ -1,4 +1,4 @@
-import { getLastTaskId, getTasks, insertTask, updateTaskStatus } from "../models/taskModel.js";
+import { getLastTaskId, getTasks, insertTask, updateTask, updateTaskStatus } from "../models/taskModel.js";
 
 export const fetchTasks = async (req, res) => {
     try {
@@ -34,6 +34,17 @@ export const editTaskStatus = async (req, res) => {
 
     try {
         const task = await updateTaskStatus(column_id, task_id);
+        res.json({ success: true, task });
+    } catch (error) {
+        res.status(500).json({ error: 'Error editing task' });
+    }
+}
+
+export const editTask = async (req, res) => {
+    const { task_id, task_name, task_description } = req.body
+
+    try {
+        const task = await updateTask(task_id, task_name, task_description);
         res.json({ success: true, task });
     } catch (error) {
         res.status(500).json({ error: 'Error editing task' });

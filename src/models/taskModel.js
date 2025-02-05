@@ -61,3 +61,20 @@ export const updateTaskStatus = async (column_id, task_id) => {
         });
     });
 };
+
+export const updateTask = async (task_id, task_name, task_description) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update tasks
+            set task_name = ?, task_description = ?
+            where task_id = ?
+        `;
+
+        const values = [task_name, task_description, task_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+};
