@@ -49,7 +49,7 @@ const Header = () => {
             }
             {showDeleteBoardModal &&
                 <Modal closeModal={setShowDeleteBoardModal}>
-                    <DeleteBoardModal board_id={board_id} />
+                    <DeleteBoardModal board_id={board_id} closeModal={setShowDeleteBoardModal} />
                 </Modal>
             }
         </>

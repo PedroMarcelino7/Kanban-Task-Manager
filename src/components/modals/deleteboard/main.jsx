@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
 
-const DeleteBoardModal = ({ board_id }) => {
+const DeleteBoardModal = ({ board_id, closeModal }) => {
 
     const deleteBoard = async () => {
         try {
@@ -44,7 +44,7 @@ const DeleteBoardModal = ({ board_id }) => {
                         Delete
                     </AddSubtaskButton>
 
-                    <CreateTaskButton>
+                    <CreateTaskButton onClick={() => closeModal(false)}>
                         Cancel
                     </CreateTaskButton>
                 </ButtonsBox>
