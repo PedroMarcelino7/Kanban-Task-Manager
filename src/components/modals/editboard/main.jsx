@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 
-const EditBoardModal = ({ data }) => {
-    const board = data[0]
+const EditBoardModal = ({ data, board_id }) => {
+    const board = data[board_id - 1]
     const [boardName, setBoardName] = useState(board.board_name)
     const [columns, setColumns] = useState(board.columns.map((col) => ({ id: col.column_id, value: col.column_name })))
 

@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
 
-const DeleteBoardModal = () => {
+const DeleteBoardModal = ({ board_id }) => {
+
+    const deleteBoard = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/boards/delete', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    board_id: board_id
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Board [Delete Board Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao deletar o board:', error);
+        }
+    }
+
     return (
         <>
             <div>
@@ -20,7 +40,7 @@ const DeleteBoardModal = () => {
 
             <div>
                 <ButtonsBox>
-                    <AddSubtaskButton>
+                    <AddSubtaskButton onClick={deleteBoard}>
                         Delete
                     </AddSubtaskButton>
 

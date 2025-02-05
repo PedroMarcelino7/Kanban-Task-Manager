@@ -47,3 +47,20 @@ export const updateBoard = async (board_id, board_name) => {
         });
     })
 }
+
+export const deleteBoard = async (board_id) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update boards
+            set board_deleted = 1
+            where board_id = ?
+        `
+
+        const values = [board_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    })
+}
