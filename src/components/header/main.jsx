@@ -16,6 +16,11 @@ const Header = () => {
     const [showEditBoardModal, setShowEditBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 
+    useEffect(() => {
+        console.log('>>> Data Header [Header]:', data)
+        console.log('>>> Board ID [Header]:', board_id)
+    }, [])
+
     return (
         <>
             <HeaderBox>
@@ -24,7 +29,12 @@ const Header = () => {
                 </Title>
 
                 <ActionsBox>
-                    <NewTaskButton onClick={() => setShowAddNewTaskModal(true)}>+ Add New Task</NewTaskButton>
+                    <NewTaskButton
+                        onClick={() => setShowAddNewTaskModal(true)}
+                        disabled={data[board_id - 1].columns.length !== 0 ? false : true}
+                    >
+                        + Add New Task
+                    </NewTaskButton>
 
                     <OptionSection>
                         <Options onClick={() => setShowOptionsPopUp(!showOptionsPopUp)} src={OptionsIcon} alt="" />

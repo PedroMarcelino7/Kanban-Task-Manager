@@ -1,7 +1,26 @@
 import React from 'react'
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
 
-const DeleteTaskModal = ({ closeModal }) => {
+const DeleteTaskModal = ({ task_id, closeModal }) => {
+    const deleteTask = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/tasks/delete', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    task_id: task_id
+                })
+            })
+
+            const data = await response.json()
+            console.log(">>> Resposta Task [Delete Task Modal]:", data)
+        } catch (error) {
+            console.error('Erro ao deletar a task:', error);
+        }
+    }
+
     return (
         <>
             <div>
@@ -20,7 +39,7 @@ const DeleteTaskModal = ({ closeModal }) => {
 
             <div>
                 <ButtonsBox>
-                    <AddSubtaskButton>
+                    <AddSubtaskButton onClick={deleteTask}>
                         Delete
                     </AddSubtaskButton>
 

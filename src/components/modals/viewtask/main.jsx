@@ -154,7 +154,7 @@ const ViewTaskModal = ({ task, column, data }) => {
             }
             {showDeleteTaskModal &&
                 <Modal closeModal={setShowDeleteTaskModal}>
-                    <DeleteTaskModal closeModal={setShowDeleteTaskModal} />
+                    <DeleteTaskModal task_id={task.task_id} closeModal={setShowDeleteTaskModal} />
                 </Modal>
             }
         </>

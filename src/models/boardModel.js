@@ -5,6 +5,7 @@ export const getBoards = async () => {
         const query = `
             select *
             from boards
+            where board_deleted = 0
         `;
 
         connection.query(query, (err, results) => {

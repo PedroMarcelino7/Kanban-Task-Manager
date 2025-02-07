@@ -1,4 +1,4 @@
-import { getLastTaskId, getTasks, insertTask, updateTask, updateTaskStatus } from "../models/taskModel.js";
+import { deleteTask, getLastTaskId, getTasks, insertTask, updateTask, updateTaskStatus } from "../models/taskModel.js";
 
 export const fetchTasks = async (req, res) => {
     try {
@@ -48,6 +48,17 @@ export const editTask = async (req, res) => {
         res.json({ success: true, task });
     } catch (error) {
         res.status(500).json({ error: 'Error editing task' });
+    }
+}
+
+export const delTask = async (req, res) => {
+    const { task_id } = req.body
+
+    try {
+        const task = await deleteTask(task_id);
+        res.json({ success: true, task });
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting task' });
     }
 }
 

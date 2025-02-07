@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { addBoard, delBoard, editBoard, fetchBoards } from '../src/controllers/boardController.js';
 import { addColumn, editColumn, fetchColumns } from '../src/controllers/columnController.js';
-import { addTask, editTask, editTaskStatus, fetchLastTaskId, fetchTasks } from '../src/controllers/taskController.js';
+import { addTask, delTask, editTask, editTaskStatus, fetchLastTaskId, fetchTasks } from '../src/controllers/taskController.js';
 import { addSubtask, editSubtaskIsChecked, fetchSubtasks } from '../src/controllers/subtaskController.js';
 
 dotenv.config();
@@ -35,6 +35,7 @@ app.get('/api/tasks/lastid', fetchLastTaskId)
 app.post('/api/tasks/post', addTask)
 app.post('/api/tasks/status/update', editTaskStatus)
 app.post('/api/tasks/update', editTask)
+app.post('/api/tasks/delete', delTask)
 
 app.get('/api/subtasks', fetchSubtasks)
 app.post('/api/subtasks/post', addSubtask)

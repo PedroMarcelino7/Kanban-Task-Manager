@@ -20,6 +20,7 @@ const MainPage = () => {
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
         console.log('>>> App Data (boards) [Main component]:', data)
+        console.log('>>> Board Data [Main component]:', data[board_id - 1])
     }, [board_id])
 
     if (loading) {
@@ -57,6 +58,7 @@ const MainPage = () => {
                     }
                 </ MainPageContainer>
             }
+
             {
                 showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>

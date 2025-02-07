@@ -26,15 +26,13 @@ const Boards = ({ boards }) => {
 
                 <BoardsNav>
                     {boards.map((board, index) => (
-                        board.board_deleted === 0
-                            ? <Board key={index}
-                                className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
-                                onClick={() => setSelectedBoard(board)}
-                            >
-                                <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
-                                <BoardName>{board.board_name}</BoardName>
-                            </Board>
-                            : ''
+                        <Board key={index}
+                            className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
+                            onClick={() => setSelectedBoard(board)}
+                        >
+                            <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
+                            <BoardName>{board.board_name}</BoardName>
+                        </Board>
                     ))}
 
                     <Board onClick={() => setShowAddNewBoardModal(true)}>
