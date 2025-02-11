@@ -13,6 +13,7 @@ import BoardEmpty from './boardempty/main'
 const MainPage = () => {
     const { data } = appData()
     const { board_id } = useParams()
+    const selectedBoard = data.find(board => board.board_id === Number(board_id))
     const [loading, setLoading] = useState(false)
     const [showAddColumnModal, setShowAddColumnModal] = useState(false)
     const [showAddBoardModal, setShowAddBoardModal] = useState(false)
@@ -21,9 +22,12 @@ const MainPage = () => {
         console.log('>>> Board ID [Main component]:', board_id)
         console.log('>>> App Data (boards) [Main component]:', data)
         console.log('>>> Board Data [Main component]:', data[board_id - 1])
+        console.log('>>> Selected Board [Main component]:', selectedBoard)
+        console.log('>>> Selected Boards Columns [Main component]:', selectedBoard.columns)
+        console.log('>>> Selected Boards Columns Length [Main component]:', selectedBoard.columns.length)
     }, [board_id])
 
-    if (loading) {
+    if (loading || !selectedBoard) {
         return (
             <Loading text={'Loading...'} />
         )
@@ -44,9 +48,9 @@ const MainPage = () => {
                     </MainPageEmptyBox>
                 </MainPageContainer>
                 : <MainPageContainer>
-                    {data[board_id - 1].columns.length !== 0
+                    {selectedBoard.columns.length !== 0
                         ? <MainPageBox>
-                            {data[board_id - 1].columns.map((column, index) => (
+                            {selectedBoard.columns.map((column, index) => (
                                 <Column key={index}
                                     column={column}
                                     data={data}

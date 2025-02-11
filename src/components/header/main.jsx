@@ -11,12 +11,14 @@ import DeleteBoardModal from '../modals/deleteboard/main'
 const Header = () => {
     const { board_id } = useParams()
     const { data } = appData()
+    const selectedBoard = data.find(board => board.board_id === Number(board_id))
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showAddNewTaskModal, setShowAddNewTaskModal] = useState(false)
     const [showEditBoardModal, setShowEditBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 
     useEffect(() => {
+        console.log('>>> Selected Board [Header]:', selectedBoard)
         console.log('>>> Data Header [Header]:', data)
         console.log('>>> Board ID [Header]:', board_id)
     }, [])
@@ -31,7 +33,7 @@ const Header = () => {
                 <ActionsBox>
                     <NewTaskButton
                         onClick={() => setShowAddNewTaskModal(true)}
-                        disabled={data[board_id - 1].columns.length !== 0 ? false : true}
+                        disabled={selectedBoard.columns.length !== 0 ? false : true}
                     >
                         + Add New Task
                     </NewTaskButton>

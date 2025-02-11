@@ -7,8 +7,8 @@ const Column = ({ column, data }) => {
 
     useEffect(() => {
         console.log('>>> Column ID [Column component]:', column.column_id)
-        console.log('>>> Column [Column component]:', column) 
-        console.log('>>> Data [Column component]:', data) 
+        console.log('>>> Column [Column component]:', column)
+        console.log('>>> Data [Column component]:', data)
     }, [])
 
     return (
