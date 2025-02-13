@@ -21,6 +21,7 @@ const MainPage = () => {
     useEffect(() => {
         console.log('>>> Board ID [Main component]:', board_id)
         console.log('>>> App Data (boards) [Main component]:', data)
+        console.log('>>> Data Length [Main component]:', data.length)
         console.log('>>> Board Data [Main component]:', data[board_id - 1])
         console.log('>>> Selected Board [Main component]:', selectedBoard)
         console.log('>>> Selected Boards Columns [Main component]:', selectedBoard.columns)
@@ -63,14 +64,12 @@ const MainPage = () => {
                 </ MainPageContainer>
             }
 
-            {
-                showAddColumnModal &&
+            {showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>
                     <AddColumnModal board_id={board_id} />
                 </Modal>
             }
-            {
-                showAddBoardModal &&
+            {showAddBoardModal &&
                 <Modal closeModal={setShowAddBoardModal}>
                     <AddBoardModal boardId={board_id} />
                 </Modal>
@@ -78,5 +77,6 @@ const MainPage = () => {
         </>
     )
 }
+
 
 export default MainPage

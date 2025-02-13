@@ -8,6 +8,7 @@ const EditTaskModal = ({ task }) => {
 
     useEffect(() => {
         console.log('>>> Task [Edit Task Modal]:', task)
+        console.log('>>> Subtasks [Edit Task Modal]:', task.subtasks)
     }, [])
 
     const handleSubmit = async (e) => {
@@ -58,14 +59,12 @@ const EditTaskModal = ({ task }) => {
 
                 <InputBox>
                     <InputLabel>Subtasks</InputLabel>
-                    <AddSubtaskInput>
-                        <Input type='text' placeholder='e.g. Make coffee' />
-                        <img src={RemoveSubtask} alt="" />
-                    </AddSubtaskInput>
-                    <AddSubtaskInput>
-                        <Input type='text' placeholder='e.g. Drink coffee & smile' />
-                        <img src={RemoveSubtask} alt="" />
-                    </AddSubtaskInput>
+                    {task.subtasks.map((subtask, index) => (
+                        <AddSubtaskInput key={index}>
+                            <Input type='text' placeholder='e.g. Make coffee' value={subtask.subtask_name} />
+                            <img src={RemoveSubtask} alt="" />
+                        </AddSubtaskInput>
+                    ))}
                 </InputBox>
 
                 <AddSubtaskButton>
