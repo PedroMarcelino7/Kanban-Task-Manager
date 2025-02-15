@@ -1,47 +1,43 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { Header, Title, InputBox, InputLabel, Input, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
-import AddSubtaskInputComponent from './addsubtaskinput/main'
+
+// Form Validation
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
+
+// Styles
+import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
+
+// UI Components
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
+//---
+
+//YUP Schema
+const schema = yup.object({
+    name: yup.string().required('Campo obrigatório!'),
+}).required();
+
+//
+//
+//
 const AddBoardModal = ({ boardId }) => {
-    const [boardName, setBoardName] = useState('')
+    // From Validator
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    //
+    //
+    // Variables
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
-    const handleColumnChange = (id, newValue) => {
-        setColumns((prevColumns) =>
-            prevColumns.map((column) =>
-                column.id === id ? { ...column, value: newValue } : column
-            )
-        );
-    };
-
-    const handleColorChange = (id, newColor) => {
-        setColumns((prevColumns) =>
-            prevColumns.map((column) =>
-                column.id === id ? { ...column, color: newColor } : column
-            )
-        );
-    };
-
-    const addNewColumn = () => {
-        setColumns((prevColumns) => [
-            ...prevColumns,
-            { id: prevColumns.length, value: '', color: '#000' },
-        ]);
-    };
-
-    const delColumn = (id) => {
-        setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
-    }
-
-    useEffect(() => {
-        console.log('>>> Board ID [Add Board Modal]:', boardId)
-    }, [])
-
-    const createBoard = async (e) => {
-        e.preventDefault();
-        console.log('>>> Submit new board [Add Board Modal]:', '\n > Board name: ', boardName, '\n > Columns:', columns);
+    // Handle Submit
+    const createBoard = async (formData) => {
+        console.log('>>> Hook Form Data [Add Board Modal]:', formData)
+        console.log('>>> Submit new board [Add Board Modal]:', '\n > Columns:', columns);
 
         try {
             const response = await fetch('http://localhost:3001/api/boards/post', {
@@ -50,7 +46,7 @@ const AddBoardModal = ({ boardId }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    board_name: boardName
+                    board_name: formData.name
                 })
             })
 
@@ -79,6 +75,44 @@ const AddBoardModal = ({ boardId }) => {
         }
     }
 
+    // Use Effect Logs
+    useEffect(() => {
+        console.log('>>> Board ID [Add Board Modal]:', boardId)
+    }, [])
+
+    //
+    //
+    // Other Functions
+    const handleColumnChange = (id, newValue) => {
+        setColumns((prevColumns) =>
+            prevColumns.map((column) =>
+                column.id === id ? { ...column, value: newValue } : column
+            )
+        );
+    };
+
+    const handleColorChange = (id, newColor) => {
+        setColumns((prevColumns) =>
+            prevColumns.map((column) =>
+                column.id === id ? { ...column, color: newColor } : column
+            )
+        );
+    };
+
+    const addNewColumn = () => {
+        setColumns((prevColumns) => [
+            ...prevColumns,
+            { id: prevColumns.length, value: '', color: '#000' },
+        ]);
+    };
+
+    const delColumn = (id) => {
+        setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
+    }
+
+    //
+    //
+    //
     return (
         <>
             <div>
@@ -90,13 +124,13 @@ const AddBoardModal = ({ boardId }) => {
             </div>
 
             <div>
-                <Form onSubmit={createBoard}>
+                <Form onSubmit={handleSubmit(createBoard)}>
                     <LabeledInput
                         label='Name'
                         type='text'
                         placeholder='e.g. Web Design'
-                        inputValue={boardName}
-                        onValueChange={setBoardName}
+                        name={{ ...register("name") }}
+                        error={errors?.name?.message}
                     />
 
                     <DeletableInput

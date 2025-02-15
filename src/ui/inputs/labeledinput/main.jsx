@@ -1,16 +1,15 @@
 import { Input, InputBox, InputLabel } from "./labeledinput.styles"
 
-
-const LabeledInput = ({ label = '', type = 'text', placeholder = '', inputValue, onValueChange }) => {
+const LabeledInput = ({ label = '', type = 'text', placeholder = '', name, error }) => {
     return (
         <InputBox>
             <InputLabel>{label}</InputLabel>
             <Input
                 type={type}
                 placeholder={placeholder}
-                value={inputValue}
-                onChange={(e) => onValueChange(e.target.value)}
+                {...name}
             />
+            <h1>{error}</h1>
         </InputBox>
     )
 }
