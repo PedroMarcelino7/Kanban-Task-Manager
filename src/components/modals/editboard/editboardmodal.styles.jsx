@@ -20,61 +20,6 @@ export const Form = styled.form`
     gap: 1.5rem;
 `
 
-export const InputBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem; 
-`
-
-export const InputLabel = styled.label`
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 19px;
-    color: var(--medium-gray);
-`
-
-export const Input = styled.input`
-    width: 100%;
-    padding: 0.75rem;
-    border: 2px solid var(--light);
-    border-radius: 5px;
-    background-color: var(--white);
-
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 19px;
-    color: var(--black);
-
-    outline: none;
-    transition: all 0.5s;
-
-    &::placeholder {
-        color: var(--medium-gray);
-        font-weight: normal;
-    }
-
-    &:focus {
-        border-color: var(--main-purple);
-    }
-    
-    &:active {
-        border-color: var(--main-purple);
-    }
-`
-
-export const AddSubtaskInput = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-
-    img {
-        width: 35px;
-        padding: 0.5rem;
-
-        cursor: pointer;
-    }
-`
-
 export const SectionTitle = styled.h4`
     font-size: 15px;
     font-weight: bold;

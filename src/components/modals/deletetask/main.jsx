@@ -1,7 +1,14 @@
+// React
 import React from 'react'
+
+// Styles
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
 
+//
+//
+//
 const DeleteTaskModal = ({ task_id, closeModal }) => {
+    // Handle Submit
     const deleteTask = async () => {
         try {
             const response = await fetch('http://localhost:3001/api/tasks/delete', {
@@ -21,6 +28,9 @@ const DeleteTaskModal = ({ task_id, closeModal }) => {
         }
     }
 
+    //
+    //
+    //
     return (
         <>
             <div>

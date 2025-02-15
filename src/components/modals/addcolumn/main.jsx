@@ -1,11 +1,69 @@
+// React
 import React, { useState } from 'react'
-import { Header, Title, InputBox, InputLabel, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
-import AddSubtaskInputComponent from './addsubtaskinput/main'
+
+// Form Validation
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
+
+// Styles
+import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
+
+// Components
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
+// UI Components
+
+//---
+
+//YUP Schema
+const schema = yup.object({
+    name: yup.string().required('Campo obrigatório!'),
+}).required();
+
+//
+//
+//
 const AddColumnModal = ({ board_id }) => {
+    // Form Validator
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    //
+    //
+    // Variables
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
+    // Handle Submit
+    const createColumn = async (e) => {
+        e.preventDefault();
+        console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
+
+        try {
+            const response = await fetch('http://localhost:3001/api/columns/post', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    columns: columns,
+                    board_id: board_id
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Columns [Add Column Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao criar as colunas:', error);
+        }
+    }
+
+    // Use Effect Logs
+
+    //
+    //
+    // Other Functions
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
@@ -33,29 +91,9 @@ const AddColumnModal = ({ board_id }) => {
         setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
     }
 
-    const createColumn = async (e) => {
-        e.preventDefault();
-        console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
-
-        try {
-            const response = await fetch('http://localhost:3001/api/columns/post', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    columns: columns,
-                    board_id: board_id
-                })
-            })
-
-            const data = await response.json();
-            console.log('>>> Resposta Columns [Add Column Modal]:', data);
-        } catch (error) {
-            console.error('Erro ao criar as colunas:', error);
-        }
-    }
-
+    //
+    //
+    //
     return (
         <>
             <div>

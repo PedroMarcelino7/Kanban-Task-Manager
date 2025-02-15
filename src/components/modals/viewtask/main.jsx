@@ -1,13 +1,30 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
-import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
-import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import { useParams } from 'react-router-dom'
+
+// Styles
+import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
+
+// Components
+import Modal from '../main'
 import EditTaskModal from '../edittask/main'
 import DeleteTaskModal from '../deletetask/main'
-import Modal from '../main'
 
+// UI Components
+
+// Images | Icons
+import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
+import SelectIcon from '../../../assets/icon-chevron-down.svg'
+
+//---
+
+//
+//
+//
 const ViewTaskModal = ({ task, column, data }) => {
+    //
+    //
+    // Variables
     const { board_id } = useParams()
     const [subtasks, setSubtasks] = useState([...task.subtasks])
     const [columnId, setColumnId] = useState(1)
@@ -15,22 +32,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     const [showEditTaskModal, setShowEditTaskModal] = useState(false)
     const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false)
 
-    const getCheckedSubtasks = () => {
-        return subtasks.reduce((count, subtask) => {
-            return subtask.subtask_ischecked === 1 ? count + 1 : count;
-        }, 0);
-    };
-
-    const handleCheckSubtask = (id) => {
-        setSubtasks((prevSubtasks) =>
-            prevSubtasks.map((subtask) =>
-                subtask.subtask_id === id
-                    ? { ...subtask, subtask_ischecked: subtask.subtask_ischecked === 1 ? 0 : 1 }
-                    : subtask
-            )
-        );
-    };
-
+    // Handle Submit
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -70,6 +72,7 @@ const ViewTaskModal = ({ task, column, data }) => {
         }
     }
 
+    // Use Effect Logs
     useEffect(() => {
         console.log('>>> Task [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
@@ -78,6 +81,28 @@ const ViewTaskModal = ({ task, column, data }) => {
         console.log('>>> Subtasks [View task modal]:', subtasks)
     }, [])
 
+    //
+    //
+    // Other Functions
+    const getCheckedSubtasks = () => {
+        return subtasks.reduce((count, subtask) => {
+            return subtask.subtask_ischecked === 1 ? count + 1 : count;
+        }, 0);
+    };
+
+    const handleCheckSubtask = (id) => {
+        setSubtasks((prevSubtasks) =>
+            prevSubtasks.map((subtask) =>
+                subtask.subtask_id === id
+                    ? { ...subtask, subtask_ischecked: subtask.subtask_ischecked === 1 ? 0 : 1 }
+                    : subtask
+            )
+        );
+    };
+
+    //
+    //
+    //
     return (
         <>
             <div>

@@ -20,19 +20,6 @@ export const Form = styled.form`
     gap: 1.5rem;
 `
 
-export const InputBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem; 
-`
-
-export const InputLabel = styled.label`
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 19px;
-    color: var(--medium-gray);
-`
-
 export const Input = styled.input`
     width: 100%;
     padding: 0.75rem;

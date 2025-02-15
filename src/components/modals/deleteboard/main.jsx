@@ -1,8 +1,14 @@
+// React
 import React, { useEffect } from 'react'
+
+// Styles
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
 
+//
+//
+//
 const DeleteBoardModal = ({ board_id, closeModal }) => {
-
+    // Handle Submit
     const deleteBoard = async () => {
         try {
             const response = await fetch('http://localhost:3001/api/boards/delete', {
@@ -22,6 +28,9 @@ const DeleteBoardModal = ({ board_id, closeModal }) => {
         }
     }
 
+    //
+    //
+    //
     return (
         <>
             <div>

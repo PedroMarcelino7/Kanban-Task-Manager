@@ -1,20 +1,49 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
-import RemoveSubtask from '../../../assets/icon-cross.svg'
+
+// Form Validation
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
+
+// Styles
+import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
+
+// Components
+
+// UI Components
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
+// Images | Icons
+import RemoveSubtask from '../../../assets/icon-cross.svg'
+
+//---
+
+//YUP Schema
+const schema = yup.object({
+    name: yup.string().required('Campo obrigatório!'),
+    description: yup.string(),
+}).required();
+
+//
+//
+//
 const EditTaskModal = ({ task }) => {
+    // Form Validator
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    //
+    //
+    // Variables
     const [taskTitle, setTaskTitle] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
 
-    useEffect(() => {
-        console.log('>>> Task [Edit Task Modal]:', task)
-        console.log('>>> Subtasks [Edit Task Modal]:', task.subtasks)
-    }, [])
-
-    const handleSubmit = async (e) => {
+    // Handle Submit
+    const onSubmit = async (e) => {
         e.preventDefault()
 
         console.log('>>> Handle Submit Data [Edit Task Modal]:', task.task_id, taskTitle, taskDescription)
@@ -39,6 +68,15 @@ const EditTaskModal = ({ task }) => {
         }
     }
 
+    // Use Effect Logs
+    useEffect(() => {
+        console.log('>>> Task [Edit Task Modal]:', task)
+        console.log('>>> Subtasks [Edit Task Modal]:', task.subtasks)
+    }, [])
+
+    //
+    //
+    //
     return (
         <>
             <Header>
@@ -47,20 +85,20 @@ const EditTaskModal = ({ task }) => {
                 </Title>
             </Header>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <LabeledInput
                     label='Title'
                     type='text'
                     placeholder='e.g. Take Coffee Break'
-                    inputValue={taskTitle}
-                    onValueChange={setTaskTitle}
+                    name={{ ...register('name') }}
+                    error={errors?.name?.message}
                 />
 
                 <LabeledTextArea
                     label='Description'
                     placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
-                    inputValue={taskDescription}
-                    onValueChange={setTaskDescription}
+                    name={{ ...register('description') }}
+                    error={errors?.description?.message}
                 />
 
                 <DeletableInput
@@ -68,8 +106,8 @@ const EditTaskModal = ({ task }) => {
                     data={task.subtasks}
                     type='text'
                     placeholder='e.g. Make Coffee'
-                    // onValueChange={}
-                    // closeButton={}
+                // onValueChange={}
+                // closeButton={}
                 />
 
                 <InputBox>

@@ -24,7 +24,7 @@ const schema = yup.object({
 //
 //
 const AddBoardModal = ({ boardId }) => {
-    // From Validator
+    // Form Validator
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
