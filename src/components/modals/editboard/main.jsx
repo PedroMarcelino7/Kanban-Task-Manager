@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
+import LabeledInput from '../../../ui/inputs/labeledinput/main'
 
 const EditBoardModal = ({ data, board_id }) => {
     const board = data[board_id - 1]
@@ -70,10 +71,7 @@ const EditBoardModal = ({ data, board_id }) => {
 
             <div>
                 <Form onSubmit={handleSubmit}>
-                    <InputBox>
-                        <InputLabel>Name</InputLabel>
-                        <Input type='text' placeholder='e.g. Web Design' value={boardName} onChange={(e) => setBoardName(e.target.value)} />
-                    </InputBox>
+                    <LabeledInput label='Name' type='text' placeholder='e.g. Web Design' inputValue={boardName} onValueChange={setBoardName} />
 
                     <InputBox>
                         <InputLabel>Columns</InputLabel>

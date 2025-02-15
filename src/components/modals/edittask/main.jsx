@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
+import LabeledInput from '../../../ui/inputs/labeledinput/main'
+import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 
 const EditTaskModal = ({ task }) => {
     const [taskTitle, setTaskTitle] = useState(task.task_name)
@@ -45,17 +47,20 @@ const EditTaskModal = ({ task }) => {
             </Header>
 
             <Form onSubmit={handleSubmit}>
-                <InputBox>
-                    <InputLabel>Title</InputLabel>
-                    <Input type='text' placeholder='e.g. Take coffee break' value={taskTitle} onChange={(e) => setTaskTitle(e.target.value)} />
-                </InputBox>
+                <LabeledInput
+                    label='Title'
+                    type='text'
+                    placeholder='e.g. Take Coffee Break'
+                    inputValue={taskTitle}
+                    onValueChange={setTaskTitle}
+                />
 
-                <InputBox>
-                    <InputLabel>Description</InputLabel>
-                    <TextArea placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`} max={3}
-                        value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)}
-                    />
-                </InputBox>
+                <LabeledTextArea
+                    label='Description'
+                    placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
+                    inputValue={taskDescription}
+                    onValueChange={setTaskDescription}
+                />
 
                 <InputBox>
                     <InputLabel>Subtasks</InputLabel>

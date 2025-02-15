@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
 import AddSubtaskInputComponent from './addsubtaskinput/main'
+import LabeledInput from '../../../ui/inputs/labeledinput/main'
 
 const AddBoardModal = ({ boardId }) => {
     const [boardName, setBoardName] = useState('')
@@ -89,17 +90,12 @@ const AddBoardModal = ({ boardId }) => {
 
             <div>
                 <Form onSubmit={createBoard}>
-                    <InputBox>
-                        <InputLabel>Name</InputLabel>
-                        <Input type='text' placeholder='e.g. Web Design'
-                            value={boardName} onChange={(e) => setBoardName(e.target.value)}
-                        />
-                    </InputBox>
+                    <LabeledInput label='Name' type='text' placeholder='e.g. Web Design' inputValue={boardName} onValueChange={setBoardName} />
 
                     <InputBox>
                         <InputLabel>Columns</InputLabel>
 
-                        <div id='columns'>
+                        <div>
                             {columns.map((column, index) => (
                                 <AddSubtaskInputComponent key={index}
                                     value={column.value}
