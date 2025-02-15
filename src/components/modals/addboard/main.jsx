@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
 import AddSubtaskInputComponent from './addsubtaskinput/main'
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 const AddBoardModal = ({ boardId }) => {
     const [boardName, setBoardName] = useState('')
@@ -90,24 +91,24 @@ const AddBoardModal = ({ boardId }) => {
 
             <div>
                 <Form onSubmit={createBoard}>
-                    <LabeledInput label='Name' type='text' placeholder='e.g. Web Design' inputValue={boardName} onValueChange={setBoardName} />
+                    <LabeledInput
+                        label='Name'
+                        type='text'
+                        placeholder='e.g. Web Design'
+                        inputValue={boardName}
+                        onValueChange={setBoardName}
+                    />
 
-                    <InputBox>
-                        <InputLabel>Columns</InputLabel>
-
-                        <div>
-                            {columns.map((column, index) => (
-                                <AddSubtaskInputComponent key={index}
-                                    value={column.value}
-                                    color={column.color}
-                                    id={column.id}
-                                    onValueChange={handleColumnChange}
-                                    onColorChange={handleColorChange}
-                                    deleteColumn={delColumn}
-                                />
-                            ))}
-                        </div>
-                    </InputBox>
+                    <DeletableInput
+                        label='Columns'
+                        data={columns}
+                        type='text'
+                        placeholder='e.g. Todo'
+                        onValueChange={handleColumnChange}
+                        hasColorInput={true}
+                        onColorChange={handleColorChange}
+                        closeButton={delColumn}
+                    />
 
                     <AddNewColumnButton type='button' onClick={addNewColumn}>
                         + Add New Column

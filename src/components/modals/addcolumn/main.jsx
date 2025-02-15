@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
 import AddSubtaskInputComponent from './addsubtaskinput/main'
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 const AddColumnModal = ({ board_id }) => {
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
@@ -67,22 +68,16 @@ const AddColumnModal = ({ board_id }) => {
 
             <div>
                 <Form onSubmit={createColumn}>
-                    <InputBox>
-                        <InputLabel>Columns</InputLabel>
-
-                        <div id='columns'>
-                            {columns.map((column, index) => (
-                                <AddSubtaskInputComponent key={index}
-                                    value={column.value}
-                                    color={column.color}
-                                    id={column.id}
-                                    onValueChange={handleColumnChange}
-                                    onColorChange={handleColorChange}
-                                    deleteColumn={delColumn}
-                                />
-                            ))}
-                        </div>
-                    </InputBox>
+                    <DeletableInput
+                        label='Columns'
+                        data={columns}
+                        type='text'
+                        placeholder='e.g. Todo'
+                        onValueChange={handleColumnChange}
+                        hasColorInput={true}
+                        onColorChange={handleColorChange}
+                        closeButton={delColumn}
+                    />
 
                     <AddNewColumnButton type='button' onClick={addNewColumn}>
                         + Add New Column

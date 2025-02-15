@@ -3,6 +3,7 @@ import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, Inp
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 const EditTaskModal = ({ task }) => {
     const [taskTitle, setTaskTitle] = useState(task.task_name)
@@ -60,6 +61,15 @@ const EditTaskModal = ({ task }) => {
                     placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
                     inputValue={taskDescription}
                     onValueChange={setTaskDescription}
+                />
+
+                <DeletableInput
+                    label='Subtasks'
+                    data={task.subtasks}
+                    type='text'
+                    placeholder='e.g. Make Coffee'
+                    // onValueChange={}
+                    // closeButton={}
                 />
 
                 <InputBox>

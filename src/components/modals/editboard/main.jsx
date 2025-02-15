@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 const EditBoardModal = ({ data, board_id }) => {
     const board = data[board_id - 1]
@@ -73,15 +74,14 @@ const EditBoardModal = ({ data, board_id }) => {
                 <Form onSubmit={handleSubmit}>
                     <LabeledInput label='Name' type='text' placeholder='e.g. Web Design' inputValue={boardName} onValueChange={setBoardName} />
 
-                    <InputBox>
-                        <InputLabel>Columns</InputLabel>
-                        {columns.map((column, index) => (
-                            <AddSubtaskInput key={index}>
-                                <Input type="text" placeholder="e.g. Todo" value={column.value} onChange={(e) => editColumns(column.id, e.target.value)} />
-                                <img src={RemoveSubtask} alt="" />
-                            </AddSubtaskInput>
-                        ))}
-                    </InputBox>
+                    <DeletableInput
+                        label='Columns'
+                        data={columns}
+                        type='text'
+                        placeholder='e.g. Todo'
+                        onValueChange={editColumns}
+                        // closeButton={}
+                    />
 
                     <AddSubtaskButton type='button'>
                         + Add New Column

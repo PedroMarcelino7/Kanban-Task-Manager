@@ -4,6 +4,7 @@ import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 const AddTaskModal = ({ data, board_id }) => {
     const [taskName, setTaskName] = useState('')
