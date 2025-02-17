@@ -1,4 +1,4 @@
-import { Input, InputBox, InputLabel } from "./labeledinput.styles"
+import { Error, Input, InputBox, InputLabel } from "./labeledinput.styles"
 
 const LabeledInput = ({ label = '', type = 'text', placeholder = '', name, error }) => {
     return (
@@ -9,7 +9,7 @@ const LabeledInput = ({ label = '', type = 'text', placeholder = '', name, error
                 placeholder={placeholder}
                 {...name}
             />
-            <h1>{error}</h1>
+            <Error>{error}</Error>
         </InputBox>
     )
 }

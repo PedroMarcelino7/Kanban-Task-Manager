@@ -88,10 +88,37 @@ const EditBoardModal = ({ data, board_id }) => {
     //
     //
     // Other Functions
-    const editColumns = (id, value) => {
+    // const editColumns = (id, value) => {
+    //     setColumns((prevColumns) =>
+    //         prevColumns.map((col) => (col.id === id ? { ...col, value } : col))
+    //     )
+    // }
+
+    const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
-            prevColumns.map((col) => (col.id === id ? { ...col, value } : col))
-        )
+            prevColumns.map((column) =>
+                column.id === id ? { ...column, value: newValue } : column
+            )
+        );
+    };
+
+    const handleColorChange = (id, newColor) => {
+        setColumns((prevColumns) =>
+            prevColumns.map((column) =>
+                column.id === id ? { ...column, color: newColor } : column
+            )
+        );
+    };
+
+    const addNewColumn = () => {
+        setColumns((prevColumns) => [
+            ...prevColumns,
+            { id: prevColumns.length, value: '', color: '#000' },
+        ]);
+    };
+
+    const delColumn = (id) => {
+        setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
     }
 
     //
@@ -122,11 +149,13 @@ const EditBoardModal = ({ data, board_id }) => {
                         data={columns}
                         type='text'
                         placeholder='e.g. Todo'
-                        onValueChange={editColumns}
-                    // closeButton={}
+                        onValueChange={handleColumnChange}
+                        hasColorInput={true}
+                        onColorChange={handleColorChange}
+                        closeButton={delColumn}
                     />
 
-                    <AddSubtaskButton type='button'>
+                    <AddSubtaskButton type='button' onClick={addNewColumn}>
                         + Add New Column
                     </AddSubtaskButton>
 

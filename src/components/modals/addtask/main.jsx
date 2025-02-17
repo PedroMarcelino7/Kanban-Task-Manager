@@ -105,6 +105,14 @@ const AddTaskModal = ({ data, board_id }) => {
         }
     }
 
+    const handleSubtaskChange = (id, newValue) => {
+        setSubtasks((prevSubtasks) =>
+            prevSubtasks.map((subtask) =>
+                subtask.id === id ? { ...subtask, value: newValue } : subtask
+            )
+        );
+    };
+
     const addSubtask = () => {
         setSubtasks((prevSubtasks) => [
             ...prevSubtasks,
@@ -145,24 +153,14 @@ const AddTaskModal = ({ data, board_id }) => {
                     error={errors?.description?.message}
                 />
 
-                <InputBox>
-                    <InputLabel>Subtasks</InputLabel>
-                    {subtasks.map((subtask, index) => (
-                        <AddSubtaskInput key={index}>
-                            <Input type="text" placeholder="e.g. Make coffee"
-                                value={subtask.value}
-                                onChange={(e) =>
-                                    setSubtasks((prevSubtasks) =>
-                                        prevSubtasks.map((task) =>
-                                            task.id === subtask.id ? { ...task, value: e.target.value } : task
-                                        )
-                                    )
-                                }
-                            />
-                            <img src={RemoveSubtask} alt="" onClick={() => delSubtask(subtask.id)} />
-                        </AddSubtaskInput>
-                    ))}
-                </InputBox>
+                <DeletableInput
+                    label='Subtasks'
+                    data={subtasks}
+                    type='text'
+                    placeholder='e.g. Make Coffee'
+                    onValueChange={handleSubtaskChange}
+                    closeButton={delSubtask}
+                />
 
                 <AddSubtaskButton type='button' onClick={addSubtask}>
                     + Add New Subtask

@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 
 // Styles
-import { Header, Title, InputBox, InputLabel, Input, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
+import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
 
 // Components
 
@@ -17,7 +17,6 @@ import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 // Images | Icons
-import RemoveSubtask from '../../../assets/icon-cross.svg'
 
 //---
 
@@ -41,6 +40,7 @@ const EditTaskModal = ({ task }) => {
     // Variables
     const [taskTitle, setTaskTitle] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
+    const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
 
     // Handle Submit
     const onSubmit = async (e) => {
@@ -76,6 +76,28 @@ const EditTaskModal = ({ task }) => {
 
     //
     //
+    // Other Functions
+    const handleSubtaskChange = (id, newValue) => {
+        setSubtasks((prevSubtasks) =>
+            prevSubtasks.map((subtask) =>
+                subtask.id === id ? { ...subtask, value: newValue } : subtask
+            )
+        );
+    };
+
+    const addSubtask = () => {
+        setSubtasks((prevSubtasks) => [
+            ...prevSubtasks,
+            { id: prevSubtasks.length, value: '' },
+        ]);
+    }
+
+    const delSubtask = (id) => {
+        setSubtasks(prevSubtasks => prevSubtasks.filter(subtask => subtask.id !== id))
+    }
+
+    //
+    //
     //
     return (
         <>
@@ -103,14 +125,14 @@ const EditTaskModal = ({ task }) => {
 
                 <DeletableInput
                     label='Subtasks'
-                    data={task.subtasks}
+                    data={subtasks}
                     type='text'
                     placeholder='e.g. Make Coffee'
-                // onValueChange={}
-                // closeButton={}
+                    onValueChange={handleSubtaskChange}
+                    closeButton={delSubtask}
                 />
 
-                <InputBox>
+                {/* <InputBox>
                     <InputLabel>Subtasks</InputLabel>
                     {task.subtasks.map((subtask, index) => (
                         <AddSubtaskInput key={index}>
@@ -118,9 +140,9 @@ const EditTaskModal = ({ task }) => {
                             <img src={RemoveSubtask} alt="" />
                         </AddSubtaskInput>
                     ))}
-                </InputBox>
+                </InputBox> */}
 
-                <AddSubtaskButton>
+                <AddSubtaskButton type='button' onClick={addSubtask}>
                     + Add New Subtask
                 </AddSubtaskButton>
 
