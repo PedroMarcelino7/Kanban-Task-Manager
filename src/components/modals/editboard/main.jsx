@@ -16,27 +16,33 @@ import DeletableInput from "../../../ui/inputs/deletableinput/main";
 // Yup Schema
 const schema = yup.object({
     name: yup.string().required("Campo obrigatório!"),
+    columns: yup.array().of(
+        yup.object().shape({
+            value: yup.string().required('Campo obrigatório!')
+        })
+    )
 }).required();
 
 const EditBoardModal = ({ data, board_id }) => {
-    // Buscar o board correto
-    const board = data.find((b) => b.board_id === Number(board_id));
 
     // Form Validator
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-            name: "",
-        },
+        resolver: yupResolver(schema)
     });
 
-    // State para colunas
+    //
+    //
+    // Variables
+    const board = data.find((b) => b.board_id === Number(board_id));
     const [columns, setColumns] = useState([]);
 
-    // Atualizar os valores iniciais quando o `board` estiver disponível
+    // Use Effect Logs
     useEffect(() => {
         if (board) {
-            reset({ name: board.board_name });
+            reset({
+                name: board.board_name,
+                columns: board.columns.map((col) => ({ value: col.column_name }))
+            });
             setColumns(board.columns.map((col) => ({ id: col.column_id, value: col.column_name })));
         }
     }, [board, reset]);
@@ -73,7 +79,9 @@ const EditBoardModal = ({ data, board_id }) => {
         }
     };
 
-    // Funções para manipular colunas
+    //
+    //
+    // Other Functions
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
@@ -85,9 +93,11 @@ const EditBoardModal = ({ data, board_id }) => {
     const handleColorChange = (id, newColor) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.id === id ? { ...column, color: newColor } : column
+                column.id === id ? { ...column, value: newValue } : column
             )
         );
+
+        setValue(`columns.${columns.findIndex(col => col.id === id)}.value`, newValue)
     };
 
     const addNewColumn = () => {
@@ -101,6 +111,9 @@ const EditBoardModal = ({ data, board_id }) => {
         setColumns((prevColumns) => prevColumns.filter((column) => column.id !== id));
     };
 
+    //
+    //
+    //
     return (
         <>
             <Header>
@@ -124,9 +137,17 @@ const EditBoardModal = ({ data, board_id }) => {
                     placeholder="e.g. Todo"
                     onValueChange={handleColumnChange}
                     hasColorInput={true}
+                />
+                {/* <DeletableInput
+                    label="Columns"
+                    data={columns}
+                    type="text"
+                    placeholder="e.g. Todo"
+                    onValueChange={handleColumnChange}
+                    hasColorInput={true}
                     onColorChange={handleColorChange}
                     closeButton={delColumn}
-                />
+                /> */}
 
                 <AddSubtaskButton type="button" onClick={addNewColumn}>
                     + Add New Column

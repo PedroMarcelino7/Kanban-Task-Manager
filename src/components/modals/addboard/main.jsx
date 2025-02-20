@@ -20,7 +20,7 @@ const schema = yup.object({
     name: yup.string().required('Campo obrigatório!'),
     columns: yup.array().of(
         yup.object().shape({
-            value: yup.string().required('Campo obrigatório!')
+            value: yup.string().required('Campo obrigatório!'),
         })
     )
 }).required();

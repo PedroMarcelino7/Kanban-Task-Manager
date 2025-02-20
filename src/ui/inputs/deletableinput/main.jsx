@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react'
 
 // Form Validation
-import * as yup from "yup"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 // Styles
 import { AddSubtaskInput, Input, InputBox, InputLabel, MappedDiv } from './deletableinput.styles'
@@ -26,6 +28,15 @@ const schema = yup.object({
 //
 //
 const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', onValueChange, errors, hasColorInput, onColorChange, closeButton }) => {
+    // Form Validator
+    const { register } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            name: "",
+            columns: [{ value: '' }]
+        },
+    });
+
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Deletable Input]:', data)
@@ -45,7 +56,7 @@ const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', onV
                             <Input
                                 type={type}
                                 placeholder={placeholder}
-                                value={item.value}
+                                defaultValue={item.value}
                                 onChange={(e) => onValueChange(item.id, e.target.value)}
                             />
 
