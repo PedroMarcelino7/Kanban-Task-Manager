@@ -1,3 +1,4 @@
+import DefaultInputError from "../../labels/default_input_error/main"
 import { InputBox, InputLabel, TextArea } from "./labeledtextarea.styles"
 
 const LabeledTextArea = ({ label = '', placeholder, max = 3, name, error }) => {
@@ -8,7 +9,7 @@ const LabeledTextArea = ({ label = '', placeholder, max = 3, name, error }) => {
                 placeholder={placeholder} max={max}
                 {...name}
             />
-            <h1>{error}</h1>
+            <DefaultInputError message={error} />
         </InputBox>
     )
 }

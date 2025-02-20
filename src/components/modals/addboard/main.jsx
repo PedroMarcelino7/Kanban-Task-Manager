@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 // Form Validation
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 
@@ -18,6 +18,11 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 //YUP Schema
 const schema = yup.object({
     name: yup.string().required('Campo obrigatório!'),
+    columns: yup.array().of(
+        yup.object().shape({
+            value: yup.string().required('Campo obrigatório!')
+        })
+    )
 }).required();
 
 //
@@ -25,14 +30,23 @@ const schema = yup.object({
 //
 const AddBoardModal = ({ boardId }) => {
     // Form Validator
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+    const { register, handleSubmit, formState: { errors }, control } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            name: '',
+            columns: [{ value: '', color: '#000' }]
+        }
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "columns"
     });
 
     //
     //
     // Variables
-    const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
+    const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000', name: 'name-0' }])
 
     // Handle Submit
     const createBoard = async (formData) => {
@@ -100,15 +114,12 @@ const AddBoardModal = ({ boardId }) => {
     };
 
     const addNewColumn = () => {
-        setColumns((prevColumns) => [
-            ...prevColumns,
-            { id: prevColumns.length, value: '', color: '#000' },
-        ]);
+        append({ value: '', color: '#000' });
     };
 
-    const delColumn = (id) => {
-        setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
-    }
+    const delColumn = (index) => {
+        remove(index);
+    };
 
     //
     //
@@ -135,10 +146,11 @@ const AddBoardModal = ({ boardId }) => {
 
                     <DeletableInput
                         label='Columns'
-                        data={columns}
+                        data={fields}
                         type='text'
                         placeholder='e.g. Todo'
-                        onValueChange={handleColumnChange}
+                        register={register}
+                        errors={errors}
                         hasColorInput={true}
                         onColorChange={handleColorChange}
                         closeButton={delColumn}
