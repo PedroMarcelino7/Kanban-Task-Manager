@@ -25,7 +25,7 @@ const schema = yup.object({
 //
 //
 //
-const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', register, errors, hasColorInput, onColorChange, closeButton }) => {
+const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', onValueChange, errors, hasColorInput, onColorChange, closeButton }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Deletable Input]:', data)
@@ -40,16 +40,18 @@ const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', reg
 
             <div>
                 {data.map((item, index) => (
-                    <MappedDiv>
-                        <AddSubtaskInput key={index}>
+                    <MappedDiv key={index}>
+                        <AddSubtaskInput>
                             <Input
                                 type={type}
                                 placeholder={placeholder}
-                                // {...register(`columns.${index}.value`)}
+                                value={item.value}
+                                onChange={(e) => onValueChange(item.id, e.target.value)}
                             />
 
                             {hasColorInput &&
-                                <Input type="color"
+                                <Input
+                                    type="color"
                                     value={item.color}
                                     onChange={(e) => onColorChange(item.id, e.target.value)}
                                 />

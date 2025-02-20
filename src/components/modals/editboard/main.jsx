@@ -1,99 +1,79 @@
 // React
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 // Form Validation
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 // Styles
-import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './editboardmodal.styles'
-
-// Components
+import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editboardmodal.styles";
 
 // UI Components
-import LabeledInput from '../../../ui/inputs/labeledinput/main'
-import DeletableInput from '../../../ui/inputs/deletableinput/main'
+import LabeledInput from "../../../ui/inputs/labeledinput/main";
+import DeletableInput from "../../../ui/inputs/deletableinput/main";
 
-// Images | Icons
-
-//---
-
-//YUP Schema
+// Yup Schema
 const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
+    name: yup.string().required("Campo obrigatório!"),
 }).required();
 
-//
-//
-//
 const EditBoardModal = ({ data, board_id }) => {
-    // Form Validator
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    })
+    // Buscar o board correto
+    const board = data.find((b) => b.board_id === Number(board_id));
 
-    //
-    //
-    // Variables
-    const board = data[board_id - 1]
-    const [boardName, setBoardName] = useState(board.board_name)
-    const [columns, setColumns] = useState(board.columns.map((col) => ({ id: col.column_id, value: col.column_name })))
+    // Form Validator
+    const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            name: "",
+        },
+    });
+
+    // State para colunas
+    const [columns, setColumns] = useState([]);
+
+    // Atualizar os valores iniciais quando o `board` estiver disponível
+    useEffect(() => {
+        if (board) {
+            reset({ name: board.board_name });
+            setColumns(board.columns.map((col) => ({ id: col.column_id, value: col.column_name })));
+        }
+    }, [board, reset]);
 
     // Handle Submit
     const onSubmit = async (formData) => {
         try {
-            const response = await fetch('http://localhost:3001/api/boards/update', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            const response = await fetch("http://localhost:3001/api/boards/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     board_id: board.board_id,
-                    board_name: formData.name
-                })
-            })
+                    board_name: formData.name,
+                }),
+            });
 
             const data = await response.json();
-            console.log('>>> Resposta Board [Edit Board Modal]:', data);
+            console.log(">>> Resposta Board [Edit Board Modal]:", data);
         } catch (error) {
-            console.error('Erro ao editar o board:', error);
+            console.error("Erro ao editar o board:", error);
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/columns/update', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    columns: columns
-                })
-            })
+            const response = await fetch("http://localhost:3001/api/columns/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ columns }),
+            });
 
-            const data = await response.json()
-            console.log('>>> Resposta Columns [Edit Board Modal]:', data)
+            const data = await response.json();
+            console.log(">>> Resposta Columns [Edit Board Modal]:", data);
         } catch (error) {
-            console.error('Erro ao editar as colunas:', error);
+            console.error("Erro ao editar as colunas:", error);
         }
-    }
+    };
 
-    // Use Effect Logs
-    useEffect(() => {
-        console.log('>>> Data [Edit Board Modal]:', board)
-        console.log('>>> Board Name [Edit Board Modal]:', boardName)
-        console.log('>>> Columns [Edit Board Modal]:', columns)
-    }, [])
-
-    //
-    //
-    // Other Functions
-    // const editColumns = (id, value) => {
-    //     setColumns((prevColumns) =>
-    //         prevColumns.map((col) => (col.id === id ? { ...col, value } : col))
-    //     )
-    // }
-
+    // Funções para manipular colunas
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
@@ -113,59 +93,51 @@ const EditBoardModal = ({ data, board_id }) => {
     const addNewColumn = () => {
         setColumns((prevColumns) => [
             ...prevColumns,
-            { id: prevColumns.length, value: '', color: '#000' },
+            { id: prevColumns.length, value: "", color: "#000" },
         ]);
     };
 
     const delColumn = (id) => {
-        setColumns(prevColumns => prevColumns.filter(column => column.id !== id))
-    }
+        setColumns((prevColumns) => prevColumns.filter((column) => column.id !== id));
+    };
 
-    //
-    //
-    //
     return (
         <>
-            <div>
-                <Header>
-                    <Title>
-                        Edit Board
-                    </Title>
-                </Header>
-            </div>
+            <Header>
+                <Title>Edit Board</Title>
+            </Header>
 
-            <div>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <LabeledInput
-                        label='Name'
-                        type='text'
-                        placeholder='e.g. Web Design'
-                        name={{ ...register('name') }}
-                        error={errors?.name?.message}
-                    />
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <LabeledInput
+                    label="Name"
+                    type="text"
+                    placeholder="e.g. Web Design"
+                    name={{ ...register("name") }}
+                    error={errors?.name?.message}
+                    onValueChange={(newValue) => setValue("name", newValue)}
+                />
 
-                    <DeletableInput
-                        label='Columns'
-                        data={columns}
-                        type='text'
-                        placeholder='e.g. Todo'
-                        onValueChange={handleColumnChange}
-                        hasColorInput={true}
-                        onColorChange={handleColorChange}
-                        closeButton={delColumn}
-                    />
+                <DeletableInput
+                    label="Columns"
+                    data={columns}
+                    type="text"
+                    placeholder="e.g. Todo"
+                    onValueChange={handleColumnChange}
+                    hasColorInput={true}
+                    onColorChange={handleColorChange}
+                    closeButton={delColumn}
+                />
 
-                    <AddSubtaskButton type='button' onClick={addNewColumn}>
-                        + Add New Column
-                    </AddSubtaskButton>
+                <AddSubtaskButton type="button" onClick={addNewColumn}>
+                    + Add New Column
+                </AddSubtaskButton>
 
-                    <CreateTaskButton type='submit'>
-                        Save Changes
-                    </CreateTaskButton>
-                </Form>
-            </div>
+                <CreateTaskButton type="submit">
+                    Save Changes
+                </CreateTaskButton>
+            </Form>
         </>
-    )
-}
+    );
+};
 
-export default EditBoardModal
+export default EditBoardModal;
