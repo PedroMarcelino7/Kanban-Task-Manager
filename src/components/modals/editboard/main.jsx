@@ -1,10 +1,5 @@
 // React
-import React, { useEffect, useState } from "react";
-
-// Form Validation
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import React, { useState } from "react";
 
 // Styles
 import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editboardmodal.styles";
@@ -13,49 +8,28 @@ import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editb
 import LabeledInput from "../../../ui/inputs/labeledinput/main";
 import DeletableInput from "../../../ui/inputs/deletableinput/main";
 
-// Yup Schema
-const schema = yup.object({
-    name: yup.string().required("Campo obrigatório!"),
-    columns: yup.array().of(
-        yup.object().shape({
-            value: yup.string().required('Campo obrigatório!')
-        })
-    )
-}).required();
-
+//
+//
+//
 const EditBoardModal = ({ data, board_id }) => {
-
-    // Form Validator
-    const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm({
-        resolver: yupResolver(schema)
-    });
-
-    //
-    //
     // Variables
     const board = data.find((b) => b.board_id === Number(board_id));
+    const [boardName, setBoardName] = useState('')
     const [columns, setColumns] = useState([]);
 
     // Use Effect Logs
-    useEffect(() => {
-        if (board) {
-            reset({
-                name: board.board_name,
-                columns: board.columns.map((col) => ({ value: col.column_name }))
-            });
-            setColumns(board.columns.map((col) => ({ id: col.column_id, value: col.column_name })));
-        }
-    }, [board, reset]);
 
     // Handle Submit
-    const onSubmit = async (formData) => {
+    const onSubmit = async (e) => {
+        e.preventDefault()
+
         try {
             const response = await fetch("http://localhost:3001/api/boards/update", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     board_id: board.board_id,
-                    board_name: formData.name,
+                    board_name: boardName,
                 }),
             });
 
@@ -96,8 +70,6 @@ const EditBoardModal = ({ data, board_id }) => {
                 column.id === id ? { ...column, value: newValue } : column
             )
         );
-
-        setValue(`columns.${columns.findIndex(col => col.id === id)}.value`, newValue)
     };
 
     const addNewColumn = () => {
@@ -120,14 +92,13 @@ const EditBoardModal = ({ data, board_id }) => {
                 <Title>Edit Board</Title>
             </Header>
 
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={(e) => onSubmit(e)}>
                 <LabeledInput
                     label="Name"
                     type="text"
                     placeholder="e.g. Web Design"
-                    name={{ ...register("name") }}
-                    error={errors?.name?.message}
-                    onValueChange={(newValue) => setValue("name", newValue)}
+                    value={boardName}
+                    onValueChange={setBoardName}
                 />
 
                 <DeletableInput
@@ -138,16 +109,6 @@ const EditBoardModal = ({ data, board_id }) => {
                     onValueChange={handleColumnChange}
                     hasColorInput={true}
                 />
-                {/* <DeletableInput
-                    label="Columns"
-                    data={columns}
-                    type="text"
-                    placeholder="e.g. Todo"
-                    onValueChange={handleColumnChange}
-                    hasColorInput={true}
-                    onColorChange={handleColorChange}
-                    closeButton={delColumn}
-                /> */}
 
                 <AddSubtaskButton type="button" onClick={addNewColumn}>
                     + Add New Column

@@ -1,15 +1,15 @@
 import DefaultInputError from "../../labels/default_input_error/main"
 import { InputBox, InputLabel, TextArea } from "./labeledtextarea.styles"
 
-const LabeledTextArea = ({ label = '', placeholder, max = 3, name, error }) => {
+const LabeledTextArea = ({ label = '', placeholder, max = 3, value, onValueChange }) => {
     return (
         <InputBox>
             <InputLabel>{label}</InputLabel>
             <TextArea
                 placeholder={placeholder} max={max}
-                {...name}
+                value={value}
+                onChange={(e) => onValueChange(e.target.value)}
             />
-            <DefaultInputError message={error} />
         </InputBox>
     )
 }

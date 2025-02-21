@@ -16,8 +16,6 @@ import DeleteTaskModal from '../deletetask/main'
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 
-//---
-
 //
 //
 //

@@ -1,11 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
 
-// Form Validation
-import { useFieldArray, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
-
 // Styles
 import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
 
@@ -13,44 +8,18 @@ import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './add
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
-//---
-
-//YUP Schema
-const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
-    columns: yup.array().of(
-        yup.object().shape({
-            value: yup.string().required('Campo obrigatório!'),
-        })
-    )
-}).required();
-
 //
 //
 //
 const AddBoardModal = ({ boardId }) => {
-    // Form Validator
-    const { register, handleSubmit, formState: { errors }, control } = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-            name: '',
-            columns: [{ value: '', color: '#000' }]
-        }
-    });
-
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "columns"
-    });
-
-    //
-    //
     // Variables
-    const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000', name: 'name-0' }])
+    const [boardName, setBoardName] = useState('')
+    const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
     // Handle Submit
-    const createBoard = async (formData) => {
-        console.log('>>> Hook Form Data [Add Board Modal]:', formData)
+    const createBoard = async (e) => {
+        e.preventDefault()
+
         console.log('>>> Submit new board [Add Board Modal]:', '\n > Columns:', columns);
 
         try {
@@ -60,7 +29,7 @@ const AddBoardModal = ({ boardId }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    board_name: formData.name
+                    board_name: boardName
                 })
             })
 
@@ -114,11 +83,14 @@ const AddBoardModal = ({ boardId }) => {
     };
 
     const addNewColumn = () => {
-        append({ value: '', color: '#000' });
+        setColumns((prevColumns) => [
+            ...prevColumns,
+            { id: prevColumns.length, value: "", color: "#000" },
+        ]);
     };
 
     const delColumn = (index) => {
-        remove(index);
+        setColumns((prevColumns) => prevColumns.filter((column) => column.id !== id));
     };
 
     //
@@ -135,22 +107,21 @@ const AddBoardModal = ({ boardId }) => {
             </div>
 
             <div>
-                <Form onSubmit={handleSubmit(createBoard)}>
+                <Form onSubmit={(e) => createBoard(e)}>
                     <LabeledInput
                         label='Name'
                         type='text'
                         placeholder='e.g. Web Design'
-                        name={{ ...register("name") }}
-                        error={errors?.name?.message}
+                        value={boardName}
+                        onValueChange={setBoardName}
                     />
 
                     <DeletableInput
-                        label='Columns'
-                        data={fields}
-                        type='text'
-                        placeholder='e.g. Todo'
-                        register={register}
-                        errors={errors}
+                        label="Columns"
+                        data={columns}
+                        type="text"
+                        placeholder="e.g. Todo"
+                        onValueChange={handleColumnChange}
                         hasColorInput={true}
                         onColorChange={handleColorChange}
                         closeButton={delColumn}

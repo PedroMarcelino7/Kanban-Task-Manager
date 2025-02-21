@@ -1,11 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
 
-// Form Validation
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
-
 // Styles
 import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
 
@@ -18,27 +13,12 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 // Images | Icons
 
-//---
-
-//YUP Schema
-const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
-    description: yup.string(),
-}).required();
-
 //
 //
 //
 const EditTaskModal = ({ task }) => {
-    // Form Validator
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    })
-
-    //
-    //
     // Variables
-    const [taskTitle, setTaskTitle] = useState(task.task_name)
+    const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
 
@@ -107,20 +87,20 @@ const EditTaskModal = ({ task }) => {
                 </Title>
             </Header>
 
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={(e) => onSubmit(e)}>
                 <LabeledInput
                     label='Title'
                     type='text'
                     placeholder='e.g. Take Coffee Break'
-                    name={{ ...register('name') }}
-                    error={errors?.name?.message}
+                    value={taskName}
+                    onValueChange={setTaskName}
                 />
 
                 <LabeledTextArea
                     label='Description'
                     placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
-                    name={{ ...register('description') }}
-                    error={errors?.description?.message}
+                    value={taskDescription}
+                    onValueChange={setTaskDescription}
                 />
 
                 <DeletableInput
@@ -131,16 +111,6 @@ const EditTaskModal = ({ task }) => {
                     onValueChange={handleSubtaskChange}
                     closeButton={delSubtask}
                 />
-
-                {/* <InputBox>
-                    <InputLabel>Subtasks</InputLabel>
-                    {task.subtasks.map((subtask, index) => (
-                        <AddSubtaskInput key={index}>
-                            <Input type='text' placeholder='e.g. Make coffee' value={subtask.subtask_name} />
-                            <img src={RemoveSubtask} alt="" />
-                        </AddSubtaskInput>
-                    ))}
-                </InputBox> */}
 
                 <AddSubtaskButton type='button' onClick={addSubtask}>
                     + Add New Subtask

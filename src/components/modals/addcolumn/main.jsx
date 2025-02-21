@@ -14,30 +14,17 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 // UI Components
 
-//---
-
-//YUP Schema
-const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
-}).required();
-
 //
 //
 //
 const AddColumnModal = ({ board_id }) => {
-    // Form Validator
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    })
-
-    //
-    //
     // Variables
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
     // Handle Submit
     const createColumn = async (e) => {
         e.preventDefault();
+        
         console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
 
         try {

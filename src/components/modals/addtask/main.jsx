@@ -1,11 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
 
-// Form Validation
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
-
 // Styles
 import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addtaskmodal.styles'
 
@@ -20,33 +15,22 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
 
-//---
-
-//YUP Schema
-const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
-    description: yup.string(),
-}).required()
-
 //
 //
 //
 const AddTaskModal = ({ data, board_id }) => {
-    // Form Validator
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    })
-
-    //
-    //
     // Variables
     const [columnId, setColumnId] = useState(data[board_id - 1].columns[0].column_id)
+    const [taskName, setTaskName] = useState('')
+    const [taskDescription, setTaskDescription] = useState('')
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
     const [taskId, setTaskId] = useState(0)
 
     // Handle Submit
-    const onSubmit = async (formData) => {
-        console.log('Handle Submit [Add Task Modal]: \nName:', formData.name, '\nDescription:', formData.description, '\nStatus:', columnId)
+    const onSubmit = async (e) => {
+        e.preventDefault()
+
+        console.log('Handle Submit [Add Task Modal]: \nName:', taskName, '\nDescription:', taskDescription, '\nStatus:', columnId)
 
         console.log('COLUMN ID ENVIADO NO SUBMIT [1]:', columnId)
         try {
@@ -56,8 +40,8 @@ const AddTaskModal = ({ data, board_id }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    task_name: formData.name,
-                    task_description: formData.description,
+                    task_name: taskName,
+                    task_description: taskDescription,
                     column_id: columnId
                 })
             })
@@ -137,20 +121,20 @@ const AddTaskModal = ({ data, board_id }) => {
                 </Header>
             </div>
 
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={(e) => onSubmit(e)}>
                 <LabeledInput
                     label='Name'
                     type='text'
                     placeholder='e.g. Take Coffee Break'
-                    name={{ ...register('name') }}
-                    error={errors?.name?.message}
+                    value={taskName}
+                    onValueChange={setTaskName}
                 />
 
                 <LabeledTextArea
                     label='Description'
                     placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
-                    name={{ ...register('description') }}
-                    error={errors?.description?.message}
+                    value={taskDescription}
+                    onValueChange={setTaskDescription}
                 />
 
                 <DeletableInput
