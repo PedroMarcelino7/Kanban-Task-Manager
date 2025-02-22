@@ -25,6 +25,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     //
     // Variables
     const { boardId } = getBoardId()
+    const board = data.find(board => board.board_id === boardId)
     const [subtasks, setSubtasks] = useState([...task.subtasks])
     const [columnId, setColumnId] = useState(1)
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
@@ -78,6 +79,7 @@ const ViewTaskModal = ({ task, column, data }) => {
         console.log('>>> Data [View task modal]:', data)
         console.log('>>> Board Id [View task modal]:', boardId)
         console.log('>>> Subtasks [View task modal]:', subtasks)
+        console.log('>>> Board [View Task Modal]:', board)
     }, [])
 
     //
@@ -159,7 +161,7 @@ const ViewTaskModal = ({ task, column, data }) => {
 
                         <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
                             <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
-                            {data[boardId - 1].columns.map((column, index) => (
+                            {board.columns.map((column, index) => (
                                 <StatusOption key={index} value={column.column_id}>{column.column_name}</StatusOption>
                             ))}
                         </StatusSelect>

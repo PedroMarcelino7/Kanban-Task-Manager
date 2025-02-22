@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { CardsContainer, ColumnBox, IdentificationColor, Title, TitleBox } from './column.styles'
 import Card from './Card/main'
 
 const Column = ({ column, data }) => {
-    const [loading, setLoading] = useState(true)
-
     useEffect(() => {
         console.log('>>> Column ID [Column component]:', column.column_id)
         console.log('>>> Column [Column component]:', column)

@@ -5,7 +5,6 @@ import ViewTaskModal from '../../../modals/viewtask/main'
 
 const Card = ({ task, column, data }) => {
     const [showTaskModal, setShowTaskModal] = useState(false)
-    const [loading, setLoading] = useState(true)
 
     const getCheckedSubtasks = () => {
         return task.subtasks.reduce((count, subtask) => {
@@ -30,8 +29,7 @@ const Card = ({ task, column, data }) => {
             {showTaskModal &&
                 <Modal closeModal={setShowTaskModal}>
                     <ViewTaskModal task={task} column={column} data={data} />
-                </Modal>
-            }
+                </Modal>}
         </>
     )
 }
