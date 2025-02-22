@@ -14,7 +14,8 @@ const Boards = ({ boards }) => {
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
 
     const changeSelectedBoard = (board) => {
-        updateBoardId(board)
+        updateBoardId(board.board_id)
+        setSelectedBoard(board)
     }
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const Boards = ({ boards }) => {
                     {boards.map((board, index) => (
                         <Board key={index}
                             className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
-                            onClick={() => changeSelectedBoard(board.board_id)}
+                            onClick={() => changeSelectedBoard(board)}
                         >
                             <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
                             <BoardName>{board.board_name}</BoardName>
@@ -48,8 +49,7 @@ const Boards = ({ boards }) => {
             {showAddNewBoardModal &&
                 <Modal closeModal={setShowAddNewBoardModal}>
                     <AddBoardModal boardId={boards.length + 1} />
-                </Modal>
-            }
+                </Modal>}
         </>
     )
 }
