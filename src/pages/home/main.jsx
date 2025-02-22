@@ -14,9 +14,8 @@ import { getBoardId } from '../../contexts/BoardContext'
 
 function HomePage() {
     const { boardId, updateBoardId } = getBoardId()
-    const { data } = appData()
+    const { data, loading } = appData()
     const { theme } = useTheme()
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         console.log('>>> Dados Estruturados [Home]: ', data)

@@ -6,12 +6,12 @@ import NotFoundPage from './pages/notfound/main'
 import LoadingPage from './pages/loading/main'
 
 const router = createBrowserRouter([
+    // {
+    //     path: "/",
+    //     element: <LoadingPage />
+    // },
     {
         path: "/",
-        element: <LoadingPage />
-    },
-    {
-        path: "/:board_id",
         element: <HomePage />
     },
     {
