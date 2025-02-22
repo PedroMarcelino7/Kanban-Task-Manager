@@ -64,17 +64,3 @@ export const Input = styled.input`
         border-color: var(--main-purple);
     }
 `
-
-export const Error = styled.h6`
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 19px;
-    color: var(--red);
-    margin-top: -5px;
-`
-
-export const MappedDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-`

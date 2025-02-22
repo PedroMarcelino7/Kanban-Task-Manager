@@ -7,11 +7,13 @@ import Modal from '../modals/main'
 import AddTaskModal from '../modals/addtask/main'
 import EditBoardModal from '../modals/editboard/main'
 import DeleteBoardModal from '../modals/deleteboard/main'
+import { getBoardId } from '../../contexts/BoardContext'
 
 const Header = () => {
-    const { board_id } = useParams()
+    // const { board_id } = useParams()
+    const { boardId } = getBoardId()
     const { data } = appData()
-    const selectedBoard = data.find(board => board.board_id === Number(board_id))
+    const selectedBoard = data.find(board => board.board_id === Number(boardId))
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showAddNewTaskModal, setShowAddNewTaskModal] = useState(false)
     const [showEditBoardModal, setShowEditBoardModal] = useState(false)
@@ -20,7 +22,7 @@ const Header = () => {
     useEffect(() => {
         console.log('>>> Selected Board [Header]:', selectedBoard)
         console.log('>>> Data Header [Header]:', data)
-        console.log('>>> Board ID [Header]:', board_id)
+        console.log('>>> Board ID [Header]:', boardId)
     }, [])
 
     return (
@@ -51,17 +53,17 @@ const Header = () => {
 
             {showAddNewTaskModal &&
                 <Modal closeModal={setShowAddNewTaskModal}>
-                    <AddTaskModal data={data} board_id={board_id} />
+                    <AddTaskModal data={data} board_id={boardId} />
                 </Modal>
             }
             {showEditBoardModal &&
                 <Modal closeModal={setShowEditBoardModal}>
-                    <EditBoardModal data={data} board_id={board_id} />
+                    <EditBoardModal data={data} board_id={boardId} />
                 </Modal>
             }
             {showDeleteBoardModal &&
                 <Modal closeModal={setShowDeleteBoardModal}>
-                    <DeleteBoardModal board_id={board_id} closeModal={setShowDeleteBoardModal} />
+                    <DeleteBoardModal board_id={boardId} closeModal={setShowDeleteBoardModal} />
                 </Modal>
             }
         </>

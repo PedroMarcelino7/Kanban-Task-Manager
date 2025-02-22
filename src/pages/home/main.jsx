@@ -10,17 +10,17 @@ import MainPage from '../../components/main/main'
 import Sidebar from '../../components/sidebar/main'
 import Loading from '../../components/loading/main'
 import { appData } from '../../contexts/AppContext'
+import { getBoardId } from '../../contexts/BoardContext'
 
 function HomePage() {
+    const { boardId } = getBoardId()
     const { data } = appData()
     const { theme } = useTheme()
-    const { board_id } = useParams()
     const [loading, setLoading] = useState(false)
-    const [boards, setBoards] = useState([])
 
     useEffect(() => {
-        console.log('>>> Board ID:', board_id)
         console.log('>>> Dados Estruturados [Home]: ', data)
+        console.log('>>> Board ID Context [Home]:', boardId)
     }, [])
 
     if (loading) {

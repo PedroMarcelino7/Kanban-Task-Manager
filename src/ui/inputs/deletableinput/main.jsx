@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 
 // Styles
-import { AddSubtaskInput, Input, InputBox, InputLabel, MappedDiv } from './deletableinput.styles'
+import { AddSubtaskInput, Input, InputBox, InputLabel } from './deletableinput.styles'
 
 // UI Components
 import DefaultInputError from '../../labels/default_input_error/main';
@@ -15,7 +15,7 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 //
 //
-const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton }) => {
+const DeletableInput = ({ label = '', data, dataValue, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Deletable Input]:', data)
@@ -30,26 +30,24 @@ const DeletableInput = ({ label = '', data, type = 'text', placeholder = '', onV
 
             <div>
                 {data.map((item, index) => (
-                    <MappedDiv key={index}>
-                        <AddSubtaskInput>
+                    <AddSubtaskInput key={index}>
+                        <Input
+                            type={type}
+                            placeholder={placeholder}
+                            value={item[dataValue]}
+                            onChange={(e) => onValueChange(item.id, e.target.value)}
+                        />
+
+                        {hasColorInput &&
                             <Input
-                                type={type}
-                                placeholder={placeholder}
-                                value={item.value}
-                                onChange={(e) => onValueChange(item.id, e.target.value)}
+                                type="color"
+                                value={item.color}
+                                onChange={(e) => onColorChange(item.id, e.target.value)}
                             />
+                        }
 
-                            {hasColorInput &&
-                                <Input
-                                    type="color"
-                                    value={item.color}
-                                    onChange={(e) => onColorChange(item.id, e.target.value)}
-                                />
-                            }
-
-                            <img src={RemoveSubtask} alt="" onClick={() => closeButton(item.id)} />
-                        </AddSubtaskInput>
-                    </MappedDiv>
+                        <img src={RemoveSubtask} alt="" onClick={() => closeButton(item.id)} />
+                    </AddSubtaskInput>
                 ))}
             </div>
         </InputBox>

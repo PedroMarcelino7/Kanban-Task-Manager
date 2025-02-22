@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Styles
 import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editboardmodal.styles";
@@ -14,8 +14,8 @@ import DeletableInput from "../../../ui/inputs/deletableinput/main";
 const EditBoardModal = ({ data, board_id }) => {
     // Variables
     const board = data.find((b) => b.board_id === Number(board_id));
-    const [boardName, setBoardName] = useState('')
-    const [columns, setColumns] = useState([]);
+    const [boardName, setBoardName] = useState(board.board_name)
+    const [columns, setColumns] = useState(board.columns);
 
     // Use Effect Logs
 
@@ -52,6 +52,13 @@ const EditBoardModal = ({ data, board_id }) => {
             console.error("Erro ao editar as colunas:", error);
         }
     };
+
+    // Use Effect Logs
+    useEffect(() => {
+        console.log('>>> Data [Edit Board Modal]: ', data)
+        console.log('>>> Board ID [Edit Board Modal]: ', board_id)
+        console.log('>>> Board [Edit Board Modal]:', board)
+    }, [])
 
     //
     //
@@ -104,6 +111,7 @@ const EditBoardModal = ({ data, board_id }) => {
                 <DeletableInput
                     label="Columns"
                     data={columns}
+                    dataValue='column_name'
                     type="text"
                     placeholder="e.g. Todo"
                     onValueChange={handleColumnChange}
