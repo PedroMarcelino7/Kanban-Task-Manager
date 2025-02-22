@@ -20,7 +20,7 @@ const EditTaskModal = ({ task }) => {
     // Variables
     const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
-    const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
+    const [subtasks, setSubtasks] = useState(task.subtasks)
 
     // Handle Submit
     const onSubmit = async (e) => {
@@ -106,6 +106,7 @@ const EditTaskModal = ({ task }) => {
                 <DeletableInput
                     label='Subtasks'
                     data={subtasks}
+                    dataValue={'subtask_name'}
                     type='text'
                     placeholder='e.g. Make Coffee'
                     onValueChange={handleSubtaskChange}

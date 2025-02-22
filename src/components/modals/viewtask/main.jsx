@@ -27,7 +27,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     const { boardId } = getBoardId()
     const board = data.find(board => board.board_id === boardId)
     const [subtasks, setSubtasks] = useState([...task.subtasks])
-    const [columnId, setColumnId] = useState(1)
+    const [columnId, setColumnId] = useState(column.column_id)
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showEditTaskModal, setShowEditTaskModal] = useState(false)
     const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false)
@@ -76,6 +76,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     useEffect(() => {
         console.log('>>> Task [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
+        console.log('>>> Column ID [View task modal]:', columnId)
         console.log('>>> Data [View task modal]:', data)
         console.log('>>> Board Id [View task modal]:', boardId)
         console.log('>>> Subtasks [View task modal]:', subtasks)
@@ -176,13 +177,12 @@ const ViewTaskModal = ({ task, column, data }) => {
             {showEditTaskModal &&
                 <Modal closeModal={setShowEditTaskModal}>
                     <EditTaskModal task={task} />
-                </Modal>
-            }
+                </Modal>}
+                
             {showDeleteTaskModal &&
                 <Modal closeModal={setShowDeleteTaskModal}>
                     <DeleteTaskModal task_id={task.task_id} closeModal={setShowDeleteTaskModal} />
-                </Modal>
-            }
+                </Modal>}
         </>
     )
 }
