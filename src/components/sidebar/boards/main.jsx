@@ -6,17 +6,22 @@ import NewBoardIcon from '../../../assets/icon-new-board.svg'
 import Modal from '../../modals/main'
 import AddBoardModal from '../../modals/addboard/main'
 import { useNavigate } from 'react-router-dom'
+import { getBoardId } from '../../../contexts/BoardContext'
 
 const Boards = ({ boards }) => {
     const navigate = useNavigate()
-
+    const { updateBoardId } = getBoardId()
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
+
+    const changeSelectedBoard = (board) => {
+        updateBoardId(board)
+    }
 
     useEffect(() => {
         console.log('>>> Selected Board [Boards component]:', selectedBoard)
         console.log('>>> Boards [Boards component]:', boards)
-        boards.length !== 0 ? navigate(`/${selectedBoard.board_id}`) : ''
+        // boards.length !== 0 ? navigate(`/${selectedBoard.board_id}`) : ''
     }, [selectedBoard])
 
     return (
@@ -28,7 +33,7 @@ const Boards = ({ boards }) => {
                     {boards.map((board, index) => (
                         <Board key={index}
                             className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
-                            onClick={() => setSelectedBoard(board)}
+                            onClick={() => changeSelectedBoard(board)}
                         >
                             <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
                             <BoardName>{board.board_name}</BoardName>

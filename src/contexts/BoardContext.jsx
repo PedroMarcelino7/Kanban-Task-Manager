@@ -1,19 +1,19 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useContext } from "react"
 
-export const BoardContext = createContext();
+export const BoardContext = createContext()
 
 export const BoardContextProvider = ({ children }) => {
-    const [boardId, setBoardId] = useState(1);
+    const [boardId, setBoardId] = useState(1)
 
-    // useEffect(() => {
-
-    // }, []);
+    const updateBoardId = (newId) => {
+        setBoardId(newId)
+    }
 
     return (
-        <BoardContext.Provider value={{ boardId }}>
+        <BoardContext.Provider value={{ boardId, updateBoardId }}>
             {children}
         </BoardContext.Provider>
-    );
-};
+    )
+}
 
-export const getBoardId = () => useContext(BoardContext);
+export const getBoardId = () => useContext(BoardContext)

@@ -13,7 +13,7 @@ import { appData } from '../../contexts/AppContext'
 import { getBoardId } from '../../contexts/BoardContext'
 
 function HomePage() {
-    const { boardId } = getBoardId()
+    const { boardId, updateBoardId } = getBoardId()
     const { data } = appData()
     const { theme } = useTheme()
     const [loading, setLoading] = useState(false)
