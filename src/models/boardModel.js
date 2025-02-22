@@ -65,3 +65,17 @@ export const deleteBoard = async (board_id) => {
         });
     })
 }
+
+export const getLastBoardId = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            select max(board_id) as id
+            from boards
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}

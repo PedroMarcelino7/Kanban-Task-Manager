@@ -11,9 +11,10 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 //
 //
 //
-const AddBoardModal = ({ boardId }) => {
+const AddBoardModal = () => {
     // Variables
     const [boardName, setBoardName] = useState('')
+    const [boardId, setBoardId] = useState(0)
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
     // Handle Submit
@@ -60,12 +61,24 @@ const AddBoardModal = ({ boardId }) => {
 
     // Use Effect Logs
     useEffect(() => {
+        getLastBoardId()
+
         console.log('>>> Board ID [Add Board Modal]:', boardId)
     }, [])
 
     //
     //
     // Other Functions
+    const getLastBoardId = async () => {
+        try {
+            const id = await fetch('http://localhost:3001/api/boards/lastid').then(res => res.json())
+            setBoardId(id[0].id + 1)
+            console.log('>>> Last Board ID [Add Board Modal]:', id[0].id + 1)
+        } catch (error) {
+            console.error('Erro ao receber o id do último board:', error);
+        }
+    }
+
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>

@@ -5,7 +5,6 @@ import BoardIconSelected from '../../../assets/icon-board-selected.svg'
 import NewBoardIcon from '../../../assets/icon-new-board.svg'
 import Modal from '../../modals/main'
 import AddBoardModal from '../../modals/addboard/main'
-import { useNavigate } from 'react-router-dom'
 import { getBoardId } from '../../../contexts/BoardContext'
 
 const Boards = ({ boards }) => {
@@ -48,7 +47,7 @@ const Boards = ({ boards }) => {
 
             {showAddNewBoardModal &&
                 <Modal closeModal={setShowAddNewBoardModal}>
-                    <AddBoardModal boardId={boards.length + 1} />
+                    <AddBoardModal />
                 </Modal>}
         </>
     )
