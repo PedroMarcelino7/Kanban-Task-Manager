@@ -7,7 +7,7 @@ import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox
 //
 //
 //
-const DeleteBoardModal = ({ board_id, closeModal }) => {
+const DeleteBoardModal = ({ boardId, closeModal }) => {
     // Handle Submit
     const deleteBoard = async () => {
         try {
@@ -17,7 +17,7 @@ const DeleteBoardModal = ({ board_id, closeModal }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    board_id: board_id
+                    board_id: boardId
                 })
             })
 

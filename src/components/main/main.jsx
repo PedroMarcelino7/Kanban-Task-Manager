@@ -9,24 +9,24 @@ import AddColumnModal from '../modals/addcolumn/main'
 import AddBoardModal from '../modals/addboard/main'
 import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
+import { getBoardId } from '../../contexts/BoardContext'
 
 const MainPage = () => {
     const { data } = appData()
-    const { board_id } = useParams()
-    const selectedBoard = data.find(board => board.board_id === Number(board_id))
+    const { boardId } = getBoardId()
+    const selectedBoard = data.find(board => board.board_id === Number(boardId))
     const [loading, setLoading] = useState(false)
     const [showAddColumnModal, setShowAddColumnModal] = useState(false)
     const [showAddBoardModal, setShowAddBoardModal] = useState(false)
 
     useEffect(() => {
-        console.log('>>> Board ID [Main component]:', board_id)
+        console.log('>>> Board ID Context [Main component]:', boardId)
         console.log('>>> App Data (boards) [Main component]:', data)
         console.log('>>> Data Length [Main component]:', data.length)
-        console.log('>>> Board Data [Main component]:', data[board_id - 1])
         console.log('>>> Selected Board [Main component]:', selectedBoard)
         console.log('>>> Selected Boards Columns [Main component]:', selectedBoard.columns)
         console.log('>>> Selected Boards Columns Length [Main component]:', selectedBoard.columns.length)
-    }, [board_id])
+    }, [])
 
     if (loading || !selectedBoard) {
         return (
@@ -66,12 +66,12 @@ const MainPage = () => {
 
             {showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>
-                    <AddColumnModal board_id={board_id} />
+                    <AddColumnModal boardId={boardId} />
                 </Modal>
             }
             {showAddBoardModal &&
                 <Modal closeModal={setShowAddBoardModal}>
-                    <AddBoardModal boardId={board_id} />
+                    <AddBoardModal boardId={boardId} />
                 </Modal>
             }
         </>

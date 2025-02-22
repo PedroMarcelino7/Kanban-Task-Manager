@@ -18,9 +18,9 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 //
 //
-const AddTaskModal = ({ data, board_id }) => {
+const AddTaskModal = ({ data, boardId }) => {
     // Variables
-    const [columnId, setColumnId] = useState(data[board_id - 1].columns[0].column_id)
+    const [columnId, setColumnId] = useState(data[boardId - 1].columns[0].column_id)
     const [taskName, setTaskName] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
@@ -159,7 +159,7 @@ const AddTaskModal = ({ data, board_id }) => {
                         <img src={SelectIcon} alt="" />
 
                         <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
-                            {data[board_id - 1].columns.map((column, index) => (
+                            {data[boardId - 1].columns.map((column, index) => (
                                 <StatusOption key={index} value={column.column_id}>
                                     {column.column_name}
                                 </StatusOption>

@@ -1,6 +1,7 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { getBoardId } from '../../../contexts/BoardContext'
 
 // Styles
 import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
@@ -23,7 +24,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     //
     //
     // Variables
-    const { board_id } = useParams()
+    const { boardId } = getBoardId()
     const [subtasks, setSubtasks] = useState([...task.subtasks])
     const [columnId, setColumnId] = useState(1)
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
@@ -75,7 +76,7 @@ const ViewTaskModal = ({ task, column, data }) => {
         console.log('>>> Task [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
         console.log('>>> Data [View task modal]:', data)
-        console.log('>>> Board Id [View task modal]:', board_id)
+        console.log('>>> Board Id [View task modal]:', boardId)
         console.log('>>> Subtasks [View task modal]:', subtasks)
     }, [])
 
@@ -158,7 +159,7 @@ const ViewTaskModal = ({ task, column, data }) => {
 
                         <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
                             <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
-                            {data[board_id - 1].columns.map((column, index) => (
+                            {data[boardId - 1].columns.map((column, index) => (
                                 <StatusOption key={index} value={column.column_id}>{column.column_name}</StatusOption>
                             ))}
                         </StatusSelect>

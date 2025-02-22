@@ -11,9 +11,9 @@ import DeletableInput from "../../../ui/inputs/deletableinput/main";
 //
 //
 //
-const EditBoardModal = ({ data, board_id }) => {
+const EditBoardModal = ({ data, boardId }) => {
     // Variables
-    const board = data.find((b) => b.board_id === Number(board_id));
+    const board = data.find((b) => b.board_id === Number(boardId));
     const [boardName, setBoardName] = useState(board.board_name)
     const [columns, setColumns] = useState(board.columns);
 
@@ -56,7 +56,7 @@ const EditBoardModal = ({ data, board_id }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Edit Board Modal]: ', data)
-        console.log('>>> Board ID [Edit Board Modal]: ', board_id)
+        console.log('>>> Board ID [Edit Board Modal]: ', boardId)
         console.log('>>> Board [Edit Board Modal]:', board)
     }, [])
 

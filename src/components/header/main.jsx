@@ -10,7 +10,6 @@ import DeleteBoardModal from '../modals/deleteboard/main'
 import { getBoardId } from '../../contexts/BoardContext'
 
 const Header = () => {
-    // const { board_id } = useParams()
     const { boardId } = getBoardId()
     const { data } = appData()
     const selectedBoard = data.find(board => board.board_id === Number(boardId))
@@ -53,19 +52,18 @@ const Header = () => {
 
             {showAddNewTaskModal &&
                 <Modal closeModal={setShowAddNewTaskModal}>
-                    <AddTaskModal data={data} board_id={boardId} />
-                </Modal>
-            }
+                    <AddTaskModal data={data} boardId={boardId} />
+                </Modal>}
+
             {showEditBoardModal &&
                 <Modal closeModal={setShowEditBoardModal}>
-                    <EditBoardModal data={data} board_id={boardId} />
-                </Modal>
-            }
+                    <EditBoardModal data={data} boardId={boardId} />
+                </Modal>}
+
             {showDeleteBoardModal &&
                 <Modal closeModal={setShowDeleteBoardModal}>
-                    <DeleteBoardModal board_id={boardId} closeModal={setShowDeleteBoardModal} />
-                </Modal>
-            }
+                    <DeleteBoardModal boardId={boardId} closeModal={setShowDeleteBoardModal} />
+                </Modal>}
         </>
     )
 }

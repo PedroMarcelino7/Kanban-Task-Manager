@@ -17,7 +17,7 @@ import DeletableInput from '../../../ui/inputs/deletableinput/main'
 //
 //
 //
-const AddColumnModal = ({ board_id }) => {
+const AddColumnModal = ({ boardId }) => {
     // Variables
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
 
@@ -35,7 +35,7 @@ const AddColumnModal = ({ board_id }) => {
                 },
                 body: JSON.stringify({
                     columns: columns,
-                    board_id: board_id
+                    board_id: boardId
                 })
             })
 
