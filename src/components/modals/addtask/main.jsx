@@ -20,7 +20,8 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 const AddTaskModal = ({ data, boardId }) => {
     // Variables
-    const [columnId, setColumnId] = useState(data[boardId - 1].columns[0].column_id)
+    const board = data.find((b) => b.board_id === boardId)
+    const [columnId, setColumnId] = useState(board.columns[0].column_id)
     const [taskName, setTaskName] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
@@ -74,6 +75,10 @@ const AddTaskModal = ({ data, boardId }) => {
     // Use Effect Logs
     useEffect(() => {
         getTaskId()
+
+        console.log('>>> Data [Add New Task Modal]:', data)
+        console.log('>>> Board Id [Add New Task Modal]:', boardId)
+        console.log('>>> Board [Add New Task Modal]:', board)
     }, [])
 
     //
@@ -83,7 +88,7 @@ const AddTaskModal = ({ data, boardId }) => {
         try {
             const id = await fetch("http://localhost:3001/api/tasks/lastid").then(res => res.json())
             setTaskId(id[0].id + 1)
-            console.log('>> Task id [Add Task Modal]:', id[0].id + 1)
+            console.log('>>> Task id [Add New Task Modal]:', id[0].id + 1)
         } catch (error) {
             console.error('Erro ao receber o id da task:', error);
         }
@@ -159,7 +164,7 @@ const AddTaskModal = ({ data, boardId }) => {
                         <img src={SelectIcon} alt="" />
 
                         <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
-                            {data[boardId - 1].columns.map((column, index) => (
+                            {board.columns.map((column, index) => (
                                 <StatusOption key={index} value={column.column_id}>
                                     {column.column_name}
                                 </StatusOption>
