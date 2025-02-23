@@ -10,6 +10,7 @@ import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './editt
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
+import DefaultButton from "../../../ui/buttons/defaultButton/main";
 
 // Images | Icons
 
@@ -113,13 +114,19 @@ const EditTaskModal = ({ task }) => {
                     closeButton={delSubtask}
                 />
 
-                <AddSubtaskButton type='button' onClick={addSubtask}>
-                    + Add New Subtask
-                </AddSubtaskButton>
+                <DefaultButton
+                    label='+ Add New Subtask'
+                    onClick={addSubtask}
+                    color='var(--main-purple)'
+                    background='#e4ebfa'
+                    fontWeight='bold'
+                />
 
-                <CreateTaskButton>
-                    Save Changes
-                </CreateTaskButton>
+                <DefaultButton
+                    label='Save Changes'
+                    type='submit'
+                    negativeMargin={true}
+                />
             </Form>
         </>
     )

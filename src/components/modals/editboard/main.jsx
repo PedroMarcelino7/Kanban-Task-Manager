@@ -7,6 +7,7 @@ import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editb
 // UI Components
 import LabeledInput from "../../../ui/inputs/labeledinput/main";
 import DeletableInput from "../../../ui/inputs/deletableinput/main";
+import DefaultButton from "../../../ui/buttons/defaultButton/main";
 
 //
 //
@@ -116,15 +117,22 @@ const EditBoardModal = ({ data, boardId }) => {
                     placeholder="e.g. Todo"
                     onValueChange={handleColumnChange}
                     hasColorInput={true}
+                    closeButton={delColumn}
                 />
 
-                <AddSubtaskButton type="button" onClick={addNewColumn}>
-                    + Add New Column
-                </AddSubtaskButton>
+                <DefaultButton
+                    label='+ Add New Column'
+                    onClick={addNewColumn}
+                    color='var(--main-purple)'
+                    background='#e4ebfa'
+                    fontWeight='bold'
+                />
 
-                <CreateTaskButton type="submit">
-                    Save Changes
-                </CreateTaskButton>
+                <DefaultButton
+                    label='Save Changes'
+                    type='submit'
+                    negativeMargin={true}
+                />
             </Form>
         </>
     );

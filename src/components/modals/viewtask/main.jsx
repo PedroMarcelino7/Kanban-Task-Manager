@@ -16,6 +16,7 @@ import DeleteTaskModal from '../deletetask/main'
 // Images | Icons
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
+import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 //
 //
@@ -169,16 +170,17 @@ const ViewTaskModal = ({ task, column, data }) => {
                     </StatusBox>
                 </div>
 
-                <CreateTaskButton>
-                    Save changes
-                </CreateTaskButton>
+                <DefaultButton
+                    label='Save Changes'
+                    type='submit'
+                />
             </Form>
 
             {showEditTaskModal &&
                 <Modal closeModal={setShowEditTaskModal}>
                     <EditTaskModal task={task} />
                 </Modal>}
-                
+
             {showDeleteTaskModal &&
                 <Modal closeModal={setShowDeleteTaskModal}>
                     <DeleteTaskModal task_id={task.task_id} closeModal={setShowDeleteTaskModal} />

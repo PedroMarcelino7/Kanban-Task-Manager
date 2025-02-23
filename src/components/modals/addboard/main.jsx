@@ -7,6 +7,7 @@ import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './add
 // UI Components
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
+import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 //
 //
@@ -102,7 +103,7 @@ const AddBoardModal = () => {
         ]);
     };
 
-    const delColumn = (index) => {
+    const delColumn = (id) => {
         setColumns((prevColumns) => prevColumns.filter((column) => column.id !== id));
     };
 
@@ -140,13 +141,19 @@ const AddBoardModal = () => {
                         closeButton={delColumn}
                     />
 
-                    <AddNewColumnButton type='button' onClick={addNewColumn}>
-                        + Add New Column
-                    </AddNewColumnButton>
+                    <DefaultButton
+                        label='+ Add New Column'
+                        onClick={addNewColumn}
+                        color='var(--main-purple)'
+                        background='#e4ebfa'
+                        fontWeight='bold'
+                    />
 
-                    <CreateTaskButton>
-                        Create New Board
-                    </CreateTaskButton>
+                    <DefaultButton
+                        label='Create New Board'
+                        type='submit'
+                        negativeMargin={true}
+                    />
                 </Form>
             </div>
         </>

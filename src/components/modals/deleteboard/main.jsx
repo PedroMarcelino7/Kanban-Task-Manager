@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 
 // Styles
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
+import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 //
 //
@@ -28,6 +29,10 @@ const DeleteBoardModal = ({ boardId, closeModal }) => {
         }
     }
 
+    const handleCloseModal = () => {
+        closeModal(false)
+    }
+
     //
     //
     //
@@ -49,13 +54,20 @@ const DeleteBoardModal = ({ boardId, closeModal }) => {
 
             <div>
                 <ButtonsBox>
-                    <AddSubtaskButton onClick={deleteBoard}>
-                        Delete
-                    </AddSubtaskButton>
+                    <DefaultButton
+                        label='Delete'
+                        onClick={deleteBoard}
+                        background='var(--red)'
+                        fontWeight='bold'
+                    />
 
-                    <CreateTaskButton onClick={() => closeModal(false)}>
-                        Cancel
-                    </CreateTaskButton>
+                    <DefaultButton
+                        label='Cancel'
+                        onClick={handleCloseModal}
+                        color='var(--main-purple)'
+                        background='#e4ebfa'
+                        fontWeight='bold'
+                    />
                 </ButtonsBox>
             </div>
         </>

@@ -8,6 +8,7 @@ import AddTaskModal from '../modals/addtask/main'
 import EditBoardModal from '../modals/editboard/main'
 import DeleteBoardModal from '../modals/deleteboard/main'
 import { getBoardId } from '../../contexts/BoardContext'
+import DefaultButton from '../../ui/buttons/defaultButton/main'
 
 const Header = () => {
     const { boardId } = getBoardId()
@@ -24,6 +25,10 @@ const Header = () => {
         console.log('>>> Board ID [Header]:', boardId)
     }, [])
 
+    const handleShowAddNewTaskModal = () => {
+        setShowAddNewTaskModal(true)
+    }
+
     return (
         <>
             <HeaderBox>
@@ -32,12 +37,12 @@ const Header = () => {
                 </Title>
 
                 <ActionsBox>
-                    <NewTaskButton
-                        onClick={() => setShowAddNewTaskModal(true)}
-                        disabled={selectedBoard.columns.length !== 0 ? false : true}
-                    >
-                        + Add New Task
-                    </NewTaskButton>
+                    <DefaultButton
+                        label='+ Add New Task'
+                        type='submit'
+                        onClick={handleShowAddNewTaskModal}
+                        disabled={selectedBoard.columns.length === 0}
+                    />
 
                     <OptionSection>
                         <Options onClick={() => setShowOptionsPopUp(!showOptionsPopUp)} src={OptionsIcon} alt="" />

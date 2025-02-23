@@ -32,7 +32,6 @@ export const AddNewColumnButton = styled.button`
 `
 
 export const CreateTaskButton = styled.button`
-    width: 100%;
     color: #fff;
     background-color: var(--main-purple);
     border-radius: 25px;

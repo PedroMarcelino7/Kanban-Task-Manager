@@ -1,18 +1,14 @@
 // React
 import React, { useState } from 'react'
 
-// Form Validation
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
-
 // Styles
 import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
 
 // Components
-import DeletableInput from '../../../ui/inputs/deletableinput/main'
 
 // UI Components
+import DeletableInput from '../../../ui/inputs/deletableinput/main'
+import DefaultButton from '../../../ui/buttons/defaultButton/main';
 
 //
 //
@@ -24,7 +20,7 @@ const AddColumnModal = ({ boardId }) => {
     // Handle Submit
     const createColumn = async (e) => {
         e.preventDefault();
-        
+
         console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
 
         try {
@@ -104,13 +100,19 @@ const AddColumnModal = ({ boardId }) => {
                         closeButton={delColumn}
                     />
 
-                    <AddNewColumnButton type='button' onClick={addNewColumn}>
-                        + Add New Column
-                    </AddNewColumnButton>
+                    <DefaultButton
+                        label='+ Add New Column'
+                        onClick={addNewColumn}
+                        color='var(--main-purple)'
+                        background='#e4ebfa'
+                        fontWeight='bold'
+                    />
 
-                    <CreateTaskButton>
-                        Create New Column
-                    </CreateTaskButton>
+                    <DefaultButton
+                        label='Create New Board'
+                        type='submit'
+                        negativeMargin={true}
+                    />
                 </Form>
             </div>
         </>

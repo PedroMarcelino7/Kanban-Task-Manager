@@ -10,6 +10,7 @@ import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, Inp
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
+import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 // Images | Icons
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
@@ -151,9 +152,14 @@ const AddTaskModal = ({ data, boardId }) => {
                     closeButton={delSubtask}
                 />
 
-                <AddSubtaskButton type='button' onClick={addSubtask}>
-                    + Add New Subtask
-                </AddSubtaskButton>
+                <DefaultButton
+                    label='+ Add New Subtask'
+                    onClick={addSubtask}
+                    color='var(--main-purple)'
+                    background='#e4ebfa'
+                    fontWeight='bold'
+                    negativeMargin={true}
+                />
 
                 <div>
                     <SectionTitle>
@@ -173,11 +179,10 @@ const AddTaskModal = ({ data, boardId }) => {
                     </StatusBox>
                 </div>
 
-                <div>
-                    <CreateTaskButton type='submit'>
-                        Create Task
-                    </CreateTaskButton>
-                </div>
+                <DefaultButton
+                    label='Create Task'
+                    type='submit'
+                />
             </Form>
         </>
     )
