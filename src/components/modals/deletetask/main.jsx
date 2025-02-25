@@ -1,5 +1,6 @@
 // React
 import React from 'react'
+import { useModal } from '../main'
 
 // Styles
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
@@ -8,7 +9,10 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 //
 //
 //
-const DeleteTaskModal = ({ task_id, closeModal }) => {
+const DeleteTaskModal = ({ task_id }) => {
+    // Variables
+    const { closeModal } = useModal()
+
     // Handle Submit
     const deleteTask = async () => {
         try {
@@ -27,6 +31,8 @@ const DeleteTaskModal = ({ task_id, closeModal }) => {
         } catch (error) {
             console.error('Erro ao deletar a task:', error);
         }
+
+        closeModal(false)
     }
 
     const handleCloseModal = () => {

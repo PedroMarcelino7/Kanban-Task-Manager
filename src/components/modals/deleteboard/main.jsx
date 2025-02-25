@@ -1,5 +1,6 @@
 // React
 import React, { useEffect } from 'react'
+import { useModal } from '../main'
 
 // Styles
 import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
@@ -8,7 +9,10 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 //
 //
 //
-const DeleteBoardModal = ({ boardId, closeModal }) => {
+const DeleteBoardModal = ({ boardId }) => {
+    // Variables
+    const { closeModal } = useModal()
+
     // Handle Submit
     const deleteBoard = async () => {
         try {
@@ -27,6 +31,8 @@ const DeleteBoardModal = ({ boardId, closeModal }) => {
         } catch (error) {
             console.error('Erro ao deletar o board:', error);
         }
+
+        closeModal(false)
     }
 
     const handleCloseModal = () => {

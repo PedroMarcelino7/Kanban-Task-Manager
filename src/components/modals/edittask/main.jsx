@@ -1,5 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
+import { useModal } from "../main";
 
 // Styles
 import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
@@ -19,6 +20,7 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 //
 const EditTaskModal = ({ task }) => {
     // Variables
+    const { closeModal } = useModal()
     const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
     const [subtasks, setSubtasks] = useState(task.subtasks)
@@ -27,7 +29,7 @@ const EditTaskModal = ({ task }) => {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        console.log('>>> Handle Submit Data [Edit Task Modal]:', task.task_id, taskTitle, taskDescription)
+        console.log('>>> Handle Submit Data [Edit Task Modal]:', task.task_id, taskName, taskDescription)
 
         try {
             const response = await fetch('http://localhost:3001/api/tasks/update', {
@@ -37,7 +39,7 @@ const EditTaskModal = ({ task }) => {
                 },
                 body: JSON.stringify({
                     task_id: task.task_id,
-                    task_name: taskTitle,
+                    task_name: taskName,
                     task_description: taskDescription
                 })
             })
@@ -47,6 +49,8 @@ const EditTaskModal = ({ task }) => {
         } catch (error) {
             console.error('Erro ao editar a task:', error);
         }
+
+        closeModal(false)
     }
 
     // Use Effect Logs

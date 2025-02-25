@@ -1,5 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
+import { useModal } from '../main'
 
 // Styles
 import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addtaskmodal.styles'
@@ -21,6 +22,7 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 const AddTaskModal = ({ data, boardId }) => {
     // Variables
+    const { closeModal } = useModal()
     const board = data.find((b) => b.board_id === boardId)
     const [columnId, setColumnId] = useState(board.columns[0].column_id)
     const [taskName, setTaskName] = useState('')
@@ -71,6 +73,8 @@ const AddTaskModal = ({ data, boardId }) => {
         } catch (error) {
             console.error('Erro ao criar as subtasks:', error);
         }
+
+        closeModal(false)
     }
 
     // Use Effect Logs

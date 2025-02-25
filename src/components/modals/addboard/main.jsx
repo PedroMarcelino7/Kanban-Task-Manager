@@ -1,5 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
+import { useModal } from '../main'
 
 // Styles
 import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
@@ -14,6 +15,7 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 //
 const AddBoardModal = () => {
     // Variables
+    const { closeModal } = useModal();
     const [boardName, setBoardName] = useState('')
     const [boardId, setBoardId] = useState(0)
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
@@ -58,6 +60,8 @@ const AddBoardModal = () => {
         } catch (error) {
             console.error('Erro ao criar as colunas:', error);
         }
+
+        closeModal(false)
     }
 
     // Use Effect Logs

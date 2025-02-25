@@ -1,5 +1,6 @@
 // React
 import React, { useEffect, useState } from "react";
+import { useModal } from "../main";
 
 // Styles
 import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editboardmodal.styles";
@@ -14,6 +15,7 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 //
 const EditBoardModal = ({ data, boardId }) => {
     // Variables
+    const { closeModal } = useModal()
     const board = data.find((b) => b.board_id === Number(boardId));
     const [boardName, setBoardName] = useState(board.board_name)
     const [columns, setColumns] = useState(board.columns);
@@ -52,6 +54,8 @@ const EditBoardModal = ({ data, boardId }) => {
         } catch (error) {
             console.error("Erro ao editar as colunas:", error);
         }
+
+        closeModal(false)
     };
 
     // Use Effect Logs
