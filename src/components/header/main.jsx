@@ -10,9 +10,8 @@ import DeleteBoardModal from '../modals/deleteboard/main'
 import { getBoardId } from '../../contexts/BoardContext'
 import DefaultButton from '../../ui/buttons/defaultButton/main'
 
-const Header = () => {
+const Header = ({ data }) => {
     const { boardId } = getBoardId()
-    const { data } = appData()
     const selectedBoard = data.find(board => board.board_id === Number(boardId))
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showAddNewTaskModal, setShowAddNewTaskModal] = useState(false)
@@ -41,11 +40,11 @@ const Header = () => {
                         label='+ Add New Task'
                         type='submit'
                         onClick={handleShowAddNewTaskModal}
-                        disabled={selectedBoard.columns.length === 0}
+                        disabled={!selectedBoard || selectedBoard.columns.length === 0}
                     />
 
                     <OptionSection>
-                        <Options onClick={() => setShowOptionsPopUp(!showOptionsPopUp)} src={OptionsIcon} alt="" />
+                        <Options onClick={() => setShowOptionsPopUp(!selectedBoard ? '' : !showOptionsPopUp)} src={OptionsIcon} alt="" />
 
                         <OptionsPopUp className={showOptionsPopUp ? "show" : ""}>
                             <Option onClick={() => setShowEditBoardModal(true)}>Edit Board</Option>

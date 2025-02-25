@@ -31,9 +31,9 @@ function HomePage() {
             <Sidebar boards={data} />
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Header />
+                <Header data={data} />
 
-                <MainPage />
+                <MainPage data={data} />
             </div>
         </div>
     )

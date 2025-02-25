@@ -11,8 +11,7 @@ import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
 import { getBoardId } from '../../contexts/BoardContext'
 
-const MainPage = () => {
-    const { data } = appData()
+const MainPage = ({ data }) => {
     const { boardId } = getBoardId()
     const selectedBoard = data.find(board => board.board_id === Number(boardId))
     const [loading, setLoading] = useState(false)
@@ -24,11 +23,9 @@ const MainPage = () => {
         console.log('>>> App Data (boards) [Main component]:', data)
         console.log('>>> Data Length [Main component]:', data.length)
         console.log('>>> Selected Board [Main component]:', selectedBoard)
-        console.log('>>> Selected Boards Columns [Main component]:', selectedBoard.columns)
-        console.log('>>> Selected Boards Columns Length [Main component]:', selectedBoard.columns.length)
     }, [])
 
-    if (loading || !selectedBoard) {
+    if (loading) {
         return (
             <Loading text={'Loading...'} />
         )
@@ -36,7 +33,7 @@ const MainPage = () => {
 
     return (
         <>
-            {data.length === 0
+            {!selectedBoard || data.length === 0
                 ? <MainPageContainer>
                     <MainPageEmptyBox>
                         <Title>
