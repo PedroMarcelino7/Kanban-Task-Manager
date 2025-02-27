@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useModal } from '../main'
 
 // Styles
-import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addboardmodal.styles'
+import { Header, Title, Form } from './addboardmodal.styles'
 
 // UI Components
 import LabeledInput from '../../../ui/inputs/labeledinput/main'

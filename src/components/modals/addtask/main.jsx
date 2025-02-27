@@ -16,6 +16,7 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 // Images | Icons
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import RemoveSubtask from '../../../assets/icon-cross.svg'
+import DefaultSelect from '../../../ui/selects/defaultselect/main'
 
 //
 //
@@ -162,23 +163,13 @@ const AddTaskModal = ({ board }) => {
                     negativeMargin={true}
                 />
 
-                <div>
-                    <SectionTitle>
-                        Status
-                    </SectionTitle>
-
-                    <StatusBox>
-                        <img src={SelectIcon} alt="" />
-
-                        <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
-                            {board.columns.map((column, index) => (
-                                <StatusOption key={index} value={column.column_id}>
-                                    {column.column_name}
-                                </StatusOption>
-                            ))}
-                        </StatusSelect>
-                    </StatusBox>
-                </div>
+                <DefaultSelect
+                    label='Status'
+                    onValueChange={setColumnId}
+                    data={board.columns}
+                    dataValue='column_id'
+                    dataOption='column_name'
+                />
 
                 <DefaultButton
                     label='Create Task'
