@@ -31,12 +31,6 @@ const MainPage = ({ data }) => {
         )
     }
 
-    if (!selectedBoard || data.length === 0) {
-        return (
-            <Loading text={'Loading...'} />
-        )
-    }
-
     return (
         <>
             {!selectedBoard || data.length === 0

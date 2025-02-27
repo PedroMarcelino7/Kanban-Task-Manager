@@ -20,10 +20,9 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 //
 //
-const AddTaskModal = ({ data, boardId }) => {
+const AddTaskModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
-    const board = data.find((b) => b.board_id === boardId)
     const [columnId, setColumnId] = useState(board.columns[0].column_id)
     const [taskName, setTaskName] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
@@ -81,8 +80,6 @@ const AddTaskModal = ({ data, boardId }) => {
     useEffect(() => {
         getTaskId()
 
-        console.log('>>> Data [Add New Task Modal]:', data)
-        console.log('>>> Board Id [Add New Task Modal]:', boardId)
         console.log('>>> Board [Add New Task Modal]:', board)
     }, [])
 

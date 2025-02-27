@@ -9,7 +9,7 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 //
 //
 //
-const DeleteBoardModal = ({ boardId }) => {
+const DeleteBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
 
@@ -22,7 +22,7 @@ const DeleteBoardModal = ({ boardId }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    board_id: boardId
+                    board_id: board.board_id
                 })
             })
 

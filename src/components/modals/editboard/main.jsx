@@ -13,14 +13,11 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 //
 //
 //
-const EditBoardModal = ({ data, boardId }) => {
+const EditBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
-    const board = data.find((b) => b.board_id === Number(boardId));
     const [boardName, setBoardName] = useState(board.board_name)
     const [columns, setColumns] = useState(board.columns);
-
-    // Use Effect Logs
 
     // Handle Submit
     const onSubmit = async (e) => {
@@ -60,8 +57,6 @@ const EditBoardModal = ({ data, boardId }) => {
 
     // Use Effect Logs
     useEffect(() => {
-        console.log('>>> Data [Edit Board Modal]: ', data)
-        console.log('>>> Board ID [Edit Board Modal]: ', boardId)
         console.log('>>> Board [Edit Board Modal]:', board)
     }, [])
 

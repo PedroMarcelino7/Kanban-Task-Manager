@@ -12,7 +12,7 @@ import DefaultButton from '../../ui/buttons/defaultButton/main'
 
 const Header = ({ data }) => {
     const { boardId } = getBoardId()
-    const selectedBoard = data.find(board => board.board_id === Number(boardId))
+    const selectedBoard = data.find(board => board.board_id === Number(boardId)) || data[0]
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showAddNewTaskModal, setShowAddNewTaskModal] = useState(false)
     const [showEditBoardModal, setShowEditBoardModal] = useState(false)
@@ -56,17 +56,17 @@ const Header = ({ data }) => {
 
             {showAddNewTaskModal &&
                 <Modal closeModal={setShowAddNewTaskModal}>
-                    <AddTaskModal data={data} boardId={boardId} />
+                    <AddTaskModal board={selectedBoard} />
                 </Modal>}
 
             {showEditBoardModal &&
                 <Modal closeModal={setShowEditBoardModal}>
-                    <EditBoardModal data={data} boardId={boardId} />
+                    <EditBoardModal board={selectedBoard} />
                 </Modal>}
 
             {showDeleteBoardModal &&
                 <Modal closeModal={setShowDeleteBoardModal}>
-                    <DeleteBoardModal boardId={boardId} closeModal={setShowDeleteBoardModal} />
+                    <DeleteBoardModal board={selectedBoard} />
                 </Modal>}
         </>
     )
