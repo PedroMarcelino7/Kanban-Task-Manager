@@ -13,7 +13,7 @@ import { getBoardId } from '../../contexts/BoardContext'
 
 const MainPage = ({ data }) => {
     const { boardId } = getBoardId()
-    const selectedBoard = data.find(board => board.board_id === Number(boardId))
+    const selectedBoard = data.find(board => board.board_id === Number(boardId)) || data[0]
     const [loading, setLoading] = useState(false)
     const [showAddColumnModal, setShowAddColumnModal] = useState(false)
     const [showAddBoardModal, setShowAddBoardModal] = useState(false)
@@ -26,6 +26,12 @@ const MainPage = ({ data }) => {
     }, [])
 
     if (loading) {
+        return (
+            <Loading text={'Loading...'} />
+        )
+    }
+
+    if (!selectedBoard || data.length === 0) {
         return (
             <Loading text={'Loading...'} />
         )

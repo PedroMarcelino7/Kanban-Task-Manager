@@ -11,11 +11,11 @@ import EditTaskModal from '../edittask/main'
 import DeleteTaskModal from '../deletetask/main'
 
 // UI Components
+import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 // Images | Icons
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
-import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 //
 //
