@@ -64,13 +64,12 @@ const MainPage = ({ data }) => {
             {showAddColumnModal &&
                 <Modal closeModal={setShowAddColumnModal}>
                     <AddColumnModal boardId={boardId} />
-                </Modal>
-            }
+                </Modal>}
+
             {showAddBoardModal &&
                 <Modal closeModal={setShowAddBoardModal}>
                     <AddBoardModal boardId={boardId} />
-                </Modal>
-            }
+                </Modal>}
         </>
     )
 }

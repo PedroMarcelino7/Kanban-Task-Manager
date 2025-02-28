@@ -16,6 +16,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 // Images | Icons
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
+import DefaultSelect from '../../../ui/selects/defaultselect/main'
+import MultipleCheckbox from '../../../ui/checkbox/multiplecheckbox/main'
 
 //
 //
@@ -25,7 +27,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     //
     // Variables
     const { boardId } = getBoardId()
-    const board = data.find(board => board.board_id === boardId)
+    const board = data.find(board => board.board_id === boardId) || data[0]
     const [subtasks, setSubtasks] = useState([...task.subtasks])
     const [columnId, setColumnId] = useState(column.column_id)
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
@@ -131,43 +133,24 @@ const ViewTaskModal = ({ task, column, data }) => {
             </div>
 
             <Form onSubmit={handleSubmit}>
-                <div>
-                    <SectionTitle>
-                        Substasks ({getCheckedSubtasks()} of {task.subtasks.length})
-                    </SectionTitle>
+                <MultipleCheckbox
+                    label='Subtasks'
+                    checkCount={getCheckedSubtasks()}
+                    total={task.subtasks.length}
+                    data={subtasks}
+                    validate='subtask_ischecked'
+                    onCheckChange={handleCheckSubtask}
+                    checkReference='subtask_id'
+                    checkItemName='subtask_name'
+                />
 
-                    <SubtasksBox>
-                        {subtasks.map((subtask, index) => (
-                            <Subtask key={index}>
-                                <Checkbox
-                                    type="checkbox"
-                                    checked={subtask.subtask_ischecked === 1}
-                                    onChange={() => handleCheckSubtask(subtask.subtask_id)}
-                                />
-                                <SubtaskTitle>
-                                    {subtask.subtask_name}
-                                </SubtaskTitle>
-                            </Subtask>
-                        ))}
-                    </SubtasksBox>
-                </div>
-
-                <div>
-                    <SectionTitle>
-                        Current Status
-                    </SectionTitle>
-
-                    <StatusBox>
-                        <img src={SelectIcon} alt="" />
-
-                        <StatusSelect onChange={(e) => setColumnId(e.target.value)}>
-                            <StatusOption value={column.column_id}>{column.column_name}</StatusOption>
-                            {board.columns.map((column, index) => (
-                                <StatusOption key={index} value={column.column_id}>{column.column_name}</StatusOption>
-                            ))}
-                        </StatusSelect>
-                    </StatusBox>
-                </div>
+                <DefaultSelect
+                    label='Current Status'
+                    onValueChange={setColumnId}
+                    data={board.columns}
+                    dataValue='column_id'
+                    dataOption='column_name'
+                />
 
                 <DefaultButton
                     label='Save Changes'
