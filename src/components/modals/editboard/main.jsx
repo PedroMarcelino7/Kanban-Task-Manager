@@ -23,6 +23,8 @@ const EditBoardModal = ({ board }) => {
     const onSubmit = async (e) => {
         e.preventDefault()
 
+        console.log('>>> Columns on submit [Edit Board Modal]:', columns)
+
         try {
             const response = await fetch("http://localhost:3001/api/boards/update", {
                 method: "POST",
@@ -43,7 +45,9 @@ const EditBoardModal = ({ board }) => {
             const response = await fetch("http://localhost:3001/api/columns/update", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ columns }),
+                body: JSON.stringify({
+                    columns
+                }),
             });
 
             const data = await response.json();
@@ -60,25 +64,30 @@ const EditBoardModal = ({ board }) => {
         console.log('>>> Board [Edit Board Modal]:', board)
     }, [])
 
+    useEffect(() => {
+        console.log("Colunas após atualização:", columns);
+    }, [columns]);
+
     //
     //
     // Other Functions
     const handleColumnChange = (id, newValue) => {
-        setColumns((prevColumns) =>
-            prevColumns.map((column) =>
-                column.id === id ? { ...column, value: newValue } : column
+        setColumns(prevColumns =>
+            prevColumns.map(column =>
+                column.column_id === id ? { ...column, column_name: newValue } : column
             )
         );
     };
 
     const handleColorChange = (id, newColor) => {
-        setColumns((prevColumns) =>
-            prevColumns.map((column) =>
-                column.id === id ? { ...column, value: newValue } : column
+        setColumns(prevColumns =>
+            prevColumns.map(column =>
+                column.id === id ? { ...column, color: newColor } : column
             )
         );
-    };
 
+        console.log("Colunas após mudança de cor:", columns); // Debug para ver as mudanças
+    };
     const addNewColumn = () => {
         setColumns((prevColumns) => [
             ...prevColumns,
@@ -112,6 +121,7 @@ const EditBoardModal = ({ board }) => {
                     label="Columns"
                     data={columns}
                     dataValue='column_name'
+                    idReference='column_id'
                     type="text"
                     placeholder="e.g. Todo"
                     onValueChange={handleColumnChange}

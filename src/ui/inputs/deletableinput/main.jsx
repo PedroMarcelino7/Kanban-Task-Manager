@@ -15,7 +15,7 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 //
 //
-const DeletableInput = ({ label = '', data, dataValue, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton }) => {
+const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Deletable Input]:', data)
@@ -35,7 +35,7 @@ const DeletableInput = ({ label = '', data, dataValue, type = 'text', placeholde
                             type={type}
                             placeholder={placeholder}
                             value={item[dataValue]}
-                            onChange={(e) => onValueChange(item.id, e.target.value)}
+                            onChange={(e) => onValueChange(item[idReference], e.target.value)}
                         />
 
                         {hasColorInput &&

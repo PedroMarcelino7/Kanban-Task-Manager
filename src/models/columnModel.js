@@ -39,7 +39,7 @@ export const updateColumns = async (column) => {
             where column_id = ?
         `;
 
-        const values = [column.value, column.id]
+        const values = [column.column_name, column.column_id]
 
         connection.query(query, values, (err, results) => {
             if (err) return reject(err);
