@@ -47,3 +47,20 @@ export const updateSubtaskIsChecked = async (subtask) => {
         })
     })
 }
+
+export const updateSubtasks = async (subtask) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update subtasks
+            set subtask_name = ?
+            where subtask_id = ?
+        `;
+
+        const values = [subtask.subtask_name, subtask.subtask_id]
+
+        connection.query(query, values, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+};

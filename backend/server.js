@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { addBoard, delBoard, editBoard, fetchBoards, fetchLastBoardId } from '../src/controllers/boardController.js';
 import { addColumn, editColumn, fetchColumns } from '../src/controllers/columnController.js';
 import { addTask, delTask, editTask, editTaskStatus, fetchLastTaskId, fetchTasks } from '../src/controllers/taskController.js';
-import { addSubtask, editSubtaskIsChecked, fetchSubtasks } from '../src/controllers/subtaskController.js';
+import { addSubtask, editSubtask, editSubtaskIsChecked, fetchSubtasks } from '../src/controllers/subtaskController.js';
 
 dotenv.config();
 
@@ -41,6 +41,7 @@ app.post('/api/tasks/delete', delTask)
 app.get('/api/subtasks', fetchSubtasks)
 app.post('/api/subtasks/post', addSubtask)
 app.post('/api/subtasks/ischecked/update', editSubtaskIsChecked)
+app.post('/api/subtasks/update', editSubtask)
 
 const PORT = process.env.PORT || 3001;
 

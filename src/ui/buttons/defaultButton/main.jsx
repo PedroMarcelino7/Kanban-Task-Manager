@@ -1,6 +1,6 @@
 import { DefaultButtonStyle } from "./defaultButton.styles"
 
-const DefaultButton = ({ label, type = 'button', onClick, color, background, fontWeight, negativeMargin, disabled }) => {
+const DefaultButton = ({ label, type = 'button', onClick, color, background, fontWeight, negativemargin, disabled }) => {
     return (
         <DefaultButtonStyle
             type={type}
@@ -8,7 +8,7 @@ const DefaultButton = ({ label, type = 'button', onClick, color, background, fon
             color={color}
             background={background}
             fontWeight={fontWeight}
-            negativeMargin={negativeMargin}
+            negativemargin={negativemargin}
             disabled={disabled}
         >
             {label}

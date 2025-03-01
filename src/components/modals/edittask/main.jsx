@@ -50,6 +50,23 @@ const EditTaskModal = ({ task }) => {
             console.error('Erro ao editar a task:', error);
         }
 
+        try {
+            const response = await fetch('http://localhost:3001/api/subtasks/update', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    subtasks
+                })
+            })
+
+            const data = await response.json()
+            console.log('>>> Resposta Task [Edit Subask Modal]:', data);
+        } catch (error) {
+            console.error('Erro ao editar a subtask:', error);
+        }
+
         closeModal(false)
     }
 
@@ -65,7 +82,7 @@ const EditTaskModal = ({ task }) => {
     const handleSubtaskChange = (id, newValue) => {
         setSubtasks((prevSubtasks) =>
             prevSubtasks.map((subtask) =>
-                subtask.id === id ? { ...subtask, value: newValue } : subtask
+                subtask.subtask_id === id ? { ...subtask, subtask_name: newValue } : subtask
             )
         );
     };
@@ -112,6 +129,7 @@ const EditTaskModal = ({ task }) => {
                     label='Subtasks'
                     data={subtasks}
                     dataValue={'subtask_name'}
+                    idReference={'subtask_id'}
                     type='text'
                     placeholder='e.g. Make Coffee'
                     onValueChange={handleSubtaskChange}

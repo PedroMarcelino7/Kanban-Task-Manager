@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useModal } from "../main";
 
 // Styles
-import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from "./editboardmodal.styles";
+import { Header, Title, Form } from "./editboardmodal.styles";
 
 // UI Components
 import LabeledInput from "../../../ui/inputs/labeledinput/main";
@@ -22,8 +22,6 @@ const EditBoardModal = ({ board }) => {
     // Handle Submit
     const onSubmit = async (e) => {
         e.preventDefault()
-
-        console.log('>>> Columns on submit [Edit Board Modal]:', columns)
 
         try {
             const response = await fetch("http://localhost:3001/api/boards/update", {
@@ -140,7 +138,7 @@ const EditBoardModal = ({ board }) => {
                 <DefaultButton
                     label='Save Changes'
                     type='submit'
-                    negativeMargin={true}
+                    negativemargin="true"
                 />
             </Form>
         </>

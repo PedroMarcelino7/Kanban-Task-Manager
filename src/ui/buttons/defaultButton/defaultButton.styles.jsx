@@ -10,5 +10,5 @@ export const DefaultButtonStyle = styled.button`
     padding-block: 0.75rem;
     padding-inline: 1.25rem;
     cursor: pointer;
-    margin-top: ${({ negativeMargin }) => (negativeMargin ? '-10px' : '0')};
+    margin-top: ${({ negativemargin }) => (negativemargin ? '-10px' : '0')};
 `;
