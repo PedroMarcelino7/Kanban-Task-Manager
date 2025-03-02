@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 
 // Styles
-import { AddSubtaskInput, Input, InputBox, InputLabel } from './deletableinput.styles'
+import { AddSubtaskInput, Input, InputBox, InputLabel, MappedInputs } from './deletableinput.styles'
 
 // UI Components
 import DefaultInputError from '../../labels/default_input_error/main';
@@ -15,7 +15,7 @@ import RemoveSubtask from '../../../assets/icon-cross.svg'
 //
 //
 //
-const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton }) => {
+const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text', placeholder = '', onValueChange, hasColorInput, onColorChange, closeButton, error }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Data [Deletable Input]:', data)
@@ -28,7 +28,7 @@ const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text
         <InputBox>
             <InputLabel>{label}</InputLabel>
 
-            <div>
+            <MappedInputs>
                 {data.map((item, index) => (
                     <AddSubtaskInput key={index}>
                         <Input
@@ -36,6 +36,7 @@ const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text
                             placeholder={placeholder}
                             value={item[dataValue]}
                             onChange={(e) => onValueChange(item[idReference], e.target.value)}
+                            error={error}
                         />
 
                         {hasColorInput &&
@@ -49,7 +50,9 @@ const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text
                         <img src={RemoveSubtask} alt="" onClick={() => closeButton(item.id)} />
                     </AddSubtaskInput>
                 ))}
-            </div>
+            </MappedInputs>
+
+            {error && <DefaultInputError message={'Campo obrigatório!'} />}
         </InputBox>
     )
 }

@@ -17,7 +17,6 @@ export const AddSubtaskInput = styled.div`
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    margin-bottom: 0.5rem;
 
     img {
         width: 35px;
@@ -27,8 +26,14 @@ export const AddSubtaskInput = styled.div`
     }
 `
 
+export const MappedInputs = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`
+
 export const Input = styled.input`
-    border: 2px solid var(--light);
+    border: 2px solid ${({ error }) => error ? 'var(--red)' : 'var(--light)'};
     border-radius: 5px;
     background-color: transparent;
     height: 45px;

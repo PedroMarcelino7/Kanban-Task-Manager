@@ -16,22 +16,22 @@ export const InputLabel = styled.label`
 export const Input = styled.input`
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid var(--light);
+    border: 2px solid ${({ error }) => error ? 'var(--red)' : 'var(--light)'};
     border-radius: 5px;
     background-color: transparent;
-    
+
     font-size: 15px;
     font-weight: 600;
     line-height: 19px;
     color: var(--black);
-    
+
     outline: none;
     transition: all 0.5s;
     
     &::placeholder {
-        color: var(--medium-gray);
-        font-weight: normal;
-    }
+    color: var(--medium - gray);
+    font-weight: normal;
+}
 `
 
 export const Error = styled.h6`

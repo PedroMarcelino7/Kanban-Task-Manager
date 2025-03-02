@@ -29,10 +29,16 @@ const AddTaskModal = ({ board }) => {
     const [taskDescription, setTaskDescription] = useState('')
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
     const [taskId, setTaskId] = useState(0)
+    const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
     const onSubmit = async (e) => {
         e.preventDefault()
+
+        if (!validateForm()) {
+            console.log("Formulário inválido. Corrija os erros antes de enviar.");
+            return;
+        }
 
         console.log('Handle Submit [Add Task Modal]: \nName:', taskName, '\nDescription:', taskDescription, '\nStatus:', columnId)
 
@@ -87,6 +93,23 @@ const AddTaskModal = ({ board }) => {
     //
     //
     // Other Functions
+    const validateForm = () => {
+        let errors = [];
+
+        if (!taskName || taskName.trim() === '') {
+            errors.push('task');
+        }
+
+        const hasEmptySubtask = subtasks.some(subtask => subtask.value.trim() === '');
+        if (hasEmptySubtask) {
+            errors.push('subtasks');
+        }
+
+        setInputErrors(errors);
+
+        return errors.length === 0;
+    };
+
     const getTaskId = async () => {
         try {
             const id = await fetch("http://localhost:3001/api/tasks/lastid").then(res => res.json())
@@ -136,6 +159,7 @@ const AddTaskModal = ({ board }) => {
                     placeholder='e.g. Take Coffee Break'
                     value={taskName}
                     onValueChange={setTaskName}
+                    error={inputErrors.some(input => input === 'task')}
                 />
 
                 <LabeledTextArea
@@ -152,6 +176,7 @@ const AddTaskModal = ({ board }) => {
                     placeholder='e.g. Make Coffee'
                     onValueChange={handleSubtaskChange}
                     closeButton={delSubtask}
+                    error={inputErrors.some(input => input === 'subtasks')}
                 />
 
                 <DefaultButton

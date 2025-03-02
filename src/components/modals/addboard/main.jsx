@@ -19,10 +19,16 @@ const AddBoardModal = () => {
     const [boardName, setBoardName] = useState('')
     const [boardId, setBoardId] = useState(0)
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
+    const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
     const createBoard = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if (!validateForm()) {
+            console.log("Formulário inválido. Corrija os erros antes de enviar.");
+            return;
+        }
 
         console.log('>>> Submit new board [Add Board Modal]:', '\n > Columns:', columns);
 
@@ -35,7 +41,7 @@ const AddBoardModal = () => {
                 body: JSON.stringify({
                     board_name: boardName
                 })
-            })
+            });
 
             const data = await response.json();
             console.log('>>> Resposta Board [Add Board Modal]:', data);
@@ -53,7 +59,7 @@ const AddBoardModal = () => {
                     columns: columns,
                     board_id: boardId
                 })
-            })
+            });
 
             const data = await response.json();
             console.log('>>> Resposta Columns [Add Board Modal]:', data);
@@ -61,8 +67,9 @@ const AddBoardModal = () => {
             console.error('Erro ao criar as colunas:', error);
         }
 
-        closeModal(false)
-    }
+        closeModal(false);
+    };
+
 
     // Use Effect Logs
     useEffect(() => {
@@ -74,6 +81,23 @@ const AddBoardModal = () => {
     //
     //
     // Other Functions
+    const validateForm = () => {
+        let errors = [];
+
+        if (!boardName || boardName.trim() === '') {
+            errors.push('board');
+        }
+
+        const hasEmptyColumn = columns.some(column => column.value.trim() === '');
+        if (hasEmptyColumn) {
+            errors.push('columns');
+        }
+
+        setInputErrors(errors);
+
+        return errors.length === 0;
+    };
+
     const getLastBoardId = async () => {
         try {
             const id = await fetch('http://localhost:3001/api/boards/lastid').then(res => res.json())
@@ -87,7 +111,7 @@ const AddBoardModal = () => {
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.id === id ? { ...column, value: newValue } : column
+                column.column_id === id ? { ...column, value: newValue } : column
             )
         );
     };
@@ -132,6 +156,7 @@ const AddBoardModal = () => {
                         placeholder='e.g. Web Design'
                         value={boardName}
                         onValueChange={setBoardName}
+                        error={inputErrors.some(error => error === 'board')}
                     />
 
                     <DeletableInput
@@ -143,6 +168,7 @@ const AddBoardModal = () => {
                         hasColorInput={true}
                         onColorChange={handleColorChange}
                         closeButton={delColumn}
+                        error={inputErrors.some(error => error === 'columns')}
                     />
 
                     <DefaultButton
@@ -156,7 +182,7 @@ const AddBoardModal = () => {
                     <DefaultButton
                         label='Create New Board'
                         type='submit'
-                        negativeMargin={true}
+                        negativemargin={true}
                     />
                 </Form>
             </div>

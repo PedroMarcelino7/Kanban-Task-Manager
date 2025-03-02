@@ -1,4 +1,4 @@
-import { Error } from "./default_input_error.styles"
+import { Error } from "./defaultinputerror.styles"
 
 const DefaultInputError = ({ message }) => {
     return (

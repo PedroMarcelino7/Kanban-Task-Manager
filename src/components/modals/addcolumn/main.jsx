@@ -18,12 +18,18 @@ const AddColumnModal = ({ boardId }) => {
     // Variables
     const { closeModal } = useModal()
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
+    const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
     const createColumn = async (e) => {
         e.preventDefault();
 
         console.log('>>> Submit new Column [Add Column Modal]:', '\n > Columns:', columns);
+
+        if (!validateForm()) {
+            console.log("Formulário inválido. Corrija os erros antes de enviar.");
+            return;
+        }
 
         try {
             const response = await fetch('http://localhost:3001/api/columns/post', {
@@ -51,10 +57,23 @@ const AddColumnModal = ({ boardId }) => {
     //
     //
     // Other Functions
+    const validateForm = () => {
+        let errors = [];
+
+        const hasEmptyColumn = columns.some(column => column.value.trim() === '');
+        if (hasEmptyColumn) {
+            errors.push('columns');
+        }
+
+        setInputErrors(errors);
+
+        return errors.length === 0;
+    };
+
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.id === id ? { ...column, value: newValue } : column
+                column.column_id === id ? { ...column, value: newValue } : column
             )
         );
     };
@@ -62,7 +81,7 @@ const AddColumnModal = ({ boardId }) => {
     const handleColorChange = (id, newColor) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.id === id ? { ...column, color: newColor } : column
+                column.column_id === id ? { ...column, color: newColor } : column
             )
         );
     };
@@ -102,6 +121,7 @@ const AddColumnModal = ({ boardId }) => {
                         hasColorInput={true}
                         onColorChange={handleColorChange}
                         closeButton={delColumn}
+                        error={inputErrors.some(input => input === 'columns')}
                     />
 
                     <DefaultButton
@@ -115,7 +135,7 @@ const AddColumnModal = ({ boardId }) => {
                     <DefaultButton
                         label='Create New Board'
                         type='submit'
-                        negativeMargin={true}
+                        negativemargin={true}
                     />
                 </Form>
             </div>

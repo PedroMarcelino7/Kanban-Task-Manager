@@ -18,10 +18,16 @@ const EditBoardModal = ({ board }) => {
     const { closeModal } = useModal()
     const [boardName, setBoardName] = useState(board.board_name)
     const [columns, setColumns] = useState(board.columns);
+    const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
     const onSubmit = async (e) => {
         e.preventDefault()
+
+        if (!validateForm()) {
+            console.log("Formulário inválido. Corrija os erros antes de enviar.");
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:3001/api/boards/update", {
@@ -69,6 +75,23 @@ const EditBoardModal = ({ board }) => {
     //
     //
     // Other Functions
+    const validateForm = () => {
+        let errors = [];
+
+        if (!boardName || boardName === '') {
+            errors.push('board');
+        }
+
+        const hasEmptyColumn = columns.some(column => column.column_name === '');
+        if (hasEmptyColumn) {
+            errors.push('columns');
+        }
+
+        setInputErrors(errors);
+
+        return errors.length === 0;
+    };
+
     const handleColumnChange = (id, newValue) => {
         setColumns(prevColumns =>
             prevColumns.map(column =>
@@ -113,6 +136,7 @@ const EditBoardModal = ({ board }) => {
                     placeholder="e.g. Web Design"
                     value={boardName}
                     onValueChange={setBoardName}
+                    error={inputErrors.some(input => input === 'board')}
                 />
 
                 <DeletableInput
@@ -125,6 +149,7 @@ const EditBoardModal = ({ board }) => {
                     onValueChange={handleColumnChange}
                     hasColorInput={true}
                     closeButton={delColumn}
+                    error={inputErrors.some(input => input === 'columns')}
                 />
 
                 <DefaultButton

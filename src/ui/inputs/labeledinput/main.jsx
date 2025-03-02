@@ -1,7 +1,8 @@
-import DefaultInputError from "../../labels/default_input_error/main"
 import { Input, InputBox, InputLabel } from "./labeledinput.styles"
 
-const LabeledInput = ({ label = '', type = 'text', placeholder = '', value, onValueChange }) => {
+import DefaultInputError from "../../labels/default_input_error/main"
+
+const LabeledInput = ({ label = '', type = 'text', placeholder = '', value, onValueChange, error }) => {
     return (
         <InputBox>
             <InputLabel>{label}</InputLabel>
@@ -10,7 +11,10 @@ const LabeledInput = ({ label = '', type = 'text', placeholder = '', value, onVa
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => onValueChange(e.target.value)}
+                error={error}
             />
+
+            {error && <DefaultInputError message={'Campo obrigatório!'} />}
         </InputBox>
     )
 }
