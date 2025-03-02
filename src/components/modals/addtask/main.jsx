@@ -172,6 +172,8 @@ const AddTaskModal = ({ board }) => {
                 <DeletableInput
                     label='Subtasks'
                     data={subtasks}
+                    dataValue='value'
+                    idReference='id'
                     type='text'
                     placeholder='e.g. Make Coffee'
                     onValueChange={handleSubtaskChange}

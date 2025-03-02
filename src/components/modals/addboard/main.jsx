@@ -76,6 +76,7 @@ const AddBoardModal = () => {
         getLastBoardId()
 
         console.log('>>> Board ID [Add Board Modal]:', boardId)
+        console.log('>>> Columns [Add Board Modal]:', columns)
     }, [])
 
     //
@@ -111,7 +112,7 @@ const AddBoardModal = () => {
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.column_id === id ? { ...column, value: newValue } : column
+                column.id === id ? { ...column, value: newValue } : column
             )
         );
     };
@@ -162,6 +163,8 @@ const AddBoardModal = () => {
                     <DeletableInput
                         label="Columns"
                         data={columns}
+                        dataValue='value'
+                        idReference='id'
                         type="text"
                         placeholder="e.g. Todo"
                         onValueChange={handleColumnChange}
