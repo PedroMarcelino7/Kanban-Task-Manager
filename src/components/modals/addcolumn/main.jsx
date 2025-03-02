@@ -73,7 +73,7 @@ const AddColumnModal = ({ boardId }) => {
     const handleColumnChange = (id, newValue) => {
         setColumns((prevColumns) =>
             prevColumns.map((column) =>
-                column.column_id === id ? { ...column, value: newValue } : column
+                column.id === id ? { ...column, value: newValue } : column
             )
         );
     };
@@ -115,6 +115,8 @@ const AddColumnModal = ({ boardId }) => {
                     <DeletableInput
                         label='Columns'
                         data={columns}
+                        dataValue='value'
+                        idReference='id'
                         type='text'
                         placeholder='e.g. Todo'
                         onValueChange={handleColumnChange}

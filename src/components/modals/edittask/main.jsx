@@ -88,11 +88,11 @@ const EditTaskModal = ({ task }) => {
     const validateForm = () => {
         let errors = [];
 
-        if (!taskName || taskName.trim() === '') {
+        if (!taskName || taskName === '') {
             errors.push('task');
         }
 
-        const hasEmptySubtask = subtasks.some(subtask => subtask.value.trim() === '');
+        const hasEmptySubtask = subtasks.some(subtask => subtask.value === '');
         if (hasEmptySubtask) {
             errors.push('subtasks');
         }

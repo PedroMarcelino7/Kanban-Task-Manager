@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MainPageBox, MainPageContainer, MainPageEmptyBox, NewColumnButton, Title } from './mainPage.styles'
+import { Container, MainPageBox, MainPageContainer, MainPageEmptyBox, NewColumnButton, Title } from './mainPage.styles'
 import Column from './Column/main'
 import NewColumn from './Column/NewColumn/main'
 import Loading from '../loading/main'
@@ -10,6 +10,7 @@ import AddBoardModal from '../modals/addboard/main'
 import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
 import { getBoardId } from '../../contexts/BoardContext'
+import DefaultToast from '../../ui/toasts/defaulttoast/main'
 
 const MainPage = ({ data }) => {
     const { boardId } = getBoardId()
@@ -32,7 +33,7 @@ const MainPage = ({ data }) => {
     }
 
     return (
-        <>
+        <Container>
             {!selectedBoard || data.length === 0
                 ? <MainPageContainer>
                     <MainPageEmptyBox>
@@ -70,7 +71,9 @@ const MainPage = ({ data }) => {
                 <Modal closeModal={setShowAddBoardModal}>
                     <AddBoardModal boardId={boardId} />
                 </Modal>}
-        </>
+
+            <DefaultToast />
+        </Container>
     )
 }
 
