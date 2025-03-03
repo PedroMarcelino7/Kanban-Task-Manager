@@ -11,6 +11,10 @@ import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
 import { getBoardId } from '../../contexts/BoardContext'
 import DefaultToast from '../../ui/toasts/defaulttoast/main'
+import TimedToast from '../../ui/toasts/timedtoast/main'
+import CloseableToast from '../../ui/toasts/closeabletoast/main'
+import IconedToast from '../../ui/toasts/iconedtoast/main'
+import CustomToast from '../../ui/toasts/customtoast/main'
 
 const MainPage = ({ data }) => {
     const { boardId } = getBoardId()
@@ -71,8 +75,6 @@ const MainPage = ({ data }) => {
                 <Modal closeModal={setShowAddBoardModal}>
                     <AddBoardModal boardId={boardId} />
                 </Modal>}
-
-            <DefaultToast />
         </Container>
     )
 }
