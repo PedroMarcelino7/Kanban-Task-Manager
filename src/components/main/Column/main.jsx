@@ -12,10 +12,10 @@ const Column = ({ column, data }) => {
     return (
         <ColumnBox>
             <TitleBox>
-                <IdentificationColor color={column.column_color} />
-                <Title>
-                    {column.column_name} ({column.tasks.length})
-                </Title>
+                    <IdentificationColor color={column.column_color} />
+                    <Title>
+                        {column.column_name} ({column.tasks.length})
+                    </Title>
             </TitleBox>
 
             <CardsContainer>

@@ -7,8 +7,22 @@ export const ColumnBox = styled.div`
 export const TitleBox = styled.div`
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     margin-bottom: 2rem;
+    gap: 0.75rem;
+`
+
+export const TitleDivider = styled.div`
+    display: flex;
+`
+
+export const ActionsDiv = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+`
+
+export const Action = styled.img`
+    width: 1rem;
 `
 
 export const IdentificationColor = styled.div`

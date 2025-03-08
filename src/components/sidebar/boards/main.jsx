@@ -1,27 +1,55 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { Board, BoardsBox, BoardsNav, BoardName, Title } from './boards.styles'
+import { getBoardId } from '../../../contexts/BoardContext'
+
+// Styles
+import { Board, BoardsBox, BoardsNav, BoardName, Title, HideSidebar } from './boards.styles'
+
+// Components
+import Modal from '../../modals/main'
+import AddBoardModal from '../../modals/addboard/main'
+import DeleteAllBoardsModal from '../../modals/deleteallboards/main'
+
+// UI Components
+import IconedButton from '../../../ui/buttons/iconedButton/main'
+
+// Images | Icons
 import BoardIcon from '../../../assets/icon-board.svg'
 import BoardIconSelected from '../../../assets/icon-board-selected.svg'
 import NewBoardIcon from '../../../assets/icon-new-board.svg'
-import Modal from '../../modals/main'
-import AddBoardModal from '../../modals/addboard/main'
-import { getBoardId } from '../../../contexts/BoardContext'
+import DeleteIcon from '../../../assets/icon-delete.svg'
 
+//
+//
+//
 const Boards = ({ boards }) => {
+    //
+    //
+    // Variables
     const { updateBoardId } = getBoardId()
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
+    const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 
-    const changeSelectedBoard = (board) => {
-        updateBoardId(board.board_id)
-        setSelectedBoard(board)
-    }
+    // Handle Submit
 
+    // Use Effect Logs
     useEffect(() => {
         console.log('>>> Selected Board [Boards component]:', selectedBoard)
         console.log('>>> Boards [Boards component]:', boards)
     }, [selectedBoard])
 
+    //
+    //
+    // Other Functions
+    const changeSelectedBoard = (board) => {
+        updateBoardId(board.board_id)
+        setSelectedBoard(board)
+    }
+
+    //
+    //
+    //
     return (
         <>
             <BoardsBox>
@@ -43,11 +71,25 @@ const Boards = ({ boards }) => {
                         <BoardName className='new-board'>+ Create New Board</BoardName>
                     </Board>
                 </BoardsNav>
+
+                <IconedButton
+                    label='Delete All Boards'
+                    icon={DeleteIcon}
+                    position='end'
+                    marginTop={true}
+                    size='small'
+                    onClick={() => setShowDeleteBoardModal(true)}
+                />
             </BoardsBox>
 
             {showAddNewBoardModal &&
                 <Modal closeModal={setShowAddNewBoardModal}>
                     <AddBoardModal />
+                </Modal>}
+
+            {showDeleteBoardModal &&
+                <Modal closeModal={setShowDeleteBoardModal}>
+                    <DeleteAllBoardsModal />
                 </Modal>}
         </>
     )

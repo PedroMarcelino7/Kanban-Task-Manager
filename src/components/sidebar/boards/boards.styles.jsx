@@ -66,3 +66,26 @@ export const Title = styled.h1`
     color: var(--medium-gray);
     margin-bottom: 1rem;
 `
+
+export const HideSidebar = styled.div`
+    display: flex;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+
+        img {
+            width: 15px;
+            height: 15px;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 23px;
+            color: var(--medium-gray);
+        }
+    }
+`

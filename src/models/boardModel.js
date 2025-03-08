@@ -79,3 +79,18 @@ export const getLastBoardId = async () => {
         })
     })
 }
+
+export const deleteAllBoards = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            update boards
+            set board_deleted = 1
+            where board_deleted = 0;
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    })
+}

@@ -61,6 +61,7 @@ export const OptionsPopUp = styled.div`
     flex-direction: column;
     transform: translateX(500px);
     transition: all 2s;
+    z-index: 1000;
     
     &.show {
         transition: all 0.5s;
