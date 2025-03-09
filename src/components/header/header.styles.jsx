@@ -25,16 +25,6 @@ export const ActionsBox = styled.div`
     gap: 0.5rem;
 `
 
-export const NewTaskButton = styled.button`
-    color: var(--white);
-    background-color: ${({ disabled }) => (disabled ? 'var(--main-purple-hover)' : 'var(--main-purple)')};
-    border-radius: 25px;
-    border: none;
-    padding-block: 0.75rem;
-    padding-inline: 1.25rem;
-    cursor: pointer;
-`
-
 export const OptionSection = styled.div`
     display: flex;
     align-items: center;

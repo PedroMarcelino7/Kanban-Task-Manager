@@ -1,7 +1,5 @@
 import '../../App.scss'
 
-import { useParams } from 'react-router-dom'
-
 import { useTheme } from '../../contexts/ThemeContext'
 import { useState, useEffect } from 'react'
 
@@ -31,9 +29,9 @@ function HomePage() {
             <Sidebar boards={data} />
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Header data={data} />
+                <Header />
 
-                <MainPage data={data} />
+                <MainPage />
             </div>
         </div>
     )

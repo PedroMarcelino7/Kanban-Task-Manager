@@ -1,33 +1,60 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { appData } from '../../contexts/AppContext'
-import { useParams } from 'react-router-dom'
-import { ActionsBox, HeaderBox, NewTaskButton, Title, Options, OptionSection, OptionsPopUp, Option } from './header.styles'
-import OptionsIcon from '../../assets/icon-vertical-ellipsis.svg'
+import { getBoardId } from '../../contexts/BoardIDContext'
+import { useBoards } from '../../contexts/BoardContext'
+import { useColumns } from '../../contexts/ColumnContext'
+
+// Styles
+import { ActionsBox, HeaderBox, Title, Options, OptionSection, OptionsPopUp, Option } from './header.styles'
+
+// Components
 import Modal from '../modals/main'
 import AddTaskModal from '../modals/addtask/main'
 import EditBoardModal from '../modals/editboard/main'
 import DeleteBoardModal from '../modals/deleteboard/main'
-import { getBoardId } from '../../contexts/BoardIDContext'
+
+// UI Components
 import DefaultButton from '../../ui/buttons/defaultButton/main'
 
-const Header = ({ data }) => {
+// Images | Icons
+import OptionsIcon from '../../assets/icon-vertical-ellipsis.svg'
+
+//
+//
+//
+const Header = () => {
+    //
+    //
+    // Variables
     const { boardId } = getBoardId()
-    const selectedBoard = data.find(board => board.board_id === Number(boardId)) || data[0]
+
+    const { boards, refreshBoards } = useBoards()
+    const { columns, refreshColumns } = useColumns()
+
+    const board = boards.find(board => board.board_id === boardId) || 0
+    const columnsInBoard = columns.filter(column => column.board_id === boardId)
+
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showAddNewTaskModal, setShowAddNewTaskModal] = useState(false)
     const [showEditBoardModal, setShowEditBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 
+    // Use Effect Logs
     useEffect(() => {
-        console.log('>>> Selected Board [Header]:', selectedBoard)
-        console.log('>>> Data Header [Header]:', data)
+        console.log('>>> Board [Header]:', board)
         console.log('>>> Board ID [Header]:', boardId)
     }, [])
 
+    //
+    //
+    // Other Functions
     const handleShowAddNewTaskModal = () => {
         setShowAddNewTaskModal(true)
     }
 
+    //
+    //
+    //
     return (
         <>
             <HeaderBox>
@@ -40,11 +67,11 @@ const Header = ({ data }) => {
                         label='+ Add New Task'
                         type='submit'
                         onClick={handleShowAddNewTaskModal}
-                        disabled={!selectedBoard || selectedBoard.columns.length === 0}
+                        disabled={!board || columnsInBoard.length === 0}
                     />
 
                     <OptionSection>
-                        <Options onClick={() => setShowOptionsPopUp(!selectedBoard ? '' : !showOptionsPopUp)} src={OptionsIcon} alt="" />
+                        <Options onClick={() => setShowOptionsPopUp(!board ? '' : !showOptionsPopUp)} src={OptionsIcon} alt="" />
 
                         <OptionsPopUp className={showOptionsPopUp ? "show" : ""}>
                             <Option onClick={() => setShowEditBoardModal(true)}>Edit Board</Option>
@@ -56,17 +83,17 @@ const Header = ({ data }) => {
 
             {showAddNewTaskModal &&
                 <Modal closeModal={setShowAddNewTaskModal}>
-                    <AddTaskModal board={selectedBoard} />
+                    <AddTaskModal board={board} />
                 </Modal>}
 
             {showEditBoardModal &&
                 <Modal closeModal={setShowEditBoardModal}>
-                    <EditBoardModal board={selectedBoard} />
+                    <EditBoardModal board={board} />
                 </Modal>}
 
             {showDeleteBoardModal &&
                 <Modal closeModal={setShowDeleteBoardModal}>
-                    <DeleteBoardModal board={selectedBoard} />
+                    <DeleteBoardModal board={board} />
                 </Modal>}
         </>
     )

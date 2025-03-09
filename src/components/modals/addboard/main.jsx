@@ -16,9 +16,11 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 const AddBoardModal = () => {
     // Variables
     const { closeModal } = useModal();
+
     const [boardName, setBoardName] = useState('')
     const [boardId, setBoardId] = useState(0)
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
+    
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit

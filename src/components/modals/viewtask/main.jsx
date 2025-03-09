@@ -1,9 +1,11 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { getBoardId } from '../../../contexts/BoardIDContext'
+import { useSubtasks } from '../../../contexts/SubtaskContext'
+import { useColumns } from '../../../contexts/ColumnContext'
 
 // Styles
-import { Checkbox, Header, Options, Subtask, SubtasksBox, SectionTitle, SubtaskTitle, Subtitle, Title, StatusSelect, StatusOption, StatusBox, Form, CreateTaskButton, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
+import { Header, Options, Subtitle, Title, Form, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
 
 // Components
 import Modal from '../main'
@@ -12,29 +14,30 @@ import DeleteTaskModal from '../deletetask/main'
 
 // UI Components
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
+import DefaultSelect from '../../../ui/selects/defaultselect/main'
+import MultipleCheckbox from '../../../ui/checkbox/multiplecheckbox/main'
 
 // Images | Icons
 import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
-import SelectIcon from '../../../assets/icon-chevron-down.svg'
-import DefaultSelect from '../../../ui/selects/defaultselect/main'
-import MultipleCheckbox from '../../../ui/checkbox/multiplecheckbox/main'
-import { useSubtasks } from '../../../contexts/SubtaskContext'
 
 //
 //
 //
-const ViewTaskModal = ({ task, column, data }) => {
-    //
-    const { subtasks, refreshSubtasks } = useSubtasks()
-    //
-
+const ViewTaskModal = ({ task, column }) => {
     //
     //
     // Variables
     const { boardId } = getBoardId()
-    const board = data.find(board => board.board_id === boardId) || data[0]
-    const [subtasksOLD, setSubtasks] = useState(subtasks.filter(subtask => subtask.task_id === task.task_id))
     const [columnId, setColumnId] = useState(column.column_id)
+
+    const { columns } = useColumns()
+    const { subtasks, refreshSubtasks } = useSubtasks()
+
+    const columnsInBoard = columns.filter(column => column.board_id === boardId)
+    const subtasksInTask = subtasks.filter(subtask => subtask.task_id === task.task_id) 
+
+    const [subtasksCheck, setSubtasks] = useState(subtasksInTask)
+
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showEditTaskModal, setShowEditTaskModal] = useState(false)
     const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false)
@@ -68,7 +71,7 @@ const ViewTaskModal = ({ task, column, data }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    subtasks: subtasksOLD,
+                    subtasks: subtasksCheck,
                 })
             })
 
@@ -84,17 +87,14 @@ const ViewTaskModal = ({ task, column, data }) => {
         console.log('>>> Task [View task modal]:', task)
         console.log('>>> Column [View task modal]:', column)
         console.log('>>> Column ID [View task modal]:', columnId)
-        console.log('>>> Data [View task modal]:', data)
         console.log('>>> Board Id [View task modal]:', boardId)
-        console.log('>>> Subtasks [View task modal]:', subtasksOLD)
-        console.log('>>> Board [View Task Modal]:', board)
     }, [])
 
     //
     //
     // Other Functions
     const getCheckedSubtasks = () => {
-        return subtasksOLD.reduce((count, subtask) => {
+        return subtasksCheck.reduce((count, subtask) => {
             return subtask.subtask_ischecked === 1 ? count + 1 : count;
         }, 0);
     };
@@ -141,8 +141,8 @@ const ViewTaskModal = ({ task, column, data }) => {
                 <MultipleCheckbox
                     label='Subtasks'
                     checkCount={getCheckedSubtasks()}
-                    total={subtasksOLD.length}
-                    data={subtasksOLD}
+                    total={subtasksInTask.length}
+                    data={subtasksCheck}
                     validate='subtask_ischecked'
                     onCheckChange={handleCheckSubtask}
                     checkReference='subtask_id'
@@ -152,7 +152,7 @@ const ViewTaskModal = ({ task, column, data }) => {
                 <DefaultSelect
                     label='Current Status'
                     onValueChange={setColumnId}
-                    data={board.columns}
+                    data={columnsInBoard}
                     dataValue='column_id'
                     dataOption='column_name'
                 />
@@ -165,12 +165,12 @@ const ViewTaskModal = ({ task, column, data }) => {
 
             {showEditTaskModal &&
                 <Modal closeModal={setShowEditTaskModal}>
-                    <EditTaskModal task={task} />
+                    <EditTaskModal task={task} subtasksInTask={subtasksInTask} />
                 </Modal>}
 
             {showDeleteTaskModal &&
                 <Modal closeModal={setShowDeleteTaskModal}>
-                    <DeleteTaskModal task_id={task.task_id} closeModal={setShowDeleteTaskModal} />
+                    <DeleteTaskModal taskId={task.task_id} />
                 </Modal>}
         </>
     )

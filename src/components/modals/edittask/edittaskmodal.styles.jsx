@@ -19,26 +19,3 @@ export const Form = styled.form`
     flex-direction: column;
     gap: 1.5rem;
 `
-
-export const AddSubtaskButton = styled.button`
-    color: var(--main-purple);
-    font-weight: bold;
-    background-color: #e4ebfa;
-    border-radius: 25px;
-    border: none;
-    padding-block: 0.75rem;
-    padding-inline: 1.25rem;
-    cursor: pointer;
-    margin-top: -10px;
-`
-
-export const CreateTaskButton = styled.button`
-    width: 100%;
-    color: #fff;
-    background-color: var(--main-purple);
-    border-radius: 25px;
-    border: none;
-    padding-block: 0.75rem;
-    padding-inline: 1.25rem;
-    cursor: pointer;
-`

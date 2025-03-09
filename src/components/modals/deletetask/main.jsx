@@ -3,13 +3,13 @@ import React from 'react'
 import { useModal } from '../main'
 
 // Styles
-import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
+import { Header, Title, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
 
 //
 //
 //
-const DeleteTaskModal = ({ task_id }) => {
+const DeleteTaskModal = ({ taskId }) => {
     // Variables
     const { closeModal } = useModal()
 
@@ -22,7 +22,7 @@ const DeleteTaskModal = ({ task_id }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    task_id: task_id
+                    task_id: taskId
                 })
             })
 

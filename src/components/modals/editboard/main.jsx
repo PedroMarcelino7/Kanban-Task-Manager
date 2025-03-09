@@ -9,6 +9,7 @@ import { Header, Title, Form } from "./editboardmodal.styles";
 import LabeledInput from "../../../ui/inputs/labeledinput/main";
 import DeletableInput from "../../../ui/inputs/deletableinput/main";
 import DefaultButton from "../../../ui/buttons/defaultButton/main";
+import { useColumns } from "../../../contexts/ColumnContext";
 
 //
 //
@@ -16,8 +17,14 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 const EditBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const {columns, refreshColumns} = useColumns()
+
+    const columnsInBoard = columns.filter(column => column.board_id === board.board_id)
+
     const [boardName, setBoardName] = useState(board.board_name)
-    const [columns, setColumns] = useState(board.columns);
+    const [columnsEdit, setColumns] = useState(columnsInBoard);
+
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -50,7 +57,7 @@ const EditBoardModal = ({ board }) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    columns
+                    columnsEdit
                 }),
             });
 
@@ -69,8 +76,8 @@ const EditBoardModal = ({ board }) => {
     }, [])
 
     useEffect(() => {
-        console.log("Colunas após atualização:", columns);
-    }, [columns]);
+        console.log("Colunas após atualização:", columnsEdit);
+    }, [columnsEdit]);
 
     //
     //
@@ -82,7 +89,7 @@ const EditBoardModal = ({ board }) => {
             errors.push('board');
         }
 
-        const hasEmptyColumn = columns.some(column => column.column_name === '');
+        const hasEmptyColumn = columnsEdit.some(column => column.column_name === '');
         if (hasEmptyColumn) {
             errors.push('columns');
         }
@@ -107,7 +114,7 @@ const EditBoardModal = ({ board }) => {
             )
         );
 
-        console.log("Colunas após mudança de cor:", columns); // Debug para ver as mudanças
+        console.log("Colunas após mudança de cor:", columnsEdit);
     };
     const addNewColumn = () => {
         setColumns((prevColumns) => [
@@ -141,7 +148,7 @@ const EditBoardModal = ({ board }) => {
 
                 <DeletableInput
                     label="Columns"
-                    data={columns}
+                    data={columnsEdit}
                     dataValue='column_name'
                     idReference='column_id'
                     type="text"

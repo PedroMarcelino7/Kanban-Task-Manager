@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useModal } from '../main'
 
 // Styles
-import { Header, SectionTitle, Title, StatusSelect, StatusOption, StatusBox, InputBox, InputLabel, Input, TextArea, Form, AddSubtaskInput, AddSubtaskButton, CreateTaskButton } from './addtaskmodal.styles'
+import { Header, Title, Form } from './addtaskmodal.styles'
 
 // Components
 
@@ -12,11 +12,10 @@ import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
+import DefaultSelect from '../../../ui/selects/defaultselect/main'
+import { useColumns } from '../../../contexts/ColumnContext'
 
 // Images | Icons
-import SelectIcon from '../../../assets/icon-chevron-down.svg'
-import RemoveSubtask from '../../../assets/icon-cross.svg'
-import DefaultSelect from '../../../ui/selects/defaultselect/main'
 
 //
 //
@@ -24,11 +23,18 @@ import DefaultSelect from '../../../ui/selects/defaultselect/main'
 const AddTaskModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
-    const [columnId, setColumnId] = useState(board.columns[0].column_id)
+
+    const {columns, refreshColumns} = useColumns()
+
+    const columnsInBoard = columns.filter(column => column.board_id === board.board_id)
+
+    const [columnId, setColumnId] = useState(columnsInBoard[0].column_id)
+    const [taskId, setTaskId] = useState(0)
+
     const [taskName, setTaskName] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
     const [subtasks, setSubtasks] = useState([{ id: 0, value: '' }])
-    const [taskId, setTaskId] = useState(0)
+
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -193,7 +199,7 @@ const AddTaskModal = ({ board }) => {
                 <DefaultSelect
                     label='Status'
                     onValueChange={setColumnId}
-                    data={board.columns}
+                    data={columnsInBoard}
                     dataValue='column_id'
                     dataOption='column_name'
                 />

@@ -27,7 +27,9 @@ const Boards = ({ boards }) => {
     //
     // Variables
     const { updateBoardId } = getBoardId()
+
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
+    
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 

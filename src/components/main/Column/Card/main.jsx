@@ -1,39 +1,60 @@
+// React
 import React, { useEffect, useState } from 'react'
-import { CardBox, Subtitle, Title } from './card.styles'
-import Modal from '../../../modals/main'
-import ViewTaskModal from '../../../modals/viewtask/main'
 import { useSubtasks } from '../../../../contexts/SubtaskContext'
 
-const Card = ({ task, column, data }) => {
+// Styles
+import { CardBox, Subtitle, Title } from './card.styles'
+
+// Components
+import Modal from '../../../modals/main'
+import ViewTaskModal from '../../../modals/viewtask/main'
+
+// UI Components
+
+// Images | Icons
+
+//
+//
+//
+const Card = ({ task, column }) => {
     //
+    //
+    // Variables
     const { subtasks, refreshSubtasks } = useSubtasks()
-    //
+
+    const subtasksInTask = subtasks.filter(subtask => subtask.task_id === task.task_id)
 
     const [showTaskModal, setShowTaskModal] = useState(false)
 
-    const getCheckedSubtasks = () => {
-        return subtasks.filter(subtask => subtask.task_id === task.task_id).reduce((count, subtask) => {
-            return subtask.subtask_ischecked === 1 ? count + 1 : count
-        }, 0)
-    }
-
+    // Use Effect Logs
     useEffect(() => {
         console.log('>> Task ID [Card component | Task]:', task.task_id)
         console.log('>> Task [Card component | Task]:', task)
         console.log('>> Column [Card component | Task]:', column)
-        console.log('>> Data [Card component | Task]:', data)
     }, [])
 
+    //
+    //
+    // Other Functions
+    const getCheckedSubtasks = () => {
+        return subtasksInTask.reduce((count, subtask) => {
+            return subtask.subtask_ischecked === 1 ? count + 1 : count
+        }, 0)
+    }
+
+    //
+    //
+    //
     return (
         <>
             <CardBox onClick={() => setShowTaskModal(true)}>
                 <Title>{task.task_name}</Title>
-                <Subtitle>{getCheckedSubtasks()} of {subtasks.filter(subtask => subtask.task_id === task.task_id).length} subtasks</Subtitle>
+                <Subtitle>{getCheckedSubtasks()} of {subtasksInTask.length} subtasks</Subtitle>
             </CardBox>
 
             {showTaskModal &&
                 <Modal closeModal={setShowTaskModal}>
-                    <ViewTaskModal task={task} column={column} data={data} />
+                    <ViewTaskModal task={task} column={column} />
                 </Modal>}
         </>
     )

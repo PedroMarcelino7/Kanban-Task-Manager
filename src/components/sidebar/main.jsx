@@ -1,14 +1,41 @@
+// React
 import React, { useEffect } from 'react'
+import { useBoards } from '../../contexts/BoardContext'
+
+// Styles
 import { SidebarContainer, LogoBox, HideSidebar } from './sidebar.styles'
-import LogoLight from '../../assets/logo-dark.svg'
+
+// Components
 import Boards from './boards/main'
 import Theme from './theme/main'
+
+// UI Components
+
+// Images | Icons
+import LogoLight from '../../assets/logo-dark.svg'
 import EyeSlashed from '../../assets/icon-hide-sidebar.svg'
 
-const Sidebar = ({ boards }) => {
+//
+//
+//
+const Sidebar = () => {
+    //
+    //
+    // Variables
+    const { boards, refreshBoards } = useBoards()
+
+    // Use Effect Logs
     useEffect(() => {
         console.log('>>> Boards [Sidebar main component]:', boards)
     }, [])
+
+    //
+    //
+    // Other Functions
+
+    //
+    //
+    //
 
     return (
         <SidebarContainer>

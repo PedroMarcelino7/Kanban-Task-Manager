@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useModal } from "../main";
 
 // Styles
-import { Header, Title, Form, AddSubtaskButton, CreateTaskButton } from './edittaskmodal.styles'
+import { Header, Title, Form } from './edittaskmodal.styles'
 
 // Components
 
@@ -18,12 +18,14 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 //
 //
 //
-const EditTaskModal = ({ task }) => {
+const EditTaskModal = ({ task, subtasksInTask }) => {
     // Variables
     const { closeModal } = useModal()
+    
     const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
-    const [subtasks, setSubtasks] = useState(task.subtasks)
+    const [subtasks, setSubtasks] = useState(subtasksInTask)
+    
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -79,7 +81,7 @@ const EditTaskModal = ({ task }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Task [Edit Task Modal]:', task)
-        console.log('>>> Subtasks [Edit Task Modal]:', task.subtasks)
+        console.log('>>> Subtasks [Edit Task Modal]:', subtasks)
     }, [])
 
     //
@@ -140,14 +142,14 @@ const EditTaskModal = ({ task }) => {
                     value={taskName}
                     onValueChange={setTaskName}
                     error={inputErrors.some(input => input === 'task')}
-                    />
+                />
 
                 <LabeledTextArea
                     label='Description'
                     placeholder={`e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`}
                     value={taskDescription}
                     onValueChange={setTaskDescription}
-                    />
+                />
 
                 <DeletableInput
                     label='Subtasks'
@@ -172,7 +174,7 @@ const EditTaskModal = ({ task }) => {
                 <DefaultButton
                     label='Save Changes'
                     type='submit'
-                    negativeMargin={true}
+                    negativemargin={true}
                 />
             </Form>
         </>
