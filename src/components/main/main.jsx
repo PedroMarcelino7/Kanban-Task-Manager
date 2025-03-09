@@ -14,14 +14,17 @@ import { useTasks } from '../../contexts/TaskContext'
 import { useSubtasks } from '../../contexts/SubtaskContext'
 
 const MainPage = ({ data }) => {
+    const { boardId } = getBoardId()
+
     //
     const { boards, refreshBoards } = useBoards()
     const { columns, refreshColumns } = useColumns()
     const { tasks, refreshTasks } = useTasks()
     const { subtasks, refreshSubasks } = useSubtasks()
+
+    const board = boards.find(board => board.board_id === boardId)
     //
 
-    const { boardId } = getBoardId()
     const selectedBoard = data.find(board => board.board_id === Number(boardId)) || data[0]
     const [loading, setLoading] = useState(false)
     const [showAddColumnModal, setShowAddColumnModal] = useState(false)
@@ -29,6 +32,7 @@ const MainPage = ({ data }) => {
 
     useEffect(() => {
         //
+        console.log('** Board:', board)
         console.log('** Boards:', boards)
         console.log('** Columns:', columns)
         console.log('** Tasks:', tasks)
@@ -61,9 +65,11 @@ const MainPage = ({ data }) => {
                     </MainPageEmptyBox>
                 </MainPageContainer>
                 : <MainPageContainer>
-                    {selectedBoard.columns.length !== 0
+                    {boards.length !== 0
                         ? <MainPageBox>
-                            {selectedBoard.columns.map((column, index) => (
+                            {columns.map((column, index) => (
+                                column.board_id === board.board_id
+                                &&
                                 <Column key={index}
                                     column={column}
                                     data={data}
@@ -74,6 +80,20 @@ const MainPage = ({ data }) => {
                         : <BoardEmpty onClick={setShowAddColumnModal} />
                     }
                 </ MainPageContainer>
+                // : <MainPageContainer>
+                //     {selectedBoard.columns.length !== 0
+                //         ? <MainPageBox>
+                //             {selectedBoard.columns.map((column, index) => (
+                //                 <Column key={index}
+                //                     column={column}
+                //                     data={data}
+                //                 />
+                //             ))}
+                //             <NewColumn onClick={setShowAddColumnModal} />
+                //         </MainPageBox>
+                //         : <BoardEmpty onClick={setShowAddColumnModal} />
+                //     }
+                // </ MainPageContainer>
             }
 
             {showAddColumnModal &&

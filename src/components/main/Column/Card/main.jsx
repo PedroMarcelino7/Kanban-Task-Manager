@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { CardBox, Subtitle, Title } from './card.styles'
 import Modal from '../../../modals/main'
 import ViewTaskModal from '../../../modals/viewtask/main'
+import { useSubtasks } from '../../../../contexts/SubtaskContext'
 
 const Card = ({ task, column, data }) => {
+    //
+    const { subtasks, refreshSubtasks } = useSubtasks()
+    //
+
     const [showTaskModal, setShowTaskModal] = useState(false)
 
     const getCheckedSubtasks = () => {
-        return task.subtasks.reduce((count, subtask) => {
+        return subtasks.filter(subtask => subtask.task_id === task.task_id).reduce((count, subtask) => {
             return subtask.subtask_ischecked === 1 ? count + 1 : count
         }, 0)
     }
@@ -23,7 +28,7 @@ const Card = ({ task, column, data }) => {
         <>
             <CardBox onClick={() => setShowTaskModal(true)}>
                 <Title>{task.task_name}</Title>
-                <Subtitle>{getCheckedSubtasks()} of {task.subtasks.length} subtasks</Subtitle>
+                <Subtitle>{getCheckedSubtasks()} of {subtasks.filter(subtask => subtask.task_id === task.task_id).length} subtasks</Subtitle>
             </CardBox>
 
             {showTaskModal &&

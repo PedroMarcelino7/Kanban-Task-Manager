@@ -18,17 +18,22 @@ import OptionsIcon from '../../../assets/icon-vertical-ellipsis.svg'
 import SelectIcon from '../../../assets/icon-chevron-down.svg'
 import DefaultSelect from '../../../ui/selects/defaultselect/main'
 import MultipleCheckbox from '../../../ui/checkbox/multiplecheckbox/main'
+import { useSubtasks } from '../../../contexts/SubtaskContext'
 
 //
 //
 //
 const ViewTaskModal = ({ task, column, data }) => {
     //
+    const { subtasks, refreshSubtasks } = useSubtasks()
+    //
+
+    //
     //
     // Variables
     const { boardId } = getBoardId()
     const board = data.find(board => board.board_id === boardId) || data[0]
-    const [subtasks, setSubtasks] = useState([...task.subtasks])
+    const [subtasksOLD, setSubtasks] = useState(subtasks.filter(subtask => subtask.task_id === task.task_id))
     const [columnId, setColumnId] = useState(column.column_id)
     const [showOptionsPopUp, setShowOptionsPopUp] = useState(false)
     const [showEditTaskModal, setShowEditTaskModal] = useState(false)
@@ -63,7 +68,7 @@ const ViewTaskModal = ({ task, column, data }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    subtasks: subtasks,
+                    subtasks: subtasksOLD,
                 })
             })
 
@@ -81,7 +86,7 @@ const ViewTaskModal = ({ task, column, data }) => {
         console.log('>>> Column ID [View task modal]:', columnId)
         console.log('>>> Data [View task modal]:', data)
         console.log('>>> Board Id [View task modal]:', boardId)
-        console.log('>>> Subtasks [View task modal]:', subtasks)
+        console.log('>>> Subtasks [View task modal]:', subtasksOLD)
         console.log('>>> Board [View Task Modal]:', board)
     }, [])
 
@@ -89,7 +94,7 @@ const ViewTaskModal = ({ task, column, data }) => {
     //
     // Other Functions
     const getCheckedSubtasks = () => {
-        return subtasks.reduce((count, subtask) => {
+        return subtasksOLD.reduce((count, subtask) => {
             return subtask.subtask_ischecked === 1 ? count + 1 : count;
         }, 0);
     };
@@ -136,8 +141,8 @@ const ViewTaskModal = ({ task, column, data }) => {
                 <MultipleCheckbox
                     label='Subtasks'
                     checkCount={getCheckedSubtasks()}
-                    total={task.subtasks.length}
-                    data={subtasks}
+                    total={subtasksOLD.length}
+                    data={subtasksOLD}
                     validate='subtask_ischecked'
                     onCheckChange={handleCheckSubtask}
                     checkReference='subtask_id'
