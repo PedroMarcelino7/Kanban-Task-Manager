@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react'
-import { getBoardId } from '../../../contexts/BoardContext'
+import { getBoardId } from '../../../contexts/BoardIDContext'
 
 // Styles
 import { Board, BoardsBox, BoardsNav, BoardName, Title, HideSidebar } from './boards.styles'

@@ -7,7 +7,7 @@ import Modal from '../modals/main'
 import AddTaskModal from '../modals/addtask/main'
 import EditBoardModal from '../modals/editboard/main'
 import DeleteBoardModal from '../modals/deleteboard/main'
-import { getBoardId } from '../../contexts/BoardContext'
+import { getBoardId } from '../../contexts/BoardIDContext'
 import DefaultButton from '../../ui/buttons/defaultButton/main'
 
 const Header = ({ data }) => {

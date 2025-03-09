@@ -10,7 +10,7 @@ import MainPage from '../../components/main/main'
 import Sidebar from '../../components/sidebar/main'
 import Loading from '../../components/loading/main'
 import { appData } from '../../contexts/AppContext'
-import { getBoardId } from '../../contexts/BoardContext'
+import { getBoardId } from '../../contexts/BoardIDContext'
 
 function HomePage() {
     const { boardId, updateBoardId } = getBoardId()

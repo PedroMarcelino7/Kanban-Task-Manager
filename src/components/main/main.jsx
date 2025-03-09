@@ -3,20 +3,24 @@ import { Container, MainPageBox, MainPageContainer, MainPageEmptyBox, NewColumnB
 import Column from './Column/main'
 import NewColumn from './Column/NewColumn/main'
 import Loading from '../loading/main'
-import { useParams } from 'react-router-dom'
-import { appData } from '../../contexts/AppContext'
 import AddColumnModal from '../modals/addcolumn/main'
 import AddBoardModal from '../modals/addboard/main'
 import Modal from '../modals/main'
 import BoardEmpty from './boardempty/main'
-import { getBoardId } from '../../contexts/BoardContext'
-import DefaultToast from '../../ui/toasts/defaulttoast/main'
-import TimedToast from '../../ui/toasts/timedtoast/main'
-import CloseableToast from '../../ui/toasts/closeabletoast/main'
-import IconedToast from '../../ui/toasts/iconedtoast/main'
-import CustomToast from '../../ui/toasts/customtoast/main'
+import { getBoardId } from '../../contexts/BoardIDContext'
+import { useBoards } from '../../contexts/BoardContext'
+import { useColumns } from '../../contexts/ColumnContext'
+import { useTasks } from '../../contexts/TaskContext'
+import { useSubtasks } from '../../contexts/SubtaskContext'
 
 const MainPage = ({ data }) => {
+    //
+    const { boards, refreshBoards } = useBoards()
+    const { columns, refreshColumns } = useColumns()
+    const { tasks, refreshTasks } = useTasks()
+    const { subtasks, refreshSubasks } = useSubtasks()
+    //
+
     const { boardId } = getBoardId()
     const selectedBoard = data.find(board => board.board_id === Number(boardId)) || data[0]
     const [loading, setLoading] = useState(false)
@@ -24,6 +28,12 @@ const MainPage = ({ data }) => {
     const [showAddBoardModal, setShowAddBoardModal] = useState(false)
 
     useEffect(() => {
+        //
+        console.log('** Boards:', boards)
+        console.log('** Columns:', columns)
+        console.log('** Tasks:', tasks)
+        console.log('** Subtasks:', subtasks)
+        //
         console.log('>>> Board ID Context [Main component]:', boardId)
         console.log('>>> App Data (boards) [Main component]:', data)
         console.log('>>> Data Length [Main component]:', data.length)
