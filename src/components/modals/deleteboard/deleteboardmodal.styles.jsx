@@ -21,30 +21,6 @@ export const Subtitle = styled.h2`
     color: var(--medium-gray);
 `
 
-export const AddSubtaskButton = styled.button`
-    width: 100%;
-    color: #fff;
-    font-weight: bold;
-    background-color: var(--red);
-    border-radius: 25px;
-    border: none;
-    padding-block: 0.75rem;
-    padding-inline: 1.25rem;
-    cursor: pointer;
-`
-
-export const CreateTaskButton = styled.button`
-    width: 100%;
-    color: var(--main-purple);
-    font-weight: bold;
-    background-color: #e4ebfa;
-    border-radius: 25px;
-    border: none;
-    padding-block: 0.75rem;
-    padding-inline: 1.25rem;
-    cursor: pointer;
-`
-
 export const ButtonsBox = styled.div`
     display: flex;
     align-items: center;

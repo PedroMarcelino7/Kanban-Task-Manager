@@ -1,6 +1,9 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { useModal } from '../main'
+import { useColumns } from '../../../contexts/ColumnContext'
+import { useTasks } from '../../../contexts/TaskContext'
+import { useSubtasks } from '../../../contexts/SubtaskContext'
 
 // Styles
 import { Header, Title, Form } from './addtaskmodal.styles'
@@ -13,7 +16,6 @@ import LabeledTextArea from '../../../ui/textareas/labeledtextarea/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
 import DefaultSelect from '../../../ui/selects/defaultselect/main'
-import { useColumns } from '../../../contexts/ColumnContext'
 
 // Images | Icons
 
@@ -24,7 +26,9 @@ const AddTaskModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
 
-    const {columns, refreshColumns} = useColumns()
+    const { columns } = useColumns()
+    const { refreshTasks } = useTasks()
+    const { refreshSubtasks } = useSubtasks()
 
     const columnsInBoard = columns.filter(column => column.board_id === board.board_id)
 
@@ -64,6 +68,8 @@ const AddTaskModal = ({ board }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Task [Add Task Modal]:', data);
+
+            refreshTasks()
         } catch (error) {
             console.error('Erro ao criar a task:', error);
         }
@@ -82,6 +88,8 @@ const AddTaskModal = ({ board }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Subtask [Add Task Modal]:', data);
+
+            refreshSubtasks()
         } catch (error) {
             console.error('Erro ao criar as subtasks:', error);
         }

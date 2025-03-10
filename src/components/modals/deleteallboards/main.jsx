@@ -34,11 +34,12 @@ const DeleteAllBoardsModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Board [Delete Board Modal]:', data);
+            
+            refreshBoards()
         } catch (error) {
             console.error('Erro ao deletar o board:', error);
         }
 
-        refreshBoards()
         closeModal(false)
     }
 

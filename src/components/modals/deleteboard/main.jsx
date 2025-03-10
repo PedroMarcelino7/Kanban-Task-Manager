@@ -1,10 +1,17 @@
 // React
 import React, { useEffect } from 'react'
 import { useModal } from '../main'
+import { useBoards } from '../../../contexts/BoardContext'
 
 // Styles
-import { Header, Title, AddSubtaskButton, CreateTaskButton, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
+import { Header, Title, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
+
+// Components
+
+// UI Components
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
+
+// Images | Icons
 
 //
 //
@@ -12,6 +19,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 const DeleteBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { refreshBoards } = useBoards()
 
     // Handle Submit
     const deleteBoard = async () => {
@@ -28,6 +37,8 @@ const DeleteBoardModal = ({ board }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Board [Delete Board Modal]:', data);
+
+            refreshBoards()
         } catch (error) {
             console.error('Erro ao deletar o board:', error);
         }

@@ -1,6 +1,8 @@
 // React
 import React, { useEffect, useState } from "react";
 import { useModal } from "../main";
+import { useColumns } from "../../../contexts/ColumnContext";
+import { useBoards } from "../../../contexts/BoardContext";
 
 // Styles
 import { Header, Title, Form } from "./editboardmodal.styles";
@@ -9,7 +11,6 @@ import { Header, Title, Form } from "./editboardmodal.styles";
 import LabeledInput from "../../../ui/inputs/labeledinput/main";
 import DeletableInput from "../../../ui/inputs/deletableinput/main";
 import DefaultButton from "../../../ui/buttons/defaultButton/main";
-import { useColumns } from "../../../contexts/ColumnContext";
 
 //
 //
@@ -18,7 +19,8 @@ const EditBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
 
-    const {columns, refreshColumns} = useColumns()
+    const { columns, refreshColumns } = useColumns()
+    const { refreshBoards } = useBoards()
 
     const columnsInBoard = columns.filter(column => column.board_id === board.board_id)
 
@@ -48,6 +50,8 @@ const EditBoardModal = ({ board }) => {
 
             const data = await response.json();
             console.log(">>> Resposta Board [Edit Board Modal]:", data);
+
+            refreshBoards()
         } catch (error) {
             console.error("Erro ao editar o board:", error);
         }
@@ -63,6 +67,8 @@ const EditBoardModal = ({ board }) => {
 
             const data = await response.json();
             console.log(">>> Resposta Columns [Edit Board Modal]:", data);
+
+            refreshColumns()
         } catch (error) {
             console.error("Erro ao editar as colunas:", error);
         }

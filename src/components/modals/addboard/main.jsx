@@ -52,6 +52,8 @@ const AddBoardModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Board [Add Board Modal]:', data);
+            
+            refreshBoards()
         } catch (error) {
             console.error('Erro ao criar o board:', error);
         }
@@ -70,12 +72,12 @@ const AddBoardModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Columns [Add Board Modal]:', data);
+            
+            refreshColumns()
         } catch (error) {
             console.error('Erro ao criar as colunas:', error);
         }
 
-        refreshBoards()
-        refreshColumns()
         closeModal(false);
     };
 
