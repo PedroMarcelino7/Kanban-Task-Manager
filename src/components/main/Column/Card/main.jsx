@@ -20,7 +20,7 @@ const Card = ({ task, column }) => {
     //
     //
     // Variables
-    const { subtasks, refreshSubtasks } = useSubtasks()
+    const { subtasks } = useSubtasks()
 
     const subtasksInTask = subtasks.filter(subtask => subtask.task_id === task.task_id)
 

@@ -1,14 +1,15 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { getBoardId } from '../../../contexts/BoardIDContext'
-import { useSubtasks } from '../../../contexts/SubtaskContext'
 import { useColumns } from '../../../contexts/ColumnContext'
+import { useTasks } from '../../../contexts/TaskContext'
+import { useSubtasks } from '../../../contexts/SubtaskContext'
 
 // Styles
 import { Header, Options, Subtitle, Title, Form, OptionSection, OptionsPopUp, Option } from './viewtaskmodal.styles'
 
 // Components
-import Modal from '../main'
+import Modal, { useModal } from '../main'
 import EditTaskModal from '../edittask/main'
 import DeleteTaskModal from '../deletetask/main'
 
@@ -27,14 +28,17 @@ const ViewTaskModal = ({ task, column }) => {
     //
     //
     // Variables
+    const { closeModal } = useModal()
+
     const { boardId } = getBoardId()
     const [columnId, setColumnId] = useState(column.column_id)
 
     const { columns } = useColumns()
     const { subtasks, refreshSubtasks } = useSubtasks()
+    const { refreshTasks } = useTasks()
 
     const columnsInBoard = columns.filter(column => column.board_id === boardId)
-    const subtasksInTask = subtasks.filter(subtask => subtask.task_id === task.task_id) 
+    const subtasksInTask = subtasks.filter(subtask => subtask.task_id === task.task_id)
 
     const [subtasksCheck, setSubtasks] = useState(subtasksInTask)
 
@@ -60,6 +64,8 @@ const ViewTaskModal = ({ task, column }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Tasks [View Task Modal]:', data);
+
+            refreshTasks()
         } catch (error) {
             console.error('Erro ao editar a task:', error);
         }
@@ -77,9 +83,13 @@ const ViewTaskModal = ({ task, column }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Subtasks [View Task Modal]:', data);
+
+            refreshSubtasks()
         } catch (error) {
             console.error('Erro ao editar a subtask:', error);
         }
+
+        closeModal()
     }
 
     // Use Effect Logs
@@ -165,12 +175,12 @@ const ViewTaskModal = ({ task, column }) => {
 
             {showEditTaskModal &&
                 <Modal closeModal={setShowEditTaskModal}>
-                    <EditTaskModal task={task} subtasksInTask={subtasksInTask} />
+                    <EditTaskModal task={task} subtasksInTask={subtasksInTask} closeModal={closeModal} />
                 </Modal>}
 
             {showDeleteTaskModal &&
                 <Modal closeModal={setShowDeleteTaskModal}>
-                    <DeleteTaskModal taskId={task.task_id} />
+                    <DeleteTaskModal taskId={task.task_id} closeModal={closeModal} />
                 </Modal>}
         </>
     )

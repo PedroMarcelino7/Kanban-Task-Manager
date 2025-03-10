@@ -29,8 +29,8 @@ const MainPage = () => {
     // Variables
     const { boardId } = getBoardId()
 
-    const { boards, refreshBoards } = useBoards()
-    const { columns, refreshColumns } = useColumns()
+    const { boards } = useBoards()
+    const { columns } = useColumns()
 
     const board = boards.find(board => board.board_id === boardId) || 0
     const columnsInBoard = columns.filter(column => column.board_id === board.board_id)

@@ -1,6 +1,7 @@
 // React
 import React, { useEffect, useState } from 'react'
-import { useModal } from "../main";
+import { useTasks } from '../../../contexts/TaskContext';
+import { useSubtasks } from '../../../contexts/SubtaskContext';
 
 // Styles
 import { Header, Title, Form } from './edittaskmodal.styles'
@@ -18,14 +19,15 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 //
 //
 //
-const EditTaskModal = ({ task, subtasksInTask }) => {
+const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
     // Variables
-    const { closeModal } = useModal()
-    
+    const { refreshTasks } = useTasks()
+    const { refreshSubtasks } = useSubtasks()
+
     const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
     const [subtasks, setSubtasks] = useState(subtasksInTask)
-    
+
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -54,6 +56,8 @@ const EditTaskModal = ({ task, subtasksInTask }) => {
 
             const data = await response.json()
             console.log('>>> Resposta Task [Edit Task Modal]:', data);
+
+            refreshTasks()
         } catch (error) {
             console.error('Erro ao editar a task:', error);
         }
@@ -71,11 +75,13 @@ const EditTaskModal = ({ task, subtasksInTask }) => {
 
             const data = await response.json()
             console.log('>>> Resposta Task [Edit Subask Modal]:', data);
+
+            refreshSubtasks()
         } catch (error) {
             console.error('Erro ao editar a subtask:', error);
         }
 
-        closeModal(false)
+        closeModal()
     }
 
     // Use Effect Logs

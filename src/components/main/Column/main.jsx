@@ -19,7 +19,8 @@ const Column = ({ column }) => {
     //
     //
     // Variables
-    const { tasks, refreshTasks } = useTasks()
+    const { tasks } = useTasks()
+    
     const tasksInColumn = tasks.filter(task => task.column_id === column.column_id)
 
     // Use Effect Logs
