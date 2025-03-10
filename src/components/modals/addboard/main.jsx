@@ -1,6 +1,8 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { useModal } from '../main'
+import { useBoards } from '../../../contexts/BoardContext'
+import { useColumns } from '../../../contexts/ColumnContext'
 
 // Styles
 import { Header, Title, Form } from './addboardmodal.styles'
@@ -17,10 +19,13 @@ const AddBoardModal = () => {
     // Variables
     const { closeModal } = useModal();
 
+    const { refreshBoards } = useBoards()
+    const { refreshColumns } = useColumns()
+
     const [boardName, setBoardName] = useState('')
     const [boardId, setBoardId] = useState(0)
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
-    
+
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -69,6 +74,8 @@ const AddBoardModal = () => {
             console.error('Erro ao criar as colunas:', error);
         }
 
+        refreshBoards()
+        refreshColumns()
         closeModal(false);
     };
 

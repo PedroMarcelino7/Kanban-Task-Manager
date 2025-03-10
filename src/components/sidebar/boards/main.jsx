@@ -1,9 +1,10 @@
 // React
 import React, { useEffect, useState } from 'react'
 import { getBoardId } from '../../../contexts/BoardIDContext'
+import { useBoards } from '../../../contexts/BoardContext'
 
 // Styles
-import { Board, BoardsBox, BoardsNav, BoardName, Title, HideSidebar } from './boards.styles'
+import { Board, BoardsBox, BoardsNav, BoardName, Title } from './boards.styles'
 
 // Components
 import Modal from '../../modals/main'
@@ -22,14 +23,16 @@ import DeleteIcon from '../../../assets/icon-delete.svg'
 //
 //
 //
-const Boards = ({ boards }) => {
+const Boards = () => {
     //
     //
     // Variables
     const { updateBoardId } = getBoardId()
 
+    const { boards } = useBoards()
+
     const [selectedBoard, setSelectedBoard] = useState(boards[0])
-    
+
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
 

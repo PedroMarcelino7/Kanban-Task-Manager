@@ -1,6 +1,5 @@
 // React
-import React, { useEffect } from 'react'
-import { useBoards } from '../../contexts/BoardContext'
+import React from 'react'
 
 // Styles
 import { SidebarContainer, LogoBox, HideSidebar } from './sidebar.styles'
@@ -21,13 +20,9 @@ import EyeSlashed from '../../assets/icon-hide-sidebar.svg'
 const Sidebar = () => {
     //
     //
-    // Variables
-    const { boards, refreshBoards } = useBoards()
+    // Variable
 
     // Use Effect Logs
-    useEffect(() => {
-        console.log('>>> Boards [Sidebar main component]:', boards)
-    }, [])
 
     //
     //
@@ -43,7 +38,7 @@ const Sidebar = () => {
                 <img src={LogoLight} />
             </LogoBox>
 
-            <Boards boards={boards} />
+            <Boards />
 
             <Theme />
 
