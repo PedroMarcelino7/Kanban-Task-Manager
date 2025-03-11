@@ -1,6 +1,7 @@
 // React
 import React from 'react'
 import { useTasks } from '../../../contexts/TaskContext'
+import { useToast } from '../../../contexts/ToastContext'
 
 // Styles
 import { Header, Title, Subtitle, ButtonsBox } from './deletetaskmodal.styles'
@@ -18,6 +19,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 const DeleteTaskModal = ({ taskId, closeModal }) => {
     // Variables
     const { refreshTasks } = useTasks()
+
+    const { showToast } = useToast()
 
     // Handle Submit
     const deleteTask = async () => {
@@ -40,11 +43,8 @@ const DeleteTaskModal = ({ taskId, closeModal }) => {
             console.error('Erro ao deletar a task:', error);
         }
 
+        showToast({ type: "timed", message: "Task successfully deleted!", status: "success" })
         closeModal()
-    }
-
-    const handleCloseModal = () => {
-        closeModal(false)
     }
 
     //
@@ -77,7 +77,7 @@ const DeleteTaskModal = ({ taskId, closeModal }) => {
 
                     <DefaultButton
                         label='Cancel'
-                        onClick={handleCloseModal}
+                        onClick={() => closeModal()}
                         color='var(--main-purple)'
                         background='#e4ebfa'
                         fontWeight='bold'

@@ -82,8 +82,8 @@ const AddBoardModal = () => {
             console.error('Erro ao criar as colunas:', error);
         }
 
-        closeModal(false);
-        showToast({ type: "timed", props: { message: "Ação realizada!", status: "success" } })
+        showToast({ type: "timed", message: "Board successfully registered!", status: "success" })
+        closeModal();
     };
 
 

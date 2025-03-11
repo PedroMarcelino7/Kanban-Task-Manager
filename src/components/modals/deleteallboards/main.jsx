@@ -2,6 +2,7 @@
 import React from 'react'
 import { useModal } from '../main'
 import { useBoards } from '../../../contexts/BoardContext'
+import { useToast } from '../../../contexts/ToastContext'
 
 // Styles
 import { Header, Title, Subtitle, ButtonsBox } from './deleteallboardsmodal.styles'
@@ -20,6 +21,8 @@ const DeleteAllBoardsModal = () => {
     // Variables
     const { closeModal } = useModal()
 
+    const { showToast } = useToast()
+
     const { refreshBoards } = useBoards()
 
     // Handle Submit
@@ -34,17 +37,14 @@ const DeleteAllBoardsModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Board [Delete Board Modal]:', data);
-            
+
             refreshBoards()
         } catch (error) {
             console.error('Erro ao deletar o board:', error);
         }
 
-        closeModal(false)
-    }
-
-    const handleCloseModal = () => {
-        closeModal(false)
+        showToast({ type: "timed", message: "All Boards successfully deleted!", status: "success" })
+        closeModal()
     }
 
     //
@@ -77,7 +77,7 @@ const DeleteAllBoardsModal = () => {
 
                     <DefaultButton
                         label='Cancel'
-                        onClick={handleCloseModal}
+                        onClick={() => closeModal()}
                         color='var(--main-purple)'
                         background='#e4ebfa'
                         fontWeight='bold'

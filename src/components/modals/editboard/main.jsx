@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useModal } from "../main";
 import { useColumns } from "../../../contexts/ColumnContext";
 import { useBoards } from "../../../contexts/BoardContext";
+import { useToast } from "../../../contexts/ToastContext";
 
 // Styles
 import { Header, Title, Form } from "./editboardmodal.styles";
@@ -18,6 +19,8 @@ import DefaultButton from "../../../ui/buttons/defaultButton/main";
 const EditBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { showToast } = useToast()
 
     const { columns, refreshColumns } = useColumns()
     const { refreshBoards } = useBoards()
@@ -73,7 +76,8 @@ const EditBoardModal = ({ board }) => {
             console.error("Erro ao editar as colunas:", error);
         }
 
-        closeModal(false)
+        showToast({ type: "timed", message: "Board successfully edited!", status: "success" })
+        closeModal()
     };
 
     // Use Effect Logs

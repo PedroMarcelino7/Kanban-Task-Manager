@@ -4,6 +4,7 @@ export const Container = styled.div`
     position: absolute;
     bottom: 1.75rem;
     left: 1.75rem;
+    min-width: 250px;
 `
 
 export const Box = styled.div`

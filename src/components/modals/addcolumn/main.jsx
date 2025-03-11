@@ -11,6 +11,7 @@ import { Header, Title, Form } from './addcolumnmodal.styles'
 // UI Components
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 import DefaultButton from '../../../ui/buttons/defaultButton/main';
+import { useToast } from '../../../contexts/ToastContext';
 
 //
 //
@@ -18,6 +19,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main';
 const AddColumnModal = ({ boardId }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { showToast } = useToast()
 
     const { refreshColumns } = useColumns()
 
@@ -56,6 +59,7 @@ const AddColumnModal = ({ boardId }) => {
             console.error('Erro ao criar as colunas:', error);
         }
 
+        showToast({ type: "timed", message: "Column successfully registered!", status: "success" })
         closeModal()
     }
 

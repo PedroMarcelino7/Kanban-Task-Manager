@@ -4,6 +4,7 @@ import { useModal } from '../main'
 import { useColumns } from '../../../contexts/ColumnContext'
 import { useTasks } from '../../../contexts/TaskContext'
 import { useSubtasks } from '../../../contexts/SubtaskContext'
+import { useToast } from '../../../contexts/ToastContext'
 
 // Styles
 import { Header, Title, Form } from './addtaskmodal.styles'
@@ -25,6 +26,8 @@ import DefaultSelect from '../../../ui/selects/defaultselect/main'
 const AddTaskModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { showToast } = useToast()
 
     const { columns } = useColumns()
     const { refreshTasks } = useTasks()
@@ -94,7 +97,8 @@ const AddTaskModal = ({ board }) => {
             console.error('Erro ao criar as subtasks:', error);
         }
 
-        closeModal(false)
+        showToast({ type: "timed", message: "Task successfully registered!", status: "success" })
+        closeModal()
     }
 
     // Use Effect Logs

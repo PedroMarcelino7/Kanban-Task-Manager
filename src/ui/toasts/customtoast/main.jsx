@@ -3,7 +3,7 @@ import { Box, CloseButton, Container, Icon, Timer, TimerBackground, Title } from
 import CloseIcon from '../../../assets/icon-cross.svg'
 import IconCheck from '../../../assets/icon-check.svg'
 
-const CustomToast = ({ message = 'Ação realizada com sucesso!', status, closeable = false, closeToast, iconed = false, timed = false }) => {
+const CustomToast = ({ message = 'Ação realizada com sucesso!', status, closeable = false, closeToast, iconed = false, timed = false, onClose }) => {
     return (
         <Container>
             <Box status={status}>

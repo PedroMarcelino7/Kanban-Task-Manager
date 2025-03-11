@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTasks } from '../../../contexts/TaskContext';
 import { useSubtasks } from '../../../contexts/SubtaskContext';
+import { useToast } from '../../../contexts/ToastContext';
 
 // Styles
 import { Header, Title, Form } from './edittaskmodal.styles'
@@ -23,6 +24,8 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
     // Variables
     const { refreshTasks } = useTasks()
     const { refreshSubtasks } = useSubtasks()
+
+    const { showToast } = useToast()
 
     const [taskName, setTaskName] = useState(task.task_name)
     const [taskDescription, setTaskDescription] = useState(task.task_description)
@@ -81,6 +84,7 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
             console.error('Erro ao editar a subtask:', error);
         }
 
+        showToast({ type: "timed", message: "Task successfully edited!", status: "success" })
         closeModal()
     }
 

@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { useModal } from '../main'
 import { useBoards } from '../../../contexts/BoardContext'
+import { useToast } from '../../../contexts/ToastContext'
 
 // Styles
 import { Header, Title, Subtitle, ButtonsBox } from './deleteboardmodal.styles'
@@ -19,6 +20,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 const DeleteBoardModal = ({ board }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { showToast } = useToast()
 
     const { refreshBoards } = useBoards()
 
@@ -43,6 +46,7 @@ const DeleteBoardModal = ({ board }) => {
             console.error('Erro ao deletar o board:', error);
         }
 
+        showToast({ type: "timed", message: "Board successfully deleted!", status: "success" })
         closeModal(false)
     }
 
