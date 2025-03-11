@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: absolute;
-    bottom: 1.75rem;
+    top: 1.75rem;
     left: 1.75rem;
 `
 
 export const Box = styled.div`
     width: 100%;
-    background-color: rgba(50, 200, 50, 0.75);
+    background-color: rgba(50, 200, 50, 1);
     border-radius: 10px;
     padding-block: 1rem;
     padding-inline: 1.5rem;
@@ -33,7 +33,8 @@ export const TimerBackground = styled.div`
 `
 
 export const Timer = styled.div`
-    width: 75%;
+    width: ${({ timer }) => `${timer}%`};
     height: 100%;
     background-color: red;
+    transition: all 0.5s;
 `

@@ -6,6 +6,7 @@ import { BoardProvider } from './contexts/BoardContext'
 import { ColumnProvider } from './contexts/ColumnContext'
 import { TaskProvider } from './contexts/TaskContext'
 import { SubtaskProvider } from './contexts/SubtaskContext'
+import { ToastProvider } from './contexts/ToastContext'
 
 function App() {
   return (
@@ -13,11 +14,13 @@ function App() {
       <ColumnProvider>
         <TaskProvider>
           <SubtaskProvider>
-            <AppProvider>
-              <BoardContextProvider>
-                <RouterProvider router={router} />
-              </BoardContextProvider>
-            </AppProvider>
+            <ToastProvider>
+              <AppProvider>
+                <BoardContextProvider>
+                  <RouterProvider router={router} />
+                </BoardContextProvider>
+              </AppProvider>
+            </ToastProvider>
           </SubtaskProvider>
         </TaskProvider>
       </ColumnProvider>

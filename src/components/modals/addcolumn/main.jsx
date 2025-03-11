@@ -1,9 +1,10 @@
 // React
 import React, { useState } from 'react'
 import { useModal } from '../main';
+import { useColumns } from '../../../contexts/ColumnContext'
 
 // Styles
-import { Header, Title, Form, CreateTaskButton, AddNewColumnButton } from './addcolumnmodal.styles'
+import { Header, Title, Form } from './addcolumnmodal.styles'
 
 // Components
 
@@ -17,7 +18,11 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main';
 const AddColumnModal = ({ boardId }) => {
     // Variables
     const { closeModal } = useModal()
+
+    const { refreshColumns } = useColumns()
+
     const [columns, setColumns] = useState([{ id: 0, value: '', color: '#000' }])
+
     const [inputErrors, setInputErrors] = useState([])
 
     // Handle Submit
@@ -45,11 +50,13 @@ const AddColumnModal = ({ boardId }) => {
 
             const data = await response.json();
             console.log('>>> Resposta Columns [Add Column Modal]:', data);
+
+            refreshColumns()
         } catch (error) {
             console.error('Erro ao criar as colunas:', error);
         }
 
-        closeModal(false)
+        closeModal()
     }
 
     // Use Effect Logs

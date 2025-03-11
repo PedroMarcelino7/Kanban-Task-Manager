@@ -7,7 +7,7 @@ const CloseableToast = ({ message = 'Ação realizada com sucesso!', status, clo
         <Container>
             <Box status={status}>
                 <Title>{message}</Title>
-                <CloseButton src={CloseIcon} onClick={() => closeToast(false)} alt='' />
+                <CloseButton src={CloseIcon} onClick={closeToast} alt='' />
             </Box>
         </Container>
     )

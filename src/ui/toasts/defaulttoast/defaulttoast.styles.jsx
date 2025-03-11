@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Box = styled.div`
     width: 100%;
-    background-color: rgba(50, 200, 50, 0.75);
+    background-color: rgba(50, 200, 50, 1);
     border-radius: 10px;
     padding-block: 1rem;
     padding-inline: 1.5rem;

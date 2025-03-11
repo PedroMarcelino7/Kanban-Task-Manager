@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useModal } from '../main'
 import { useBoards } from '../../../contexts/BoardContext'
 import { useColumns } from '../../../contexts/ColumnContext'
+import { useToast } from '../../../contexts/ToastContext'
 
 // Styles
 import { Header, Title, Form } from './addboardmodal.styles'
@@ -11,6 +12,7 @@ import { Header, Title, Form } from './addboardmodal.styles'
 import LabeledInput from '../../../ui/inputs/labeledinput/main'
 import DeletableInput from '../../../ui/inputs/deletableinput/main'
 import DefaultButton from '../../../ui/buttons/defaultButton/main'
+import IconedToast from '../../../ui/toasts/iconedtoast/main'
 
 //
 //
@@ -18,6 +20,8 @@ import DefaultButton from '../../../ui/buttons/defaultButton/main'
 const AddBoardModal = () => {
     // Variables
     const { closeModal } = useModal();
+
+    const { showToast } = useToast()
 
     const { refreshBoards } = useBoards()
     const { refreshColumns } = useColumns()
@@ -52,7 +56,7 @@ const AddBoardModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Board [Add Board Modal]:', data);
-            
+
             refreshBoards()
         } catch (error) {
             console.error('Erro ao criar o board:', error);
@@ -72,13 +76,14 @@ const AddBoardModal = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Columns [Add Board Modal]:', data);
-            
+
             refreshColumns()
         } catch (error) {
             console.error('Erro ao criar as colunas:', error);
         }
 
         closeModal(false);
+        showToast({ type: "timed", props: { message: "Ação realizada!", status: "success" } })
     };
 
 
