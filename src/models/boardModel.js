@@ -80,6 +80,21 @@ export const getLastBoardId = async () => {
     })
 }
 
+export const getFirstBoardId = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            select min(board_id) as id
+            from boards
+            where board_deleted = 0
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}
+
 export const deleteAllBoards = async () => {
     return new Promise((resolve, reject) => {
         const query = `

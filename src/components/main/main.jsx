@@ -44,6 +44,7 @@ const MainPage = () => {
         console.log('>>> Board [Main component]:', board)
         console.log('>>> Boards [Main component]:', boards)
         console.log('>>> Columns [Main component]:', columns)
+        console.log('>>> Columns In Boards [Main component]:', columnsInBoard)
         console.log('>>> Board ID Context [Main component]:', boardId)
     }, [])
 

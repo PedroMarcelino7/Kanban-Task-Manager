@@ -1,4 +1,4 @@
-import { deleteAllBoards, deleteBoard, getBoards, getLastBoardId, insertBoard, updateBoard } from "../models/boardModel.js";
+import { deleteAllBoards, deleteBoard, getBoards, getFirstBoardId, getLastBoardId, insertBoard, updateBoard } from "../models/boardModel.js";
 
 export const fetchBoards = async (req, res) => {
     try {
@@ -48,6 +48,15 @@ export const fetchLastBoardId = async (req, res) => {
         res.status(200).json(id)
     } catch (error) {
         res.status(500).json({ error: 'Error fetching last board id' })
+    }
+}
+
+export const fetchFirstBoardId = async (req, res) => {
+    try {
+        const id = await getFirstBoardId()
+        res.status(200).json(id)
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching first board id' })
     }
 }
 
