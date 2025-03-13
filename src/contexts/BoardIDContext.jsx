@@ -6,10 +6,10 @@ export const BoardContextProvider = ({ children }) => {
     const [boardId, setBoardId] = useState(1)
 
     useEffect(() => {
-        getBoardId()
+        getFirstBoardId()
     }, [])
 
-    const getBoardId = async () => {
+    const getFirstBoardId = async () => {
         try {
             const response = await fetch('http://localhost:3001/api/boards/firstid')
             const data = await response.json()
@@ -27,7 +27,7 @@ export const BoardContextProvider = ({ children }) => {
     }
 
     return (
-        <BoardContext.Provider value={{ boardId, updateBoardId }}>
+        <BoardContext.Provider value={{ boardId, updateBoardId, getFirstBoardId }}>
             {children}
         </BoardContext.Provider>
     )

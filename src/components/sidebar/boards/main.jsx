@@ -27,11 +27,13 @@ const Boards = () => {
     //
     //
     // Variables
-    const { updateBoardId } = getBoardId()
+    const { boardId, updateBoardId, getFirstBoardId } = getBoardId()
 
     const { boards } = useBoards()
 
-    const [selectedBoard, setSelectedBoard] = useState(boards[0])
+    let board = boards.find(board => board.board_id === boardId)
+
+    const [selectedBoard, setSelectedBoard] = useState(board)
 
     const [showAddNewBoardModal, setShowAddNewBoardModal] = useState(false)
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false)
@@ -51,6 +53,15 @@ const Boards = () => {
         updateBoardId(board.board_id)
         setSelectedBoard(board)
     }
+
+    useEffect(() => {
+        getFirstBoardId()
+    }, [board])
+
+    useEffect(() => {
+        board = boards.find(board => board.board_id === boardId)
+        setSelectedBoard(board)
+    }, [boardId])
 
     //
     //
