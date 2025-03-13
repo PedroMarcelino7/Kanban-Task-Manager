@@ -64,7 +64,7 @@ const EditBoardModal = ({ board }) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    columnsEdit
+                    columns: columnsEdit
                 }),
             });
 
