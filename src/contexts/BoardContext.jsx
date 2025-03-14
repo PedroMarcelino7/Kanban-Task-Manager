@@ -5,11 +5,11 @@ const BoardContext = createContext();
 const boardReducer = (state, action) => {
     switch (action.type) {
         case "SET_BOARDS":
-            return action.payload; // Atualiza a lista completa de boards
+            return action.payload;
         case "ADD_BOARD":
-            return [...state, action.payload]; // Adiciona um novo board
+            return [...state, action.payload];
         case "DELETE_BOARD":
-            return state.filter(board => board.id !== action.payload); // Remove um board específico
+            return state.filter(board => board.id !== action.payload);
         default:
             return state;
     }
@@ -28,13 +28,11 @@ export const BoardProvider = ({ children }) => {
         }
     };
 
-    // Atualiza os boards manualmente (ex: após um CRUD)
     const refreshBoards = async () => {
         console.log("🔄 Atualizando boards...");
-        await fetchBoards(); // Chama a função que busca os boards novamente
+        await fetchBoards();
     };
 
-    // Carrega os boards assim que o contexto for montado
     useEffect(() => {
         fetchBoards();
     }, []);

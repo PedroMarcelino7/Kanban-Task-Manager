@@ -29,6 +29,8 @@ const EditBoardModal = ({ board }) => {
 
     const [boardName, setBoardName] = useState(board.board_name)
     const [columnsEdit, setColumns] = useState(columnsInBoard);
+    const [newColumnId, setNewColumnId] = useState(0)
+    const [addedColumnsCount, setAddedColumnsCount] = useState(0)
 
     const [inputErrors, setInputErrors] = useState([])
 
@@ -64,7 +66,8 @@ const EditBoardModal = ({ board }) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    columns: columnsEdit
+                    columns: columnsEdit,
+                    boardId: board.board_id
                 }),
             });
 
@@ -83,6 +86,7 @@ const EditBoardModal = ({ board }) => {
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Board [Edit Board Modal]:', board)
+        console.log(">>> Colums Edit [Edit Board Modal]:", columnsEdit);
     }, [])
 
     useEffect(() => {
@@ -120,7 +124,7 @@ const EditBoardModal = ({ board }) => {
     const handleColorChange = (id, newColor) => {
         setColumns(prevColumns =>
             prevColumns.map(column =>
-                column.id === id ? { ...column, color: newColor } : column
+                column.id === id ? { ...column, column_color: newColor } : column
             )
         );
 
@@ -129,13 +133,36 @@ const EditBoardModal = ({ board }) => {
     const addNewColumn = () => {
         setColumns((prevColumns) => [
             ...prevColumns,
-            { id: prevColumns.length, value: "", color: "#000" },
+            { column_id: newColumnId, column_name: "", column_color: "#000" },
         ]);
+        setAddedColumnsCount(addedColumnsCount + 1)
     };
 
     const delColumn = (id) => {
-        setColumns((prevColumns) => prevColumns.filter((column) => column.id !== id));
+        setColumns((prevColumns) => prevColumns.filter((column) => column.column_id !== id));
+        console.log('Coluna deletada:', columnsEdit.find(column => column.column_id === id))
+        setAddedColumnsCount(addedColumnsCount - 1)
     };
+
+    const getLastColumnId = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/columns/lastid')
+            const data = await response.json()
+
+            console.log('Last Column Id:', data)
+            setNewColumnId(data + (addedColumnsCount + 1))
+        } catch (error) {
+            console.error("Erro ao editar as colunas:", error);
+        }
+    }
+
+    useEffect(() => {
+        getLastColumnId()
+    }, [])
+
+    useEffect(() => {
+        console.log('addedColumnsCount:', addedColumnsCount)
+    }, [addedColumnsCount])
 
     //
     //

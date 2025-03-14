@@ -31,15 +31,19 @@ export const insertColumns = async (column, board_id) => {
     });
 };
 
-export const updateColumns = async (column) => {
+export const updateColumns = async (column, boardId) => {
     return new Promise((resolve, reject) => {
         const query = `
-            update columns
-            set column_name = ?
-            where column_id = ?
+        insert into
+        columns (column_id, column_name, column_color, column_position, board_id) 
+        values
+            (?, ?, ?, ?, ?)
+        on duplicate key update
+            column_name = values(column_name),
+            column_color = values(column_color);
         `;
 
-        const values = [column.column_name, column.column_id]
+        const values = [column.column_id, column.column_name, column.column_color, column.column_id, boardId]
 
         connection.query(query, values, (err, results) => {
             if (err) return reject(err);
@@ -47,3 +51,17 @@ export const updateColumns = async (column) => {
         });
     });
 };
+
+export const getLastColumnId = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            select max(column_id) as id
+            from columns
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}

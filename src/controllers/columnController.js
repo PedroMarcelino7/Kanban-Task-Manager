@@ -1,4 +1,4 @@
-import { getColumns, insertColumns, updateColumns } from "../models/columnModel.js";
+import { getColumns, getLastColumnId, insertColumns, updateColumns } from "../models/columnModel.js";
 
 export const fetchColumns = async (req, res) => {
     try {
@@ -26,12 +26,12 @@ export const addColumn = async (req, res) => {
 };
 
 export const editColumn = async (req, res) => {
-    const { columns } = req.body;
+    const { columns, boardId } = req.body;
 
     try {
         const results = await Promise.all(
             columns.map(async (column) => {
-                return await updateColumns(column);
+                return await updateColumns(column, boardId);
             })
         );
 
@@ -40,3 +40,12 @@ export const editColumn = async (req, res) => {
         res.status(500).json({ error: 'Error editing columns' });
     }
 };
+
+export const fetchLastColumnId = async (req, res) => {
+    try {
+        const id = await getLastColumnId()
+        res.status(200).json(id[0].id)
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching last column id' })
+    }
+}

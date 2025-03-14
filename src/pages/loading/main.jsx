@@ -9,7 +9,6 @@ const LoadingPage = () => {
     useEffect(() => {
         if (!loading) {
             console.log(">>> Dados estruturados [LoadingPage]:", data);
-            navigate('/1');
         }
     }, [loading, navigate, data]);
 

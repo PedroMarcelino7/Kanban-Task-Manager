@@ -86,7 +86,6 @@ const AddBoardModal = () => {
         closeModal();
     };
 
-
     // Use Effect Logs
     useEffect(() => {
         getLastBoardId()

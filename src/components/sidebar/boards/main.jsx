@@ -10,6 +10,7 @@ import { Board, BoardsBox, BoardsNav, BoardName, Title } from './boards.styles'
 import Modal from '../../modals/main'
 import AddBoardModal from '../../modals/addboard/main'
 import DeleteAllBoardsModal from '../../modals/deleteallboards/main'
+import Loading from '../../../pages/loading/main'
 
 // UI Components
 import IconedButton from '../../../ui/buttons/iconedButton/main'
@@ -31,7 +32,7 @@ const Boards = () => {
 
     const { boards } = useBoards()
 
-    let board = boards.find(board => board.board_id === boardId)
+    let board = boards.find(board => board.board_id === boardId) || null
 
     const [selectedBoard, setSelectedBoard] = useState(board)
 
@@ -61,11 +62,12 @@ const Boards = () => {
     useEffect(() => {
         board = boards.find(board => board.board_id === boardId)
         setSelectedBoard(board)
-    }, [boardId])
+    }, [boardId, boards])
 
     //
     //
     //
+
     return (
         <>
             <BoardsBox>
@@ -74,10 +76,10 @@ const Boards = () => {
                 <BoardsNav>
                     {boards.map((board, index) => (
                         <Board key={index}
-                            className={board.board_name === selectedBoard.board_name ? 'selected' : ''}
+                            className={selectedBoard && board.board_name === selectedBoard.board_name ? 'selected' : ''}
                             onClick={() => changeSelectedBoard(board)}
                         >
-                            <img src={board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
+                            <img src={selectedBoard && board.board_name === selectedBoard.board_name ? BoardIconSelected : BoardIcon} alt="" />
                             <BoardName>{board.board_name}</BoardName>
                         </Board>
                     ))}

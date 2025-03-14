@@ -47,7 +47,7 @@ const DeletableInput = ({ label = '', data, dataValue, idReference, type = 'text
                             />
                         }
 
-                        <img src={RemoveSubtask} alt="" onClick={() => closeButton(item.id)} />
+                        <img src={RemoveSubtask} alt="" onClick={() => closeButton(item[idReference])} />
                     </AddSubtaskInput>
                 ))}
             </MappedInputs>
