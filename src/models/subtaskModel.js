@@ -48,15 +48,17 @@ export const updateSubtaskIsChecked = async (subtask) => {
     })
 }
 
-export const updateSubtasks = async (subtask) => {
+export const updateSubtasks = async (subtask, taskId) => {
     return new Promise((resolve, reject) => {
         const query = `
-            update subtasks
-            set subtask_name = ?
-            where subtask_id = ?
+            insert into
+            subtasks (subtask_id, subtask_name, task_id)
+            values (?, ?, ?)
+            on duplicate key update
+                subtask_name = values (subtask_name)
         `;
 
-        const values = [subtask.subtask_name, subtask.subtask_id]
+        const values = [subtask.subtask_id, subtask.subtask_name, taskId]
 
         connection.query(query, values, (err, results) => {
             if (err) return reject(err);
@@ -64,3 +66,17 @@ export const updateSubtasks = async (subtask) => {
         });
     });
 };
+
+export const getLastSubtaskId = async () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            select max(subtask_id) as id
+            from subtasks
+        `
+
+        connection.query(query, (err, results) => {
+            if (err) return reject(err)
+            resolve(results)
+        })
+    })
+}

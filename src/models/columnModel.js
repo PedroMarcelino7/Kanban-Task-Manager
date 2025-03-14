@@ -36,11 +36,10 @@ export const updateColumns = async (column, boardId) => {
         const query = `
         insert into
         columns (column_id, column_name, column_color, column_position, board_id) 
-        values
-            (?, ?, ?, ?, ?)
+        values (?, ?, ?, ?, ?)
         on duplicate key update
-            column_name = values(column_name),
-            column_color = values(column_color);
+            column_name = values (column_name),
+            column_color = values (column_color);
         `;
 
         const values = [column.column_id, column.column_name, column.column_color, column.column_id, boardId]

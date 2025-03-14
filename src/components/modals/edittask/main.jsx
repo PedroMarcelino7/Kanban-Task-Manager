@@ -42,7 +42,8 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
             return;
         }
 
-        console.log('>>> Handle Submit Data [Edit Task Modal]:', task.task_id, taskName, taskDescription)
+        console.log('>>> Handle Submit Task [Edit Task Modal]:', task.task_id, taskName, taskDescription)
+        console.log('>>> Handle Submit Subtask [Edit Task Modal]:', subtasks)
 
         try {
             const response = await fetch('http://localhost:3001/api/tasks/update', {
@@ -72,7 +73,8 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    subtasks
+                    subtasks,
+                    taskId: task.task_id
                 })
             })
 
@@ -83,16 +85,21 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
         } catch (error) {
             console.error('Erro ao editar a subtask:', error);
         }
-
+        
         showToast({ type: "timed", message: "Task successfully edited!", status: "success" })
         closeModal()
     }
-
+    
     // Use Effect Logs
     useEffect(() => {
         console.log('>>> Task [Edit Task Modal]:', task)
         console.log('>>> Subtasks [Edit Task Modal]:', subtasks)
+        console.log('>>> Subtasks In Tasks [Edit Task Modal]:', subtasksInTask)
     }, [])
+
+    useEffect(() => {
+        console.log("Subtasks Updated:", subtasks)
+    }, [subtasks])
 
     //
     //
@@ -125,13 +132,14 @@ const EditTaskModal = ({ task, subtasksInTask, closeModal }) => {
     const addSubtask = () => {
         setSubtasks((prevSubtasks) => [
             ...prevSubtasks,
-            { id: prevSubtasks.length, value: '' },
+            { subtask_id: 30, subtask_name: '' },
         ]);
     }
 
     const delSubtask = (id) => {
-        setSubtasks(prevSubtasks => prevSubtasks.filter(subtask => subtask.id !== id))
+        setSubtasks(prevSubtasks => prevSubtasks.filter(subtask => subtask.subtask_id !== id))
     }
+
 
     //
     //
