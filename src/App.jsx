@@ -15,11 +15,9 @@ function App() {
         <TaskProvider>
           <SubtaskProvider>
             <ToastProvider>
-              <AppProvider>
                 <BoardContextProvider>
                   <RouterProvider router={router} />
                 </BoardContextProvider>
-              </AppProvider>
             </ToastProvider>
           </SubtaskProvider>
         </TaskProvider>
